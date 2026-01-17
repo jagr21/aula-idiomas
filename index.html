@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Aula Virtual de Idiomas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-left">
+        <button id="homeBtn" class="nav-btn" aria-label="Inicio">🏠</button>
+      </div>
+      <div class="header-inner">
+        <h1>Aula Virtual de Idiomas</h1>
+        <p class="teacher">Profesor: José A. Ginestre</p>
+      </div>
+      <div class="header-right">
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema">🌙</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="home" class="home">
+        <h2>Elige un idioma</h2>
+          <div class="lang-grid">
+            <button class="lang-card" data-lang="it" aria-label="Italiano" style="background-image:url('https://flagcdn.com/w640/it.png')">
+            </button>
+            <button class="lang-card" data-lang="en" aria-label="Inglés" style="background-image:url('https://flagcdn.com/w640/gb.png')">
+            </button>
+          </div>
+      </section>
+
+      <!-- Pantalla intermedia tras seleccionar idioma -->
+      <section id="langMenu" class="home hidden">
+        <h2 id="langMenuTitle">Opciones</h2>
+        <div class="menu-grid">
+            <button id="studyBtn" class="menu-card">Estudia para tu siguiente evaluación</button>
+            <button id="expandBtn" class="menu-card">Contenido para expandir tu aprendizaje</button>
+            <button id="backFromLangMenu" class="back-btn">Volver</button>
+          </div>
+      </section>
+
+      <!-- Sección de contenido expandir (temporal) -->
+      <section id="expandSection" class="home hidden">
+        <h2>Contenido</h2>
+        <div class="card message">Próximamente: Contenido nuevo para ti</div>
+        <div style="margin-top:12px"><button id="backFromExpand" class="back-btn">Volver</button></div>
+      </section>
+
+      <section id="grades" class="grades hidden">
+        <div class="section-head">
+          <h2 id="grades-title">Selecciona tu grado</h2>
+          <div class="section-actions">
+            <button id="backFromGrades" class="back-btn">Volver</button>
+          </div>
+        </div>
+        <div class="grades-grid">
+          <button class="grade-btn" data-grade="1">1er Grado</button>
+          <button class="grade-btn" data-grade="2">2do Grado</button>
+          <button class="grade-btn" data-grade="3">3er Grado</button>
+          <button class="grade-btn" data-grade="4">4to Grado</button>
+          <button class="grade-btn" data-grade="5">5to Grado</button>
+          <button class="grade-btn" data-grade="6">6to Grado</button>
+        </div>
+      </section>
+
+      <section id="practice" class="practice hidden">
+        <div class="section-head">
+          <h2 id="practice-title">Práctica para el examen</h2>
+          <div class="section-actions">
+            <button id="backFromPractice" class="back-btn">Volver</button>
+          </div>
+        </div>
+        <div id="exercise" class="exercise">
+          <p id="phrase" class="phrase">—</p>
+          <div id="options" class="options"></div>
+          <div class="controls">
+            <button id="checkBtn" class="check-btn" disabled>Verificar</button>
+            <button id="nextBtn" class="check-btn hidden">Siguiente</button>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+          </div>
+        </div>
+        <div id="progress" class="progress"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
