@@ -1,4 +1,4 @@
-# 🌍 Aula Virtual de Idiomas: Inglés e Italiano
+# 🌍 Aula Virtual de Idiomas
 
 <div align="center">
   <img src="https://img.shields.io/badge/Status-Activo-brightgreen?style=for-the-badge" alt="Status">
