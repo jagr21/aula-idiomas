@@ -1,6 +1,6 @@
 # 🌍 Aula Virtual de Idiomas
 
-<div align="center">
+<div>
   <img src="https://img.shields.io/badge/Status-Activo-brightgreen?style=for-the-badge" alt="Status">
   <img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue?style=for-the-badge" alt="License">
   <img src="https://img.shields.io/badge/DESIGN-MINIMALIST-607d8b?style=for-the-badge" alt="Design">
