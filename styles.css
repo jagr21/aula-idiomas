@@ -46,9 +46,11 @@ h1 { font-size: 1.2rem; color: #333; margin-bottom: 4px; }
 .nav-btn {
   background: transparent;
   border: none;
-  font-size: 1.5rem;
   cursor: pointer;
   transition: transform 0.2s;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
 }
 .nav-btn:hover { transform: scale(1.1); }
 
@@ -238,9 +240,25 @@ body.dark-mode .phrase {
   color: var(--text-color);
 }
 body.dark-mode .opt {
-  border-color: #333;
+  background-color: #2d2d2d;
+  border-color: #444;
   color: var(--text-color);
 }
 body.dark-mode .opt:hover:not(:disabled) {
-  background: #2c2c2c;
+  background: #3d3d3d;
+  border-color: #666;
+}
+body.dark-mode .opt.selected {
+  background-color: #283747;
+  border-color: #5dade2;
+}
+body.dark-mode .opt.correct {
+  background-color: #145a32;
+  border-color: #2ecc71;
+  color: #ffffff;
+}
+body.dark-mode .opt.incorrect {
+  background-color: #78281f;
+  border-color: #e74c3c;
+  color: #ffffff;
 }
