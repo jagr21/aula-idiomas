@@ -373,3 +373,13 @@ body.dark-mode .progress-segment { background: #333; }
 body.dark-mode .progress-segment.filled { background: var(--primary-pastel); }
 body.dark-mode .score-pill { background: #2d2d2d; }
 body.dark-mode .hint-content { background: #4a3b00; color: #ffeb3b; }
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: auto;
+}
+body.dark-mode .site-footer { color: #666; }

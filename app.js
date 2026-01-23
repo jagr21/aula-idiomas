@@ -100,40 +100,55 @@ const bankEn = {
     {text: 'The car is ___', answer: 'fast', options: ['slow','fast','tiny']}
   ],
   3: [
-    {text: 'We ___ friends.', answer: 'are', options: ['is','are','am']},
-    {text: 'He ___ to school.', answer: 'goes', options: ['go','goes','going']},
-    {text: 'She ___ a letter.', answer: 'writes', options: ['write','writes','writing']},
-    {text: 'I ___ an orange.', answer: 'eat', options: ['eat','eats','ate']},
-    {text: 'They ___ books.', answer: 'have', options: ['has','have','had']},
-    {text: 'The dog ___ loud.', answer: 'barks', options: ['bark','barks','barked']},
-    {text: 'We ___ in class.', answer: 'sit', options: ['sit','sits','sat']},
-    {text: 'You ___ my friend.', answer: 'are', options: ['is','are','am']},
-    {text: 'I ___ a pencil.', answer: 'have', options: ['have','has','had']},
-    {text: 'She ___ the ball.', answer: 'kicks', options: ['kick','kicks','kicked']}
+    {text: 'Yo uso mi _______ para escribir. (Lápiz)', answer: 'Pencil', options: ['Eraser','Pencil','Notebook'], hint: 'Utensilio de madera con grafito.'},
+    {text: 'Guardo mis útiles en mi _______. (Mochila)', answer: 'Backpack', options: ['Backpack','Sharpener','Book'], hint: 'Bolsa que llevas en la espalda.'},
+    {text: 'Borro mis errores con el _______. (Borrador)', answer: 'Eraser', options: ['Pencil case','Colors','Eraser'], hint: 'Lo usas cuando te equivocas al escribir.'},
+    {text: 'Saco la punta a mi lápiz con el _______. (Sacapuntas)', answer: 'Sharpener', options: ['Sharpener','Notebook','Backpack'], hint: 'Sirve para afilar el lápiz.'},
+    {text: 'Guardo mis colores en la _______. (Cartuchera)', answer: 'Pencil case', options: ['Book','Pencil case','Eraser'], hint: 'Estuche pequeño para lápices y colores.'},
+    {text: 'Escribo mis tareas en el _______. (Cuaderno)', answer: 'Notebook', options: ['Notebook','Pencil','Colors'], hint: 'Tiene hojas de papel para escribir.'},
+    {text: 'Leo historias en mi _______. (Libro)', answer: 'Book', options: ['Pencil case','Sharpener','Book'], hint: 'Objeto con páginas impresas para leer.'},
+    {text: '¿Cómo se dice el número 12 en inglés?', answer: 'Twelve', options: ['Two','Twelve','Twenty'], hint: '10 + 2.'},
+    {text: '¿Cómo se dice el número 15 en inglés?', answer: 'Fifteen', options: ['Fifteen','Fifty','Five'], hint: '10 + 5.'},
+    {text: 'El número 20 en inglés es:', answer: 'Twenty', options: ['Twelve','Ten','Twenty'], hint: 'Dos decenas.'},
+    {text: '¿Qué número sigue después del "Eight"?', answer: 'Nine', options: ['Seven','Nine','Ten'], hint: 'El número antes del diez.'},
+    {text: '¿Cómo se escribe 11 en inglés?', answer: 'Eleven', options: ['Eleven','Seven','One-one'], hint: '10 + 1.'},
+    {text: 'A mí me gusta el helado. In English: I _______ ice cream.', answer: 'like', options: ['like','likes','no like'], hint: 'Para "I" usamos el verbo en su forma base.'},
+    {text: 'No me gusta el jugo. In English: I _______ juice.', answer: "don't like", options: ['like','no like',"don't like"], hint: 'Negación presente simple para "I".'},
+    {text: 'A mí me gusta mi escuela. In English: I _______ my school.', answer: 'like', options: ['like','am like','likes'], hint: 'Afirmación simple para "I".'}
   ],
   4: [
-    {text: 'I ___ want an ice cream.', answer: 'really', options: ['never','really','sometimes']},
-    {text: 'They ___ playing now.', answer: 'are', options: ['is','are','am']},
-    {text: 'She ___ a new book.', answer: 'has', options: ['have','has','had']},
-    {text: 'We ___ to the park.', answer: 'went', options: ['go','went','gone']},
-    {text: 'He ___ the guitar.', answer: 'plays', options: ['play','plays','playing']},
-    {text: 'The cake is ___', answer: 'delicious', options: ['delicious','bitter','cold']},
-    {text: 'Please ___ your hand up.', answer: 'raise', options: ['raise','lower','hide']},
-    {text: 'She is ___ than me.', answer: 'taller', options: ['taller','shorter','smaller']},
-    {text: 'They ___ breakfast at eight.', answer: 'have', options: ['has','have','had']},
-    {text: 'We ___ homework every day.', answer: 'do', options: ['did','do','does']}
+    {text: 'Yo me lavo la cara. In English: I _______ my face.', answer: 'wash', options: ['wash','brush','sleep'], hint: 'Acción de limpiar con agua.'},
+    {text: 'Yo cepillo mis dientes. In English: I _______ my teeth.', answer: 'brush', options: ['wash','brush','eat'], hint: 'Usas un cepillo para esto.'},
+    {text: 'Yo como mi desayuno. In English: I eat _______.', answer: 'breakfast', options: ['dinner','lunch','breakfast'], hint: 'La comida de la mañana.'},
+    {text: 'Yo me despierto. In English: I _______ up.', answer: 'wake', options: ['wake','go','clean'], hint: 'Lo contrario de dormir.'},
+    {text: 'Yo voy a la escuela. In English: I go to _______.', answer: 'school', options: ['park','school','house'], hint: 'Lugar donde estudias.'},
+    {text: '¿Qué día sigue después de "Monday"?', answer: 'Tuesday', options: ['Wednesday','Friday','Tuesday'], hint: 'El segundo día de la semana laboral.'},
+    {text: 'Sábado en inglés se dice:', answer: 'Saturday', options: ['Sunday','Saturday','Thursday'], hint: 'Empieza con "S" y es fin de semana.'},
+    {text: '¿Cómo se dice "Viernes" en inglés?', answer: 'Friday', options: ['Friday','Free-day','Monday'], hint: 'El día antes del fin de semana.'},
+    {text: 'El último día de la semana escolar es:', answer: 'Friday', options: ['Saturday','Friday','Tuesday'], hint: 'Generalmente vamos a la escuela de lunes a...'},
+    {text: '¿Qué día está entre Tuesday y Thursday?', answer: 'Wednesday', options: ['Monday','Wednesday','Sunday'], hint: 'El día en el medio de la semana laboral.'},
+    {text: 'A mí me gustan los perros. In English: I _______ dogs.', answer: 'like', options: ['like','likes','am like'], hint: 'Para "I" el verbo no lleva "s".'},
+    {text: 'A él le gusta el jugo. In English: He _______ juice.', answer: 'likes', options: ['like','likes',"don't like"], hint: 'Para "He" agregamos "s" al verbo.'},
+    {text: 'A ella le gusta el gato. In English: She _______ the cat.', answer: 'likes', options: ['likes','like','no like'], hint: 'Para "She" agregamos "s" al verbo.'},
+    {text: 'A él le gusta la pizza. In English: He _______ pizza.', answer: 'likes', options: ['like','likes','likes to'], hint: 'Tercera persona singular (He).'},
+    {text: 'A ella le gusta cantar. In English: She _______ singing.', answer: 'likes', options: ['like','likes','am likes'], hint: 'Tercera persona singular (She).'}
   ],
   5: [
-    {text: 'I ___ like chocolate.', answer: 'really', options: ['not','really','never']},
-    {text: 'She ___ traveling yesterday.', answer: 'went', options: ['go','gone','went']},
-    {text: 'They ___ been to London.', answer: 'have', options: ['has','have','had']},
-    {text: 'He ___ the answer now.', answer: 'knows', options: ['know','knows','knew']},
-    {text: 'We ___ studying for tests.', answer: 'are', options: ['is','are','am']},
-    {text: 'The teacher ___ the lesson.', answer: 'explains', options: ['explain','explains','explained']},
-    {text: 'Please ___ quietly.', answer: 'speak', options: ['speak','shout','run']},
-    {text: 'This story is very ___', answer: 'interesting', options: ['boring','interesting','short']},
-    {text: 'She ___ the piano well.', answer: 'plays', options: ['play','plays','played']},
-    {text: 'They will ___ tomorrow.', answer: 'arrive', options: ['arrive','left','go']}
+    {text: 'A mí me gustan las manzanas. In English: I _______ apples.', answer: 'like', options: ['likes','like',"don't likes"], hint: 'Para "I" usamos el verbo en su forma base.'},
+    {text: 'A ella le gusta la música. In English: She _______ music.', answer: 'likes', options: ['likes','like',"don't like"], hint: 'Para "She" (ella) agregamos una "s" al verbo.'},
+    {text: 'A ellos les gusta correr. In English: They _______ running.', answer: 'like', options: ['likes','like',"doesn't like"], hint: 'Para "They" usamos el verbo en su forma base.'},
+    {text: 'No me gusta el brócoli. In English: I _______ broccoli.', answer: "don't like", options: ['no like',"don't like","doesn't like"], hint: 'La negación para "I" es "don\'t".'},
+    {text: 'A él no le gustan las arañas. In English: He _______ spiders.', answer: "doesn't like", options: ["doesn't like","don't like",'not likes'], hint: 'La negación para "He" es "doesn\'t".'},
+    {text: 'A nosotros nos gustan los videojuegos. In English: We _______ video games.', answer: 'like', options: ['like','likes','are likes'], hint: 'Para "We" usamos el verbo en su forma base.'},
+    {text: 'A él le gusta el helado. In English: He _______ ice cream.', answer: 'likes', options: ['like','likes',"don't like"], hint: 'Para "He" (él) agregamos una "s" al verbo.'},
+    {text: 'Ayer, nosotros jugamos fútbol. In English: Yesterday, we _______ soccer.', answer: 'played', options: ['play','played','playied'], hint: 'El pasado regular termina en "-ed".'},
+    {text: 'Mi mamá cocinó una torta. In English: My mom _______ a cake.', answer: 'cooked', options: ['cooked','cooks','cookied'], hint: 'Pasado del verbo "cook".'},
+    {text: 'El niño caminó a la escuela. In English: The boy _______ to school.', answer: 'walked', options: ['walk','walks','walked'], hint: 'Pasado del verbo "walk".'},
+    {text: 'Yo visité a mi abuela. In English: I _______ my grandma.', answer: 'visited', options: ['visited','visit','visiting'], hint: 'Pasado del verbo "visit".'},
+    {text: 'Vimos una película anoche. In English: We _______ a movie last night.', answer: 'watched', options: ['watch','watched','watches'], hint: 'Pasado del verbo "watch".'},
+    {text: 'Él limpió su cuarto ayer. In English: He _______ his room yesterday.', answer: 'cleaned', options: ['cleans','clean','cleaned'], hint: 'Pasado del verbo "clean".'},
+    {text: 'Ellos escucharon música en el bus. In English: They _______ to music.', answer: 'listened', options: ['listened','listen','listening'], hint: 'Pasado del verbo "listen".'},
+    {text: 'Ella bailó en la fiesta. In English: She _______ at the party.', answer: 'danced', options: ['dance','danced','dances'], hint: 'Pasado del verbo "dance" (termina en e, solo agrega d).'}
   ],
   6: [
     {text: 'It is 7:20. In English, we say it is...', answer: 'seven twenty', options: ['seven twelve','seven twenty','seventeen twenty'], hint: 'Recuerda: primero la hora (7), luego los minutos (20).'},
@@ -246,6 +261,31 @@ document.addEventListener('DOMContentLoaded', () => {
   function showEvaluations() {
     hideAll();
     sections.evaluations.classList.remove('hidden');
+    
+    // Actualizar contenido del tooltip según el grado
+    const tooltip = document.getElementById('eval1Tooltip');
+    if (tooltip) {
+      let topics = '';
+      let date = 'Viernes 30 de Enero';
+
+      if (state.grade === 6) {
+        topics = 'What time is it?<br>Numbers and Years<br>I like it';
+      } else if (state.grade === 5) {
+        topics = 'I like<br>Past tense';
+      } else if (state.grade === 4) {
+        date = 'Jueves 29 de Enero';
+        topics = 'Morning activities<br>Days of the week<br>I like';
+      } else if (state.grade === 3) {
+        date = 'Jueves 29 de Enero';
+        topics = 'Numbers<br>School Objects<br>I like';
+      }
+      
+      tooltip.innerHTML = `
+        <strong>Fecha:</strong><br>${date}<br><br>
+        <strong>Temas:</strong><br>${topics}<br><br>
+        <strong>Nota:</strong><br>Estos ejercicios NO son los que aparecerán necesariamente en la evaluación. Son relacionados a los temas a estudiar para facilitar el aprendizaje de los alumnos.
+      `;
+    }
   }
 
   function showPractice(grade) {
@@ -266,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     practiceTitle.textContent = `Práctica — ${grade}º Grado (${langLabel})`;
     
     // Toggle Eval UI
-    const isEval1 = state.language === 'en' && state.grade === 6;
+    const isEval1 = state.language === 'en' && (state.grade === 6 || state.grade === 5 || state.grade === 4 || state.grade === 3);
     if (isEval1) {
       evalUI.classList.remove('hidden');
       hintBox.classList.remove('hidden');
@@ -298,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     phraseEl.textContent = q.text;
     optionsEl.innerHTML = '';
     
-    const isEval1 = state.language === 'en' && state.grade === 6;
+    const isEval1 = state.language === 'en' && (state.grade === 6 || state.grade === 5 || state.grade === 4 || state.grade === 3);
 
     // Hint Logic
     if (isEval1 && hintText && hintBtn) {
@@ -416,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
     progressEl.textContent = `Pregunta ${state.idx + 1} / ${state.questions.length}`;
     
     // Update Eval UI Progress
-    if (state.language === 'en' && state.grade === 6) {
+    if (state.language === 'en' && (state.grade === 6 || state.grade === 5 || state.grade === 4 || state.grade === 3)) {
       if (evalCounter) evalCounter.textContent = `${state.idx + 1}/${state.questions.length}`;
       if (evalProgress) {
         evalProgress.innerHTML = '';
@@ -457,10 +497,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Grade Selection
   gradeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      if (state.language === 'en' && btn.dataset.grade === '6') {
+      const g = btn.dataset.grade;
+      if (state.language === 'en' && (g === '6' || g === '5' || g === '4' || g === '3')) {
+        state.grade = Number(g);
         showEvaluations();
       } else {
-        showPractice(btn.dataset.grade);
+        showPractice(g);
       }
     });
   });
@@ -473,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (backFromExpand) backFromExpand.addEventListener('click', () => showLangMenu());
 
   // Evaluation Buttons
-  if (eval1Btn) eval1Btn.addEventListener('click', () => showPractice('6'));
+  if (eval1Btn) eval1Btn.addEventListener('click', () => showPractice(state.grade));
 
   // Info Button Logic
   const setupTooltip = (btn, tip) => {
