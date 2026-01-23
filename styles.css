@@ -262,3 +262,114 @@ body.dark-mode .opt.incorrect {
   border-color: #e74c3c;
   color: #ffffff;
 }
+
+/* Tooltip Evaluaciones */
+.eval-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eval-wrapper .menu-card { flex: 1; }
+
+.info-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--soft-purple);
+  background: transparent;
+  color: var(--soft-purple);
+  font-weight: 800;
+  font-size: 1.4rem;
+  font-family: 'Times New Roman', serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.info-btn:hover { background: var(--soft-purple); color: white; transform: scale(1.1); }
+
+.tooltip {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 12px;
+  padding: 15px;
+  position: absolute;
+  z-index: 20;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 12px;
+  width: 90%;
+  max-width: 300px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.tooltip.visible { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Tooltip Dark Mode */
+body.dark-mode .tooltip { background-color: #444; border: 1px solid #555; }
+
+/* --- UI Evaluación #1 (Inglés 6to) --- */
+.eval-ui { margin-bottom: 20px; }
+.eval-top-bar { display: flex; align-items: center; gap: 15px; justify-content: space-between; }
+
+.eval-counter { font-weight: 800; color: var(--soft-purple); font-size: 1.1rem; min-width: 45px; }
+
+.eval-progress {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+  height: 12px;
+}
+.progress-segment {
+  flex: 1;
+  background: #e0e0e0;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+.progress-segment.filled { background: var(--primary-pastel); }
+
+.eval-scores { display: flex; gap: 10px; }
+.score-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+.score-pill.correct { color: #2a9d8f; }
+.score-pill.incorrect { color: #e63946; }
+
+/* Hint Section */
+.hint-box { margin: 20px 0; text-align: center; }
+.hint-btn {
+  background: none; border: 2px dashed var(--soft-purple);
+  color: var(--soft-purple); padding: 8px 16px;
+  border-radius: 12px; cursor: pointer; font-weight: bold;
+  transition: all 0.2s;
+}
+.hint-btn:hover { background: var(--soft-purple); color: white; }
+.hint-content {
+  margin-top: 10px; padding: 12px;
+  background: #fff3cd; color: #856404;
+  border-radius: 8px; font-size: 0.95rem;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Dark Mode Adjustments for Eval UI */
+body.dark-mode .progress-segment { background: #333; }
+body.dark-mode .progress-segment.filled { background: var(--primary-pastel); }
+body.dark-mode .score-pill { background: #2d2d2d; }
+body.dark-mode .hint-content { background: #4a3b00; color: #ffeb3b; }

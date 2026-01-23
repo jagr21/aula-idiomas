@@ -136,16 +136,21 @@ const bankEn = {
     {text: 'They will ___ tomorrow.', answer: 'arrive', options: ['arrive','left','go']}
   ],
   6: [
-    {text: 'I ___ happy.', answer: 'am', options: ['is','are','am']},
-    {text: 'You ___ my friend.', answer: 'are', options: ['am','is','are']},
-    {text: 'He ___ a teacher.', answer: 'is', options: ['am','is','are']},
-    {text: 'She ___ not here.', answer: 'is', options: ['are','am','is']},
-    {text: 'We ___ at school.', answer: 'are', options: ['is','am','are']},
-    {text: 'They ___ tired.', answer: 'are', options: ['is','are','am']},
-    {text: 'I ___ a student.', answer: 'am', options: ['are','is','am']},
-    {text: 'He ___ not ready.', answer: 'is', options: ['are','am','is']},
-    {text: 'You ___ very kind.', answer: 'are', options: ['is','are','am']},
-    {text: 'She ___ my sister.', answer: 'is', options: ['are','is','am']}
+    {text: 'It is 7:20. In English, we say it is...', answer: 'seven twenty', options: ['seven twelve','seven twenty','seventeen twenty'], hint: 'Recuerda: primero la hora (7), luego los minutos (20).'},
+    {text: 'It is 9:15. In English, we say it is...', answer: 'nine fifteen', options: ['nine fifteen','nine fifty','night fifteen'], hint: '15 minutos se dice "fifteen".'},
+    {text: 'It is 3:40. In English, we say it is...', answer: 'three forty', options: ['thirteen forty','three fourteen','three forty'], hint: 'Tres (3) y cuarenta (40).'},
+    {text: 'It is 11:10. In English, we say it is...', answer: 'eleven ten', options: ['twelve ten','eleven ten','eleven twelve'], hint: 'Once (11) y diez (10).'},
+    {text: 'It is 5:35. In English, we say it is...', answer: 'five thirty-five', options: ['five thirty-five','fifty-five thirty','five thirteen-five'], hint: 'Cinco (5) y treinta y cinco (35).'},
+    {text: 'It is 8:05. In English, we say it is...', answer: 'eight zero-five', options: ['eight fifty','eighteen five','eight zero-five'], hint: 'Para minutos del 01 al 09 usamos "zero" u "oh".'},
+    {text: '¿Cómo se dice el número 28 en inglés?', answer: 'twenty-eight', options: ['twenty-eight','twelve-eight','eighty-two'], hint: 'Veinte (20) + Ocho (8).'},
+    {text: '¿Cómo se dice el número 45 en inglés?', answer: 'forty-five', options: ['fourteen-five','forty-five','fourty-five'], hint: 'Cuarenta (40) + Cinco (5).'},
+    {text: '¿Cómo se dice el número 62 en inglés?', answer: 'sixty-two', options: ['sixty-two','six-two','sixteen-two'], hint: 'Sesenta (60) + Dos (2).'},
+    {text: '¿Cómo se dice el número 100 en inglés?', answer: 'one hundred', options: ['one hundred','one thousand','ten ten'], hint: 'Una centena.'},
+    {text: '¿Cómo se dice el número 73 en inglés?', answer: 'seventy-three', options: ['seventeen-three','seventy-three','seven-three'], hint: 'Setenta (70) + Tres (3).'},
+    {text: '¿Cómo se dice el número 12 en inglés?', answer: 'twelve', options: ['twenty','twelve','two-teen'], hint: 'El número que sigue al 11.'},
+    {text: 'A mí me gusta el chocolate. En inglés se dice: I _______ chocolate.', answer: 'like', options: ['likes','like',"don't like"], hint: 'Para "I" el verbo va en su forma base.'},
+    {text: 'No me gusta la pizza. En inglés se dice: I _______ pizza.', answer: "don't like", options: ["don't like",'no like',"doesn't like"], hint: 'Negativo presente simple para "I".'},
+    {text: 'A mí me gustan las manzanas. En inglés se dice: I _______ apples.', answer: 'like', options: ['am like','liking','like'], hint: 'Afirmativo simple para "I".'}
   ]
 };
 
@@ -156,19 +161,38 @@ document.addEventListener('DOMContentLoaded', () => {
     langMenu: document.getElementById('langMenu'),
     expand: document.getElementById('expandSection'),
     grades: document.getElementById('grades'),
-    practice: document.getElementById('practice')
+    practice: document.getElementById('practice'),
+    evaluations: document.getElementById('evaluationsMenu')
   };
 
   // Buttons & Interactive
   const homeBtn = document.getElementById('homeBtn');
   const backFromLangMenu = document.getElementById('backFromLangMenu');
   const backFromGrades = document.getElementById('backFromGrades');
+  const backFromEvaluations = document.getElementById('backFromEvaluations');
   const backFromPractice = document.getElementById('backFromPractice');
   const backFromExpand = document.getElementById('backFromExpand');
   
   const themeBtn = document.getElementById('themeBtn');
   const studyBtn = document.getElementById('studyBtn');
   const expandBtn = document.getElementById('expandBtn');
+  const eval1Btn = document.getElementById('eval1Btn');
+  const eval1Info = document.getElementById('eval1Info');
+  const eval1Tooltip = document.getElementById('eval1Tooltip');
+  const eval2Info = document.getElementById('eval2Info');
+  const eval2Tooltip = document.getElementById('eval2Tooltip');
+  const eval3Info = document.getElementById('eval3Info');
+  const eval3Tooltip = document.getElementById('eval3Tooltip');
+
+  // Eval UI Elements
+  const evalUI = document.getElementById('evalUI');
+  const evalCounter = document.getElementById('evalCounter');
+  const evalProgress = document.getElementById('evalProgress');
+  const scoreCorrect = document.getElementById('scoreCorrect');
+  const scoreIncorrect = document.getElementById('scoreIncorrect');
+  const hintBox = document.getElementById('hintBox');
+  const hintBtn = document.getElementById('hintBtn');
+  const hintText = document.getElementById('hintText');
   
   const phraseEl = document.getElementById('phrase');
   const optionsEl = document.getElementById('options');
@@ -188,7 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
     idx: 0,
     selected: null,
     selectedBtn: null,
-    correctCount: 0
+    correctCount: 0,
+    incorrectCount: 0
   };
 
   // --- Navigation Functions ---
@@ -218,6 +243,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('grades-title').textContent = `Selecciona tu grado — ${label}`;
   }
 
+  function showEvaluations() {
+    hideAll();
+    sections.evaluations.classList.remove('hidden');
+  }
+
   function showPractice(grade) {
     state.grade = Number(grade);
     const bank = state.language === 'it' ? bankIt : bankEn;
@@ -226,13 +256,29 @@ document.addEventListener('DOMContentLoaded', () => {
     state.selected = null;
     state.selectedBtn = null;
     state.correctCount = 0;
+    state.incorrectCount = 0;
 
     hideAll();
     sections.practice.classList.remove('hidden');
+    if (backFromPractice) backFromPractice.classList.remove('hidden');
     
     const langLabel = state.language === 'it' ? 'Italiano' : 'Inglés';
     practiceTitle.textContent = `Práctica — ${grade}º Grado (${langLabel})`;
     
+    // Toggle Eval UI
+    const isEval1 = state.language === 'en' && state.grade === 6;
+    if (isEval1) {
+      evalUI.classList.remove('hidden');
+      hintBox.classList.remove('hidden');
+      progressEl.classList.add('hidden'); // Hide default progress
+      if (scoreCorrect) scoreCorrect.textContent = '0';
+      if (scoreIncorrect) scoreIncorrect.textContent = '0';
+    } else {
+      evalUI.classList.add('hidden');
+      hintBox.classList.add('hidden');
+      progressEl.classList.remove('hidden');
+    }
+
     renderQuestion();
     updateProgress();
   }
@@ -252,14 +298,24 @@ document.addEventListener('DOMContentLoaded', () => {
     phraseEl.textContent = q.text;
     optionsEl.innerHTML = '';
     
+    const isEval1 = state.language === 'en' && state.grade === 6;
+
+    // Hint Logic
+    if (isEval1 && hintText && hintBtn) {
+      hintText.classList.add('hidden');
+      hintText.textContent = q.hint || 'No hay pista disponible.';
+      hintBtn.onclick = () => hintText.classList.remove('hidden');
+    }
+
     // Shuffle options
     const currentOptions = shuffleArray(q.options.slice());
     
-    currentOptions.forEach(opt => {
+    currentOptions.forEach((opt, i) => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'opt';
       btn.textContent = opt;
+      
       btn.addEventListener('click', () => selectOption(btn, opt));
       optionsEl.appendChild(btn);
     });
@@ -296,6 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (correct) {
       state.selectedBtn.classList.add('correct');
       state.correctCount++;
+      if (scoreCorrect) scoreCorrect.textContent = state.correctCount;
       feedbackEl.textContent = '¡Correcto!';
       feedbackEl.classList.add('good');
       
@@ -306,10 +363,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       // Incorrect logic: Highlight correct, show manual next
       state.selectedBtn.classList.add('incorrect');
+      state.incorrectCount++;
+      if (scoreIncorrect) scoreIncorrect.textContent = state.incorrectCount;
       
       // Find and highlight correct answer
       Array.from(document.querySelectorAll('.opt')).forEach(b => {
         if (b.textContent === q.answer) b.classList.add('correct');
+        // Check text content or innerHTML for ABC labels
+        if (b.textContent.includes(q.answer)) b.classList.add('correct');
       });
 
       feedbackEl.textContent = `Incorrecto. La respuesta correcta es: ${q.answer}`;
@@ -340,6 +401,8 @@ document.addEventListener('DOMContentLoaded', () => {
     progressEl.textContent = '';
     checkBtn.classList.add('hidden');
     nextBtn.classList.add('hidden');
+    if (hintBox) hintBox.classList.add('hidden');
+    if (backFromPractice) backFromPractice.classList.add('hidden');
 
     const back = document.createElement('button');
     back.className = 'check-btn';
@@ -351,6 +414,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateProgress() {
     progressEl.textContent = `Pregunta ${state.idx + 1} / ${state.questions.length}`;
+    
+    // Update Eval UI Progress
+    if (state.language === 'en' && state.grade === 6) {
+      if (evalCounter) evalCounter.textContent = `${state.idx + 1}/${state.questions.length}`;
+      if (evalProgress) {
+        evalProgress.innerHTML = '';
+        for (let i = 0; i < state.questions.length; i++) {
+          const seg = document.createElement('div');
+          seg.className = 'progress-segment';
+          if (i < state.idx) seg.classList.add('filled');
+          // Optional: highlight current?
+          evalProgress.appendChild(seg);
+        }
+      }
+    }
   }
 
   function shuffleArray(a) {
@@ -379,15 +457,41 @@ document.addEventListener('DOMContentLoaded', () => {
   // Grade Selection
   gradeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      showPractice(btn.dataset.grade);
+      if (state.language === 'en' && btn.dataset.grade === '6') {
+        showEvaluations();
+      } else {
+        showPractice(btn.dataset.grade);
+      }
     });
   });
 
   // Back Buttons
   if (backFromLangMenu) backFromLangMenu.addEventListener('click', showHome);
   if (backFromGrades) backFromGrades.addEventListener('click', () => showLangMenu());
+  if (backFromEvaluations) backFromEvaluations.addEventListener('click', showGrades);
   if (backFromPractice) backFromPractice.addEventListener('click', showGrades);
   if (backFromExpand) backFromExpand.addEventListener('click', () => showLangMenu());
+
+  // Evaluation Buttons
+  if (eval1Btn) eval1Btn.addEventListener('click', () => showPractice('6'));
+
+  // Info Button Logic
+  const setupTooltip = (btn, tip) => {
+    if (btn && tip) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        tip.classList.toggle('visible');
+      });
+      document.addEventListener('click', (e) => {
+        if (!btn.contains(e.target) && !tip.contains(e.target)) {
+          tip.classList.remove('visible');
+        }
+      });
+    }
+  };
+  setupTooltip(eval1Info, eval1Tooltip);
+  setupTooltip(eval2Info, eval2Tooltip);
+  setupTooltip(eval3Info, eval3Tooltip);
 
   // Exercise Controls
   if (checkBtn) checkBtn.addEventListener('click', verifyAnswer);

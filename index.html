@@ -70,7 +70,46 @@
         </div>
       </section>
 
+      <!-- Sección de Evaluaciones (Solo Inglés 6to Grado) -->
+      <section id="evaluationsMenu" class="home hidden">
+        <h2 id="evalMenuTitle">Selecciona la Evaluación</h2>
+        <div class="menu-grid">
+          <div class="eval-wrapper">
+            <button id="eval1Btn" class="menu-card">Evaluación #1</button>
+            <button id="eval1Info" class="info-btn" aria-label="Información">i</button>
+            <div id="eval1Tooltip" class="tooltip">
+              <strong>Fecha:</strong> Viernes 30 de Febrero<br><br>
+              <strong>Temas:</strong><br>What time is it?<br>Numbers and Years<br>I like it<br><br>
+              <strong>Nota:</strong><br>Estos ejercicios NO son los que aparecerán necesariamente en la evaluación. Son relacionados a los temas a estudiar para facilitar el aprendizaje de los alumnos.
+            </div>
+          </div>
+          <div class="eval-wrapper">
+            <button id="eval2Btn" class="menu-card">Evaluación #2</button>
+            <button id="eval2Info" class="info-btn" aria-label="Información">i</button>
+            <div id="eval2Tooltip" class="tooltip">Próximamente...</div>
+          </div>
+          <div class="eval-wrapper">
+            <button id="eval3Btn" class="menu-card">Evaluación #3</button>
+            <button id="eval3Info" class="info-btn" aria-label="Información">i</button>
+            <div id="eval3Tooltip" class="tooltip">Próximamente...</div>
+          </div>
+          <button id="backFromEvaluations" class="back-btn">Volver</button>
+        </div>
+      </section>
+
       <section id="practice" class="practice hidden">
+        <!-- UI Exclusiva Evaluación #1 (Inglés 6to) -->
+        <div id="evalUI" class="eval-ui hidden">
+          <div class="eval-top-bar">
+            <span id="evalCounter" class="eval-counter">1/15</span>
+            <div id="evalProgress" class="eval-progress"></div>
+            <div class="eval-scores">
+              <span class="score-pill correct">✅ <span id="scoreCorrect">0</span></span>
+              <span class="score-pill incorrect">❌ <span id="scoreIncorrect">0</span></span>
+            </div>
+          </div>
+        </div>
+
         <div class="section-head">
           <h2 id="practice-title">Práctica para el examen</h2>
           <div class="section-actions">
@@ -80,6 +119,12 @@
         <div id="exercise" class="exercise">
           <p id="phrase" class="phrase">—</p>
           <div id="options" class="options"></div>
+          
+          <div id="hintBox" class="hint-box hidden">
+            <button id="hintBtn" class="hint-btn">💡 Mostrar pista</button>
+            <div id="hintText" class="hint-content hidden"></div>
+          </div>
+
           <div class="controls">
             <button id="checkBtn" class="check-btn" disabled>Verificar</button>
             <button id="nextBtn" class="check-btn hidden">Siguiente</button>
