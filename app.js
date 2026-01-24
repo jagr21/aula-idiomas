@@ -253,6 +253,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const practiceTitle = document.getElementById('practice-title');
   const langCards = document.querySelectorAll('.lang-card');
   const gradeBtns = document.querySelectorAll('.grade-btn');
+  
+  // Popup Elements
+  const popupOverlay = document.getElementById('newsletterPopup');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+  const newsletterForm = document.getElementById('newsletterForm');
+  const formResult = document.getElementById('formResult');
 
   // --- State ---
   let state = {
@@ -555,6 +561,56 @@ document.addEventListener('DOMContentLoaded', () => {
     return a;
   }
 
+  // --- Popup Logic ---
+  function initPopup() {
+    const subscribed = localStorage.getItem('popupSubscribed') === 'true';
+
+    // Mostrar solo si no está suscrito
+    if (!subscribed) {
+      setTimeout(() => {
+        if (popupOverlay) popupOverlay.classList.add('active');
+      }, 2000); // Retraso de 2 segundos
+    }
+  }
+
+  if (closePopupBtn) {
+    closePopupBtn.addEventListener('click', () => {
+      popupOverlay.classList.remove('active');
+    });
+  }
+  
+  if (popupOverlay) {
+    popupOverlay.addEventListener('click', (e) => {
+      if (e.target === popupOverlay) popupOverlay.classList.remove('active');
+    });
+  }
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = newsletterForm.querySelector('button');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+
+      try {
+        const formData = new FormData(newsletterForm);
+        const response = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+        
+        if (response.ok) {
+          newsletterForm.classList.add('hidden');
+          formResult.classList.remove('hidden');
+          localStorage.setItem('popupSubscribed', 'true');
+          setTimeout(() => popupOverlay.classList.remove('active'), 3000);
+        } else throw new Error('Error');
+      } catch (err) {
+        alert('Error al enviar. Intenta de nuevo.');
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  }
+
   // --- Event Listeners ---
   
   // Home & Lang Selection
@@ -628,4 +684,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Init
   showHome();
+  initPopup();
 });

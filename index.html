@@ -135,6 +135,26 @@
       </section>
     </main>
 
+    <!-- Newsletter Popup -->
+    <div id="newsletterPopup" class="popup-overlay">
+      <div class="popup-content">
+        <button id="closePopupBtn" class="close-popup-btn" aria-label="Cerrar">&times;</button>
+        <div id="popupFormContainer">
+          <h3>Welcome / Benvenuti</h3>
+          <p>Si eres <strong>padre</strong> o <strong>representante</strong> de alguno de mis <strong>alumnos</strong>, déjame tu correo para enterarte de <strong>actualizaciones</strong>, <strong>recursos gratuitos</strong> y <strong>nuevas funciones</strong> de la aplicación, así como acceso anticipado a <strong>nuevos proyectos</strong>.<br><br>— José Ginestre</p>
+          <form id="newsletterForm" class="popup-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="680010b8-b3de-4e65-ad6b-31aa8c8880ad">
+            <input type="text" name="name" placeholder="Tu nombre" required>
+            <input type="email" name="email" placeholder="Tu correo electrónico" required>
+            <button type="submit" class="popup-submit-btn">Suscribirse</button>
+          </form>
+          <div id="formResult" class="hidden">
+            <h3 style="color:var(--soft-green); margin-top:20px">¡Gracias por suscribirte!</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <footer class="site-footer">
       <p>Creado por J.A. Ginestre | Licencia CC BY-NC-SA 4.0</p>
     </footer>
