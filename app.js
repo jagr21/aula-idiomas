@@ -1,103 +1,138 @@
 // --- Data Banks (Global) ---
 const bankIt = {
   1: [
-    {text: 'Il cielo è ___.', answer: 'blu', options: ['rosso','blu','verde']},
-    {text: 'La mela è ___.', answer: 'rossa', options: ['gialla','rossa','nera']},
-    {text: 'Il cane fa ___.', answer: 'bau', options: ['muu','bau','miao']},
-    {text: 'Questo è un ___.', answer: 'gatto', options: ['gatto','cane','casa']},
-    {text: 'Il sole è ___.', answer: 'giallo', options: ['giallo','blu','nero']},
-    {text: 'Due + due = ___.', answer: 'quattro', options: ['tre','quattro','cinque']},
-    {text: 'La mucca dice ___', answer: 'muu', options: ['bau','muu','meow']},
-    {text: 'La palla è ___.', answer: 'rossa', options: ['verde','rossa','azzurra']},
-    {text: 'Il topo è piccolo e ___', answer: 'piccolo', options: ['grande','piccolo','veloce']},
-    {text: 'La neve è ___.', answer: 'bianca', options: ['nera','bianca','rossa']}
+    {text: '¿Cómo se dice "El Perro" en italiano?', answer: 'Il cane', options: ['Il gatto','Il cane',"L'uccello"], hint: 'Es el mejor amigo del hombre.'},
+    {text: 'Este animalito maúlla y se dice: _______', answer: 'Il gatto', options: ['Il gatto','Il cane','Il topo'], hint: 'Hace "miao".'},
+    {text: '¿Cómo se llama el animalito que vuela entre las nubes?', answer: "L'uccello", options: ['Il cane','Il gatto',"L'uccello"], hint: 'Tiene alas y plumas.'},
+    {text: 'Si ves a un grupo de perros en el parque, en italiano dices: _______', answer: 'I cani', options: ['I gatti','I cani','Gli uccelli'], hint: 'Plural de "Il cane".'},
+    {text: 'A este animalito "piace volare" (le gusta volar): _______', answer: "L'uccello", options: ['Il cane',"L'uccello",'Il gatto'], hint: 'Vive en nidos.'},
+    {text: 'Si tienes cinco dedos en la mano, en italiano dices que tienes: _______', answer: 'Cinque', options: ['Tre','Cinque','Uno'], hint: 'El número de dedos en una mano.'},
+    {text: '¿Cómo se dice "Los Gatos" cuando hay más de uno?', answer: 'I gatti', options: ['Il gatto','I gatti','I cani'], hint: 'Plural de "Il gatto".'},
+    {text: '¿Cuál de estos animales suele jugar con un hueso (osso)?', answer: 'Il cane', options: ['Il cane',"L'uccello",'Il gatto'], hint: 'Ladra y mueve la cola.'},
+    {text: '¿Qué hace "l\'uccello" cuando se mueve por el aire?', answer: 'Vola', options: ['Cammina','Corre','Vola'], hint: 'Acción de moverse por el aire.'},
+    {text: '¿Cómo se dice "El Gato" en italiano?', answer: 'Il gatto', options: ['Il cane','Il gatto',"L'uccello"], hint: 'Enemigo de los ratones.'}
   ],
   2: [
-    {text: 'Io ho una ___.', answer: 'casa', options: ['macchina','casa','scuola']},
-    {text: 'Tu hai un ___.', answer: 'libro', options: ['libro','tavolo','letto']},
-    {text: 'Il gatto è sul ___.', answer: 'letto', options: ['letto','fiume','cielo']},
-    {text: 'La mela è sul ___.', answer: 'tavolo', options: ['tavolo','albero','cane']},
-    {text: 'Il fiore è ___.', answer: 'bello', options: ['brutto','bello','sporco']},
-    {text: 'Il pollo dice ___', answer: 'pio', options: ['bau','pio','muu']},
-    {text: 'Il rosso e il blu fanno ___', answer: 'viola', options: ['verde','viola','arancione']},
-    {text: 'Ho una penna ___', answer: 'blu', options: ['blu','nero','giallo']},
-    {text: 'Il cielo di notte è ___', answer: 'scuro', options: ['chiaro','scuro','caldo']},
-    {text: 'Il pesce vive in ___', answer: 'acqua', options: ['terra','aria','acqua']}
+    {text: '¿Cómo se escribe el número "11" en italiano?', answer: 'Undici', options: ['Dieci','Undici','Dodici'], hint: 'Sigue al número 10 (Dieci).'},
+    {text: 'Si sumas "Cinque + Tre", el resultado es:', answer: 'Otto', options: ['Sei','Sette','Otto'], hint: 'Cinque (5) + Tre (3) = 8.'},
+    {text: '¿Cuál es el nombre del número "14"?', answer: 'Quattordici', options: ['Quattordici','Quindici','Tredici'], hint: 'Viene de Quattro (4) + Dieci (10).'},
+    {text: '¿Cómo se dice el número "0" en italiano?', answer: 'Zero', options: ['Uno','Zero','Nove'], hint: 'Representa la nada.'},
+    {text: 'El número que sigue después de "Diciassette" es:', answer: 'Diciotto', options: ['Sedici','Diciotto','Diciannove'], hint: 'Diciassette (17) ... Diciotto (18).'},
+    {text: '¿Cómo se dice "Lunes" en italiano?', answer: 'Lunedì', options: ['Martedì','Lunedì','Sabato'], hint: 'El primer día de la semana escolar.'},
+    {text: 'Es el día que está en medio de la semana (miércoles):', answer: 'Mercoledì', options: ['Mercoledì','Giovedì','Venerdì'], hint: 'El tercer día de la semana.'},
+    {text: '¿Cuál es el primer día del fin de semana (sábado)?', answer: 'Sabato', options: ['Domenica','Venerdì','Sabato'], hint: 'El día antes del domingo.'},
+    {text: 'El día que comienza con la letra "G" es:', answer: 'Giovedì', options: ['Giovedì','Martedì','Lunedì'], hint: 'Corresponde al Jueves en español.'},
+    {text: '¿Cómo se dice "Domingo", el día de descanso?', answer: 'Domenica', options: ['Sabato','Domenica','Venerdì'], hint: 'El día para descansar.'},
+    {text: '"Vado a scuola". ¿En qué momento del día ocurre normalmente?', answer: 'Mattina', options: ['Mattina','Notte','Sera'], hint: 'Cuando sale el sol y desayunamos.'},
+    {text: 'El momento de la tarde (entre las 12:00 m y las 6:00 pm) se llama:', answer: 'Pomeriggio', options: ['Mattina','Pomeriggio','Sera'], hint: 'Después del almuerzo hasta el atardecer.'},
+    {text: '¿Cómo se dice "Noche" (después de las 10:00 pm) cuando vamos a dormir?', answer: 'Notte', options: ['Sera','Pomeriggio','Notte'], hint: 'Cuando está muy oscuro y dormimos.'},
+    {text: '"Guardo i cartoni animati" (Veo dibujos animados). Según la guía, esto ocurre en la:', answer: 'Sera', options: ['Mattina','Sera','Pomeriggio'], hint: 'Al final de la tarde, antes de cenar.'},
+    {text: '¿Qué palabra usamos para referirnos a la "Mañana" (hasta el mediodía)?', answer: 'Mattina', options: ['Mattina','Notte','Sera'], hint: 'Desde que te despiertas hasta las 12:00.'}
   ],
   3: [
-    {text: 'Noi ___ (essere) amici.', answer: 'siamo', options: ['siamo','siete','sono']},
-    {text: 'Voi ___ (avere) libri.', answer: 'avete', options: ['avete','hanno','abbiamo']},
-    {text: 'Io ___ (mangiare) la mela.', answer: 'mangio', options: ['mangio','mangi','mangiamo']},
-    {text: 'Lui ___ (andare) a scuola.', answer: 'va', options: ['vado','va','vanno']},
-    {text: 'Lei ___ (parlare) piano.', answer: 'parla', options: ['parlo','parla','parliamo']},
-    {text: 'Noi ___ (giocare) insieme.', answer: 'giochiamo', options: ['giochiamo','giocate','giocano']},
-    {text: 'Il libro è ___.', answer: 'aperto', options: ['chiuso','aperto','rotto']},
-    {text: 'La finestra è ___.', answer: 'aperta', options: ['chiusa','aperta','pulita']},
-    {text: 'Loro ___ (essere) felici.', answer: 'sono', options: ['siamo','siete','sono']},
-    {text: 'Tu ___ (scrivere) una lettera.', answer: 'scrivi', options: ['scrive','scrivi','scriviamo']}
+    {text: '¿De qué color es la nieve?', answer: 'Bianco', options: ['Nero', 'Bianco', 'Rosso'], hint: 'Es el color de las nubes.'},
+    {text: 'Completa: Mi metto la _______ para ir a la escuela.', answer: 'Maglietta', options: ['Maglietta', 'Braccio', 'Giallo'], hint: 'Prenda de ropa para el torso (camiseta).'},
+    {text: 'Señala las dos partes de la cara:', answer: 'Occhio e Bocca', options: ['Gamba e Piede', 'Occhio e Bocca', 'Maglione e Gonna'], hint: 'Ojo y Boca.'},
+    {text: '¿Qué color obtienes si mezclas "Giallo" y "Blu"?', answer: 'Verde', options: ['Rosso', 'Verde', 'Viola'], hint: 'El color del césped.'},
+    {text: 'Parte del cuerpo que usamos para caminar:', answer: 'Gamba', options: ['Mano', 'Gamba', 'Naso'], hint: 'Pierna.'},
+    {text: '¿Cómo se dice "Anaranjado" y "Morado" en italiano?', answer: 'Arancione e Viola', options: ['Rosso e Blu', 'Arancione e Viola', 'Rosa e Grigio'], hint: 'Colores secundarios.'},
+    {text: 'Objeto que usamos para cubrir el torso y tiene botones:', answer: 'Camicia', options: ['Pantaloni', 'Camicia', 'Orecchi'], hint: 'Camisa.'},
+    {text: '¿De qué color es un árbol (hojas y tronco)?', answer: 'Verde e Marrone', options: ['Blu e Nero', 'Verde e Marrone', 'Rosso e Giallo'], hint: 'Verde y Marrón.'},
+    {text: 'Parte del cuerpo donde están los ojos y el pelo:', answer: 'Testa', options: ['Testa', 'Braccio', 'Gamba'], hint: 'Cabeza.'},
+    {text: 'Prenda que usan las niñas en las fiestas:', answer: 'Vestito', options: ['Pantaloncini', 'Vestito', 'Maglione'], hint: 'Vestido.'},
+    {text: '¿Cuáles son los colores de la bandera de Italia?', answer: 'Verde, Bianco, Rosso', options: ['Giallo, Blu, Rosso', 'Verde, Bianco, Rosso', 'Nero, Bianco, Grigio'], hint: 'Igual que la pizza margarita.'},
+    {text: 'Tenemos cinco _______ en cada mano.', answer: 'Dita', options: ['Dita', 'Teste', 'Gambe'], hint: 'Dedos.'},
+    {text: 'Si hace frío, me pongo un _______ y una _______.', answer: 'Maglione e Giacca', options: ['Vestito y Gonna', 'Maglione e Giacca', 'Camicia e Pantaloncini'], hint: 'Suéter y Chaqueta.'},
+    {text: '¿De qué color es el cielo?', answer: 'Azzurro', options: ['Verde', 'Azzurro', 'Marrone'], hint: 'Azul claro.'},
+    {text: 'Usamos los _______ para escuchar música.', answer: 'Orecchi', options: ['Occhi', 'Orecchi', 'Piedi'], hint: 'Orejas.'}
   ],
   4: [
-    {text: 'Io ___ (volere) un gelato.', answer: 'voglio', options: ['vuoi','voglio','vuole']},
-    {text: 'Loro ___ (essere) stanchi.', answer: 'sono', options: ['siete','sono','sei']},
-    {text: 'Tu ___ (potere) venire?', answer: 'puoi', options: ['posso','puoi','puo']},
-    {text: 'Noi ___ (capire) la lezione.', answer: 'capiscono', options: ['capisco','capisci','capiscono']},
-    {text: 'Lei ___ (comprare) il pane.', answer: 'compra', options: ['compro','compra','compriamo']},
-    {text: 'Gli studenti ___ (studiare) molto.', answer: 'studiano', options: ['studio','studiano','studiate']},
-    {text: 'Oggi ___ (essere) lunedì.', answer: 'è', options: ['sono','è','sei']},
-    {text: 'Vogliamo ___ un film.', answer: 'guardare', options: ['correre','guardare','mangiare']},
-    {text: 'Il maestro dice: ___', answer: 'silenzio', options: ['silenzio','alzati','siediti']},
-    {text: 'Porta la tua ___ domani.', answer: 'penna', options: ['penna','casa','sedia']}
+    {text: '¿Cuáles son los colores "Bianco" y "Nero"?', answer: 'Blanco y Negro', options: ['Rojo y Azul', 'Blanco y Negro', 'Verde y Gris'], hint: 'Colores opuestos (luz y oscuridad).'},
+    {text: 'Partes de la cara: "Occhi e _______".', answer: 'Orecchi', options: ['Gambe', 'Orecchi', 'Mani'], hint: 'Ojos y Orejas.'},
+    {text: '¿Qué ropa es "Camicia e Pantaloni"?', answer: 'Camisa y Pantalones', options: ['Camisa y Pantalones', 'Falda y Polo', 'Chaqueta y Gorra'], hint: 'Ropa común.'},
+    {text: '"Ho due _______ e due _______" (Brazos y piernas).', answer: 'Braccia e Gambe', options: ['Braccia e Gambe', 'Mani e Piedi', 'Teste e Nasi'], hint: 'Extremidades superiores e inferiores.'},
+    {text: 'Colores de la bandera de Italia: "Verde, Bianco e _______".', answer: 'Rosso', options: ['Blu', 'Rosso', 'Giallo'], hint: 'Rojo.'},
+    {text: '"Uso i _______ per camminare" (Uso los pies).', answer: 'Piedi', options: ['Mani', 'Piedi', 'Dita'], hint: 'Pies.'},
+    {text: '¿Cómo se dice "Naranja" y "Morado"?', answer: 'Arancione e Viola', options: ['Arancione e Viola', 'Rosa e Blu', 'Grigio e Marrone'], hint: 'Colores de frutas y flores.'},
+    {text: '"La _______ e il _______" (La cabeza y el cuello).', answer: 'Testa - Collo', options: ['Mano - Piede', 'Testa - Collo', 'Braccio - Gamba'], hint: 'Parte superior del cuerpo.'},
+    {text: 'Prendas para el frío: "Giacca e _______".', answer: 'Maglione', options: ['Maglione', 'Pantaloncini', 'Vestito'], hint: 'Chaqueta y Suéter.'},
+    {text: '¿De qué color es la "Erba" (césped)?', answer: 'Verde', options: ['Rosso', 'Verde', 'Giallo'], hint: 'Color de la naturaleza.'},
+    {text: '"Le _______ della mano" (Los dedos de la mano).', answer: 'Dita', options: ['Dita', 'Gambe', 'Orecchie'], hint: 'Dedos.'},
+    {text: '¿Cómo se dice "Zapato" y "Calcetín"?', answer: 'Scarpa e Calza', options: ['Scarpa e Calza', 'Maglia e Gonna', 'Cappello e Guanti'], hint: 'Lo que usas en los pies.'},
+    {text: 'Color "Grigio" es:', answer: 'Gris', options: ['Gris', 'Marrón', 'Púrpura'], hint: 'Mezcla de blanco y negro.'},
+    {text: '"Mi metto la _______" (Me pongo la chaqueta).', answer: 'Giacca', options: ['Gonna', 'Giacca', 'Camicia'], hint: 'Prenda de abrigo.'},
+    {text: 'En la cabeza tengo "Capelli e _______" (Pelo y orejas).', answer: 'Orecchi', options: ['Orecchi', 'Piedi', 'Mani'], hint: 'Órganos auditivos.'}
   ],
   5: [
-    {text: 'Io ___ (essere) un ragazzo.', answer: 'sono', options: ['sono','sei','è']},
-    {text: 'Lei ___ (avere) una penna rossa.', answer: 'ha', options: ['hai','ha','abbiamo']},
-    {text: 'Noi ___ (andare) al parco.', answer: 'andiamo', options: ['andate','vanno','andiamo']},
-    {text: 'Sei ___ (pronto) per la prova?', answer: 'pronto', options: ['pronto','lento','vecchio']},
-    {text: 'Lui ___ (leggere) un libro interessante.', answer: 'legge', options: ['legge','leggo','leggiamo']},
-    {text: 'Dove ___ (essere) la scuola?', answer: 'è', options: ['è','sono','siamo']},
-    {text: 'Vado a casa con ___ autobus.', answer: 'l', options: ['il','l','lo']},
-    {text: 'Preferisco il ___ rosso.', answer: 'gelato', options: ['gelato','cane','libro']},
-    {text: 'Il treno parte alle ___', answer: 'otto', options: ['otto','cinque','undici']},
-    {text: 'Porta un ___ per scrivere.', answer: 'quaderno', options: ['quaderno','gioco','panino']}
+    {text: '"Il sole è _______ e il cielo è _______".', answer: 'Giallo - Azzurro', options: ['Rosso - Verde', 'Giallo - Azzurro', 'Nero - Bianco'], hint: 'El sol es amarillo y el cielo es azul.'},
+    {text: '¿Qué ropa usas para hacer deporte?', answer: 'Pantaloncini e Maglietta', options: ['Vestito', 'Pantaloncini e Maglietta', 'Camicia'], hint: 'Pantalones cortos y camiseta.'},
+    {text: '"Uso le _______ per scrivere".', answer: 'Mani', options: ['Gambe', 'Mani', 'Orecchie'], hint: 'Uso las manos para escribir.'},
+    {text: '¿De qué color es un "Albero" (árbol)?', answer: 'Verde e Marrone', options: ['Verde e Marrone', 'Blu e Rosso', 'Giallo e Rosa'], hint: 'Hojas verdes y tronco marrón.'},
+    {text: '"La _______ è sopra il collo".', answer: 'Testa', options: ['Testa', 'Gamba', 'Mano'], hint: 'La cabeza está sobre el cuello.'},
+    {text: '¿Cómo se dice "Vestido" y "Falda"?', answer: 'Vestito e Gonna', options: ['Vestito e Gonna', 'Pantaloni e Polo', 'Giacca e Calze'], hint: 'Ropa femenina.'},
+    {text: '"Ho dieci _______ nei piedi".', answer: 'Dita', options: ['Mani', 'Dita', 'Teste'], hint: 'Tengo diez dedos en los pies.'},
+    {text: 'Si mezclas "Rosso" y "Giallo" sale:', answer: 'Arancione', options: ['Verde', 'Arancione', 'Viola'], hint: 'Color naranja.'},
+    {text: '"Per correre uso le _______".', answer: 'Gambe', options: ['Braccia', 'Gambe', 'Orecchie'], hint: 'Para correr uso las piernas.'},
+    {text: '¿Qué prenda tiene botones y es formal?', answer: 'Camicia', options: ['Maglietta', 'Camicia', 'Pantaloncini'], hint: 'Camisa.'},
+    {text: '¿De qué color es el "Latte" (leche)?', answer: 'Bianco', options: ['Nero', 'Bianco', 'Blu'], hint: 'Blanco.'},
+    {text: '"Sento i suoni con gli _______".', answer: 'Orecchi', options: ['Occhi', 'Orecchi', 'Piedi'], hint: 'Escucho los sonidos con los oídos.'},
+    {text: '"L\'uva può essere _______ o verde".', answer: 'Viola', options: ['Viola', 'Azzurra', 'Grigia'], hint: 'La uva puede ser morada o verde.'},
+    {text: '"La _______ protegge il corpo dal freddo".', answer: 'Giacca', options: ['Giacca', 'Mano', 'Bocca'], hint: 'La chaqueta protege del frío.'},
+    {text: '"Il mio _______ è forte" (Mi cuerpo).', answer: 'Corpo', options: ['Corpo', 'Vestito', 'Colore'], hint: 'Cuerpo.'}
   ],
   6: [
-    {text: 'Io ___ (essere) felice.', answer: 'sono', options: ['sono','sei','è']},
-    {text: 'Tu ___ (essere) italiano?', answer: 'sei', options: ['sono','sei','siamo']},
-    {text: 'Lui ___ (essere) alto.', answer: 'è', options: ['sono','è','sei']},
-    {text: 'Noi ___ (essere) in classe.', answer: 'siamo', options: ['siete','siamo','sono']},
-    {text: 'Voi ___ (essere) pronti?', answer: 'siete', options: ['siete','sono','siamo']},
-    {text: 'Loro ___ (essere) amici.', answer: 'sono', options: ['siamo','siete','sono']},
-    {text: 'Io ___ (avere) un libro.', answer: 'ho', options: ['hai','ho','ha']},
-    {text: 'Lei ___ (essere) una studentessa.', answer: 'è', options: ['è','sono','siamo']},
-    {text: 'Tu ___ (parlare) inglese?', answer: 'parli', options: ['parlo','parli','parla']},
-    {text: 'Noi ___ (studiare) insieme.', answer: 'studiamo', options: ['studiate','studiamo','studiano']}
+    {text: '"Ho i capelli _______" (Tengo el pelo negro).', answer: 'Neri', options: ['Bianchi', 'Neri', 'Rossi'], hint: 'Negros.'},
+    {text: '"Indosso una _______ bianca per la scuola".', answer: 'Camicia', options: ['Camicia', 'Gamba', 'Testa'], hint: 'Llevo una camisa blanca.'},
+    {text: '"Gli occhi servono per _______".', answer: 'Vedere', options: ['Mangiare', 'Vedere', 'Camminare'], hint: 'Los ojos sirven para ver.'},
+    {text: '¿Cuál es el color "Azzurro"?', answer: 'Celeste / Azul claro', options: ['Celeste / Azul claro', 'Morado', 'Amarillo'], hint: 'Color del cielo.'},
+    {text: '"Il braccio finisce con la _______".', answer: 'Mano', options: ['Mano', 'Gamba', 'Spalla'], hint: 'El brazo termina con la mano.'},
+    {text: '¿Qué prenda es el "Maglione"?', answer: 'Suéter / Abrigo', options: ['Camiseta', 'Suéter / Abrigo', 'Pantalón'], hint: 'Prenda de lana para el frío.'},
+    {text: '"I colori della bandiera venezuelana sono _______".', answer: 'Giallo, Blu, Rosso', options: ['Verde, Bianco, Rosso', 'Giallo, Blu, Rosso', 'Nero y Oro'], hint: 'Amarillo, Azul y Rojo.'},
+    {text: '"La _______ è la parte centrale del corpo".', answer: 'Pancia / Torso', options: ['Pancia / Torso', 'Testa', 'Mano'], hint: 'La barriga/torso es la parte central.'},
+    {text: '¿Cómo se dice "Zapatos negros"?', answer: 'Scarpe nere', options: ['Scarpe nere', 'Calze rosse', 'Maglie blu'], hint: 'Plural de zapato y negro.'},
+    {text: '"Uso il _______ per respirare".', answer: 'Naso', options: ['Naso', 'Orecchio', 'Piede'], hint: 'Uso la nariz para respirar.'},
+    {text: '"Il _______ è un vestito da donna elegante".', answer: 'Vestito', options: ['Vestito', 'Pantalone', 'Maglione'], hint: 'El vestido.'},
+    {text: '¿De qué color es la noche?', answer: 'Nero', options: ['Bianco', 'Nero', 'Giallo'], hint: 'Negro.'},
+    {text: '"Sopra il collo c\'è la _______".', answer: 'Testa', options: ['Testa', 'Gamba', 'Mano'], hint: 'Sobre el cuello está la cabeza.'},
+    {text: '"In inverno porto la _______".', answer: 'Giacca', options: ['Giacca', 'Maglietta', 'Gonna'], hint: 'En invierno llevo la chaqueta.'},
+    {text: '¿Cómo se dice "Mis ojos son verdes"?', answer: 'I miei occhi sono verdi', options: ['I miei occhi sono verdi', 'I miei capelli sono neri', 'La mia bocca è rossa'], hint: 'Traducción literal.'}
   ]
 };
 
 const bankEn = {
   1: [
-    {text: 'The sun is ___.', answer: 'yellow', options: ['green','yellow','blue']},
-    {text: 'A small cat is a ___', answer: 'kitten', options: ['puppy','kitten','cow']},
-    {text: 'Grass is ___.', answer: 'green', options: ['red','green','black']},
-    {text: 'The dog says ___', answer: 'woof', options: ['moo','woof','meow']},
-    {text: 'One + one = ___', answer: 'two', options: ['three','two','four']},
-    {text: 'The apple is ___', answer: 'red', options: ['red','blue','purple']},
-    {text: 'Birds can ___', answer: 'fly', options: ['swim','run','fly']},
-    {text: 'Baby sheep is a ___', answer: 'lamb', options: ['calf','lamb','cub']},
-    {text: 'The sky is ___', answer: 'blue', options: ['blue','black','brown']},
-    {text: 'Fish live in ___', answer: 'water', options: ['fire','water','earth']}
+    {text: '¿Cómo se dice el número "3" en inglés?', answer: 'Three', options: ['Two','Three','One'], hint: 'Empieza con "Th".'},
+    {text: '¿Cuál es el número "7" en inglés?', answer: 'Seven', options: ['Six','Eight','Seven'], hint: 'Rima con "Eleven".'},
+    {text: 'Cuenta los dedos de una mano. En inglés son: _______.', answer: 'Five', options: ['Five','Four','Ten'], hint: 'El número después del cuatro.'},
+    {text: '¿Cómo se escribe el número "10" en inglés?', answer: 'Ten', options: ['Net','Ten','Two'], hint: 'Se escribe al revés que "Net".'},
+    {text: 'Si tengo "One" y agrego otro "One", ¿cuántos tengo?', answer: 'Two', options: ['Three','Two','Four'], hint: '1 + 1 = ?'},
+    {text: 'Esta forma es redonda como el sol: _______.', answer: 'Circle', options: ['Square','Circle','Triangle'], hint: 'No tiene esquinas.'},
+    {text: 'Tiene 3 lados y parece una rebanada de pizza: _______.', answer: 'Triangle', options: ['Triangle','Star','Circle'], hint: 'Tri- significa tres.'},
+    {text: 'Tiene 4 lados iguales, como una caja: _______.', answer: 'Square', options: ['Rectangle','Square','Triangle'], hint: 'Es un cuadrado.'},
+    {text: 'Brilla en el cielo por la noche: _______.', answer: 'Star', options: ['Circle','Star','Square'], hint: 'Twinkle, twinkle, little...'},
+    {text: 'Es larga y tiene 4 lados (como una puerta): _______.', answer: 'Rectangle', options: ['Rectangle','Circle','Triangle'], hint: 'Parecido a un cuadrado pero estirado.'},
+    {text: '¿Cuánto es "One plus One"?', answer: 'Two', options: ['Three','Two','Five'], hint: 'Uno más uno.'},
+    {text: '¿Cuánto es "Two plus Two"?', answer: 'Four', options: ['Four','Six','Two'], hint: 'Dos más dos.'},
+    {text: '¿Cuánto es "Three plus Three"?', answer: 'Six', options: ['Five','Six','Nine'], hint: 'Tres más tres.'},
+    {text: 'Si tengo "Two" manzanas y me regalan "One", tengo: _______.', answer: 'Three', options: ['Three','Four','Two'], hint: '2 + 1.'},
+    {text: '¿Cómo se dice "Más" en inglés para sumar?', answer: 'Plus', options: ['Minus','Plus','Equal'], hint: 'Suena como "Plas".'}
   ],
   2: [
-    {text: 'I have a ___.', answer: 'book', options: ['book','car','house']},
-    {text: 'You have a ___', answer: 'pen', options: ['tree','pen','shoe']},
-    {text: 'The cat is on the ___', answer: 'bed', options: ['bed','tree','chair']},
-    {text: 'The sun is ___', answer: 'hot', options: ['cold','hot','sweet']},
-    {text: 'The flower is ___', answer: 'pretty', options: ['ugly','pretty','loud']},
-    {text: 'A cow says ___', answer: 'moo', options: ['meow','woof','moo']},
-    {text: 'Red + blue = ___', answer: 'purple', options: ['green','purple','brown']},
-    {text: 'I see with my ___', answer: 'eyes', options: ['hands','eyes','feet']},
-    {text: 'We read a ___', answer: 'book', options: ['book','song','toy']},
-    {text: 'The car is ___', answer: 'fast', options: ['slow','fast','tiny']}
+    {text: 'Yo me levanto de la cama. In English: I _______.', answer: 'get up', options: ['get up','go to sleep','take a shower'], hint: 'Salir de la cama por la mañana.'},
+    {text: 'Yo cepillo mis dientes. In English: I _______ my teeth.', answer: 'brush', options: ['wash','brush','get dressed'], hint: 'Usas pasta de dientes.'},
+    {text: 'Yo me doy una ducha. In English: I _______.', answer: 'take a shower', options: ['eat breakfast','take a shower','take the bus'], hint: 'Usas agua y jabón para limpiarte.'},
+    {text: 'Yo me pongo la ropa. In English: I _______.', answer: 'get dressed', options: ['get dressed','get up','brush my teeth'], hint: 'Cambiar pijama por ropa de día.'},
+    {text: 'Yo como mi desayuno. In English: I _______.', answer: 'eat breakfast', options: ['take the bus','eat breakfast','take a shower'], hint: 'La primera comida del día.'},
+    {text: 'Yo tomo el autobús. In English: I _______.', answer: 'take the bus', options: ['take the bus','get dressed','get up'], hint: 'Transporte para ir a la escuela.'},
+    {text: 'En esta materia usamos números (1, 2, 3...). Es: _______.', answer: 'Math', options: ['Music','Math','English'], hint: 'Sumas y restas.'},
+    {text: 'En esta materia cantamos y tocamos instrumentos. Es: _______.', answer: 'Music', options: ['Music','Language','Calligraphy'], hint: 'Sonidos y melodías.'},
+    {text: 'Hacemos ejercicio y jugamos con pelotas en: _______.', answer: 'Physical Education', options: ['Math','Physical Education','Language'], hint: 'Deportes y movimiento.'},
+    {text: 'Aprendemos a leer y escribir bien en mi idioma: _______.', answer: 'Language', options: ['Language','Music','Math'], hint: 'Gramática y lectura.'},
+    {text: 'Practicamos para tener una letra muy bonita en: _______.', answer: 'Calligraphy', options: ['English','Calligraphy','Physical Education'], hint: 'Escribir cursiva y claro.'},
+    {text: 'Aprendemos a decir "Hello" y "Goodbye" en: _______.', answer: 'English', options: ['English','Language','Music'], hint: 'El idioma que estás estudiando ahora.'},
+    {text: 'A mí me gusta mi maestra. In English: I _______ my teacher.', answer: 'like', options: ['like','no like','likes'], hint: 'Afirmación con "I".'},
+    {text: 'No me gusta la sopa. In English: I _______ soup.', answer: "don't like", options: ['like',"don't like",'no like'], hint: 'Negación con "I".'},
+    {text: 'A mí me gusta jugar. In English: I _______ to play.', answer: 'like', options: ['like','am like',"don't likes"], hint: 'Verbo gustar en primera persona.'}
   ],
   3: [
     {text: 'Yo uso mi _______ para escribir. (Lápiz)', answer: 'Pencil', options: ['Eraser','Pencil','Notebook'], hint: 'Utensilio de madera con grafito.'},
@@ -261,23 +296,60 @@ document.addEventListener('DOMContentLoaded', () => {
   function showEvaluations() {
     hideAll();
     sections.evaluations.classList.remove('hidden');
+
+    // Ocultar Evaluación #3 si es Italiano (solo hay 2)
+    const eval3Btn = document.getElementById('eval3Btn');
+    if (eval3Btn && eval3Btn.parentNode) {
+      if (state.language === 'it') {
+        eval3Btn.parentNode.classList.add('hidden');
+      } else {
+        eval3Btn.parentNode.classList.remove('hidden');
+      }
+    }
     
     // Actualizar contenido del tooltip según el grado
     const tooltip = document.getElementById('eval1Tooltip');
     if (tooltip) {
       let topics = '';
-      let date = 'Viernes 30 de Enero';
+      let date = '';
 
-      if (state.grade === 6) {
-        topics = 'What time is it?<br>Numbers and Years<br>I like it';
-      } else if (state.grade === 5) {
-        topics = 'I like<br>Past tense';
-      } else if (state.grade === 4) {
-        date = 'Jueves 29 de Enero';
-        topics = 'Morning activities<br>Days of the week<br>I like';
-      } else if (state.grade === 3) {
-        date = 'Jueves 29 de Enero';
-        topics = 'Numbers<br>School Objects<br>I like';
+      if (state.language === 'en') {
+        if (state.grade === 6) {
+          date = 'Viernes 30 de Enero';
+          topics = 'What time is it?<br>Numbers and Years<br>I like it';
+        } else if (state.grade === 5) {
+          date = 'Viernes 30 de Enero';
+          topics = 'I like<br>Past tense';
+        } else if (state.grade === 4) {
+          date = 'Jueves 29 de Enero';
+          topics = 'Morning activities<br>Days of the week<br>I like';
+        } else if (state.grade === 3) {
+          date = 'Jueves 29 de Enero';
+          topics = 'Numbers<br>School Objects<br>I like';
+        } else if (state.grade === 2) {
+          date = 'Miércoles 28 de Enero';
+          topics = 'Morning Activities<br>School Subjects<br>I Like';
+        } else if (state.grade === 1) {
+          date = 'Miércoles 28 de Enero';
+          topics = 'Numbers<br>Shapes<br>Math';
+        }
+      } else if (state.language === 'it') {
+        if (state.grade === 1) {
+          date = 'Martes 03 de Febrero';
+          topics = 'Il cane<br>Il gatto<br>L\'uccello';
+        } else if (state.grade === 2) {
+          date = 'Martes 03 de Febrero';
+          topics = 'I Numeri<br>La Settimana<br>Il tempo';
+        } else {
+          topics = 'I Colori<br>I Vestiti<br>Il Mio Corpo';
+          if (state.grade === 3) {
+            date = 'Martes 03 de Febrero';
+          } else if (state.grade === 5 || state.grade === 6) {
+            date = 'Miércoles 04 de Febrero';
+          } else if (state.grade === 4) {
+            date = 'Jueves 05 de Febrero';
+          }
+        }
       }
       
       tooltip.innerHTML = `
@@ -306,7 +378,9 @@ document.addEventListener('DOMContentLoaded', () => {
     practiceTitle.textContent = `Práctica — ${grade}º Grado (${langLabel})`;
     
     // Toggle Eval UI
-    const isEval1 = state.language === 'en' && (state.grade === 6 || state.grade === 5 || state.grade === 4 || state.grade === 3);
+    const isEval1 = (state.language === 'en' && [1,2,3,4,5,6].includes(state.grade)) || 
+                    (state.language === 'it' && [1,2,3,4,5,6].includes(state.grade));
+
     if (isEval1) {
       evalUI.classList.remove('hidden');
       hintBox.classList.remove('hidden');
@@ -338,7 +412,8 @@ document.addEventListener('DOMContentLoaded', () => {
     phraseEl.textContent = q.text;
     optionsEl.innerHTML = '';
     
-    const isEval1 = state.language === 'en' && (state.grade === 6 || state.grade === 5 || state.grade === 4 || state.grade === 3);
+    const isEval1 = (state.language === 'en' && [1,2,3,4,5,6].includes(state.grade)) || 
+                    (state.language === 'it' && [1,2,3,4,5,6].includes(state.grade));
 
     // Hint Logic
     if (isEval1 && hintText && hintBtn) {
@@ -456,7 +531,8 @@ document.addEventListener('DOMContentLoaded', () => {
     progressEl.textContent = `Pregunta ${state.idx + 1} / ${state.questions.length}`;
     
     // Update Eval UI Progress
-    if (state.language === 'en' && (state.grade === 6 || state.grade === 5 || state.grade === 4 || state.grade === 3)) {
+    if ((state.language === 'en' && [1,2,3,4,5,6].includes(state.grade)) || 
+        (state.language === 'it' && [1,2,3,4,5,6].includes(state.grade))) {
       if (evalCounter) evalCounter.textContent = `${state.idx + 1}/${state.questions.length}`;
       if (evalProgress) {
         evalProgress.innerHTML = '';
@@ -498,7 +574,10 @@ document.addEventListener('DOMContentLoaded', () => {
   gradeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const g = btn.dataset.grade;
-      if (state.language === 'en' && (g === '6' || g === '5' || g === '4' || g === '3')) {
+      const useEval = (state.language === 'en' && ['1','2','3','4','5','6'].includes(g)) ||
+                      (state.language === 'it' && ['1','2','3','4','5','6'].includes(g));
+
+      if (useEval) {
         state.grade = Number(g);
         showEvaluations();
       } else {
