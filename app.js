@@ -621,6 +621,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Sound Effects (Web Audio API) ---
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+  // Solución para móviles: Desbloquear AudioContext con la primera interacción
+  function unlockAudio() {
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    document.removeEventListener('click', unlockAudio);
+    document.removeEventListener('touchstart', unlockAudio);
+  }
+  document.addEventListener('click', unlockAudio);
+  document.addEventListener('touchstart', unlockAudio);
+
   function playTone(freq, type, duration, delay = 0, vol = 0.1) {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
