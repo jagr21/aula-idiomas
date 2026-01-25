@@ -477,6 +477,11 @@ document.addEventListener('DOMContentLoaded', () => {
       feedbackEl.textContent = '¡Correcto!';
       feedbackEl.classList.add('good');
       
+      // TTS Logic for Italian Grade 1
+      if (state.language === 'it' && state.grade === 1) {
+        speakText(q.answer);
+      }
+      
       // Auto advance on correct
       setTimeout(() => {
         nextQuestion();
@@ -559,6 +564,16 @@ document.addEventListener('DOMContentLoaded', () => {
       [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
+  }
+
+  // --- TTS Helper ---
+  function speakText(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'it-IT';
+      window.speechSynthesis.speak(utterance);
+    }
   }
 
   // --- Popup Logic ---
