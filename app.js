@@ -481,6 +481,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if ((state.language === 'it' || state.language === 'en') && state.grade >= 1 && state.grade <= 6) {
         speakText(q.answer, state.language);
       }
+
+      // Sound Effect (Italian & English All Grades)
+      if (state.language === 'it' || state.language === 'en') {
+        playSuccess();
+      }
       
       // Auto advance on correct
       setTimeout(() => {
@@ -502,6 +507,11 @@ document.addEventListener('DOMContentLoaded', () => {
       feedbackEl.textContent = `Incorrecto. La respuesta correcta es: ${q.answer}`;
       feedbackEl.classList.add('bad');
       
+      // Sound Effect (Italian & English All Grades)
+      if (state.language === 'it' || state.language === 'en') {
+        playError();
+      }
+
       // Show manual next button on error
       nextBtn.classList.remove('hidden');
       nextBtn.disabled = false;
@@ -529,6 +539,11 @@ document.addEventListener('DOMContentLoaded', () => {
     nextBtn.classList.add('hidden');
     if (hintBox) hintBox.classList.add('hidden');
     if (backFromPractice) backFromPractice.classList.add('hidden');
+
+    // Sound Effect (Italian & English All Grades)
+    if (state.language === 'it' || state.language === 'en') {
+      playComplete();
+    }
 
     const back = document.createElement('button');
     back.className = 'check-btn';
@@ -601,6 +616,44 @@ document.addEventListener('DOMContentLoaded', () => {
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
+  }
+
+  // --- Sound Effects (Web Audio API) ---
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  function playTone(freq, type, duration, delay = 0, vol = 0.1) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    gain.gain.setValueAtTime(vol, audioCtx.currentTime + delay);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
+    
+    osc.start(audioCtx.currentTime + delay);
+    osc.stop(audioCtx.currentTime + delay + duration);
+  }
+
+  function playSuccess() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    playTone(523.25, 'sine', 0.1, 0, 0.1); // C5
+    playTone(659.25, 'sine', 0.3, 0.1, 0.1); // E5
+  }
+
+  function playError() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    playTone(150, 'sawtooth', 0.2, 0, 0.1);
+    playTone(100, 'sawtooth', 0.2, 0.1, 0.1);
+  }
+
+  function playComplete() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    playTone(523.25, 'triangle', 0.2, 0, 0.1);
+    playTone(659.25, 'triangle', 0.2, 0.2, 0.1);
+    playTone(783.99, 'triangle', 0.2, 0.4, 0.1);
+    playTone(1046.50, 'triangle', 0.6, 0.6, 0.1);
   }
 
   // --- Popup Logic ---
