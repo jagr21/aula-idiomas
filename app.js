@@ -626,13 +626,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (audioCtx.state === 'suspended') {
       audioCtx.resume();
     }
+    // Reproducir buffer silencioso para forzar el desbloqueo en iOS/Android
+    const buffer = audioCtx.createBuffer(1, 1, 22050);
+    const source = audioCtx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioCtx.destination);
+    source.start(0);
+
     document.removeEventListener('click', unlockAudio);
     document.removeEventListener('touchstart', unlockAudio);
   }
   document.addEventListener('click', unlockAudio);
   document.addEventListener('touchstart', unlockAudio);
 
-  function playTone(freq, type, duration, delay = 0, vol = 0.1) {
+  function playTone(freq, type, duration, delay = 0, vol = 0.3) {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.type = type;
@@ -649,22 +656,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function playSuccess() {
     if (audioCtx.state === 'suspended') audioCtx.resume();
-    playTone(523.25, 'sine', 0.1, 0, 0.1); // C5
-    playTone(659.25, 'sine', 0.3, 0.1, 0.1); // E5
+    playTone(523.25, 'sine', 0.1, 0, 0.3); // C5
+    playTone(659.25, 'sine', 0.3, 0.1, 0.3); // E5
   }
 
   function playError() {
     if (audioCtx.state === 'suspended') audioCtx.resume();
-    playTone(150, 'sawtooth', 0.2, 0, 0.1);
-    playTone(100, 'sawtooth', 0.2, 0.1, 0.1);
+    playTone(150, 'sawtooth', 0.2, 0, 0.3);
+    playTone(100, 'sawtooth', 0.2, 0.1, 0.3);
   }
 
   function playComplete() {
     if (audioCtx.state === 'suspended') audioCtx.resume();
-    playTone(523.25, 'triangle', 0.2, 0, 0.1);
-    playTone(659.25, 'triangle', 0.2, 0.2, 0.1);
-    playTone(783.99, 'triangle', 0.2, 0.4, 0.1);
-    playTone(1046.50, 'triangle', 0.6, 0.6, 0.1);
+    playTone(523.25, 'triangle', 0.2, 0, 0.3);
+    playTone(659.25, 'triangle', 0.2, 0.2, 0.3);
+    playTone(783.99, 'triangle', 0.2, 0.4, 0.3);
+    playTone(1046.50, 'triangle', 0.6, 0.6, 0.3);
   }
 
   // --- Popup Logic ---
