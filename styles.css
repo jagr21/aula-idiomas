@@ -446,3 +446,6 @@ body.dark-mode .site-footer { color: #666; }
 body.dark-mode .popup-content { background: #1e1e1e; }
 body.dark-mode .popup-content p { color: #aaa; }
 body.dark-mode .popup-form input, body.dark-mode .popup-form textarea { background: #2d2d2d; border-color: #444; color: #eee; }
+
+#evalPopupBody { color: #666; }
+body.dark-mode #evalPopupBody { color: #e0e0e0; }

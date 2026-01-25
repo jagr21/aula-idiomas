@@ -260,6 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsletterForm = document.getElementById('newsletterForm');
   const formResult = document.getElementById('formResult');
 
+  // Eval Info Popup Elements
+  const evalInfoPopup = document.getElementById('evalInfoPopup');
+  const closeEvalPopupBtn = document.getElementById('closeEvalPopupBtn');
+  const evalPopupBody = document.getElementById('evalPopupBody');
+
   // --- State ---
   let state = {
     language: null,
@@ -770,11 +775,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btn && tip) {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        tip.classList.toggle('visible');
-      });
-      document.addEventListener('click', (e) => {
-        if (!btn.contains(e.target) && !tip.contains(e.target)) {
-          tip.classList.remove('visible');
+        
+        if (evalInfoPopup && evalPopupBody) {
+          evalPopupBody.innerHTML = tip.innerHTML;
+          evalInfoPopup.classList.add('active');
         }
       });
     }
@@ -782,6 +786,18 @@ document.addEventListener('DOMContentLoaded', () => {
   setupTooltip(eval1Info, eval1Tooltip);
   setupTooltip(eval2Info, eval2Tooltip);
   setupTooltip(eval3Info, eval3Tooltip);
+
+  // Close logic for Eval Info Popup
+  if (closeEvalPopupBtn) {
+    closeEvalPopupBtn.addEventListener('click', () => {
+      evalInfoPopup.classList.remove('active');
+    });
+  }
+  if (evalInfoPopup) {
+    evalInfoPopup.addEventListener('click', (e) => {
+      if (e.target === evalInfoPopup) evalInfoPopup.classList.remove('active');
+    });
+  }
 
   // Exercise Controls
   if (checkBtn) checkBtn.addEventListener('click', verifyAnswer);
