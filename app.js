@@ -477,9 +477,9 @@ document.addEventListener('DOMContentLoaded', () => {
       feedbackEl.textContent = '¡Correcto!';
       feedbackEl.classList.add('good');
       
-      // TTS Logic for Italian Grade 1
-      if (state.language === 'it' && state.grade === 1) {
-        speakText(q.answer);
+      // TTS Logic for Italian and English (Grades 1-6)
+      if ((state.language === 'it' || state.language === 'en') && state.grade >= 1 && state.grade <= 6) {
+        speakText(q.answer, state.language);
       }
       
       // Auto advance on correct
@@ -567,11 +567,38 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- TTS Helper ---
-  function speakText(text) {
+  let italianVoice = null;
+  let englishVoice = null;
+
+  function loadVoices() {
+    const voices = window.speechSynthesis.getVoices();
+    italianVoice = voices.find(v => v.lang === 'it-IT') || voices.find(v => v.lang.startsWith('it'));
+    englishVoice = voices.find(v => v.lang === 'en-US') || voices.find(v => v.lang.startsWith('en'));
+  }
+
+  if ('speechSynthesis' in window) {
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    // Warm up TTS engine to reduce latency
+    const warmUp = new SpeechSynthesisUtterance('');
+    warmUp.volume = 0;
+    window.speechSynthesis.speak(warmUp);
+  }
+
+  function speakText(text, lang = 'it') {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'it-IT';
+      
+      if (lang === 'en') {
+        utterance.lang = 'en-US';
+        if (englishVoice) utterance.voice = englishVoice;
+      } else {
+        utterance.lang = 'it-IT';
+        if (italianVoice) utterance.voice = italianVoice;
+      }
+      
+      utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
   }
