@@ -209,10 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = {
     home: document.getElementById('home'),
     langMenu: document.getElementById('langMenu'),
-    expand: document.getElementById('expandSection'),
+    games: document.getElementById('gamesMenu'),
     grades: document.getElementById('grades'),
     practice: document.getElementById('practice'),
-    evaluations: document.getElementById('evaluationsMenu')
+    evaluations: document.getElementById('evaluationsMenu'),
+    wordSearch: document.getElementById('wordSearchSection'),
+    prueba: document.getElementById('pruebaSection')
   };
 
   // Buttons & Interactive
@@ -221,11 +223,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const backFromGrades = document.getElementById('backFromGrades');
   const backFromEvaluations = document.getElementById('backFromEvaluations');
   const backFromPractice = document.getElementById('backFromPractice');
-  const backFromExpand = document.getElementById('backFromExpand');
+  const backFromGames = document.getElementById('backFromGames');
+  const backFromWordSearch = document.getElementById('backFromWordSearch');
+  const backFromPrueba = document.getElementById('backFromPrueba');
+  const pruebaFSBtn = document.getElementById('pruebaFSBtn');
+  const pruebaMuteBtn = document.getElementById('pruebaMuteBtn');
   
   const themeBtn = document.getElementById('themeBtn');
   const studyBtn = document.getElementById('studyBtn');
-  const expandBtn = document.getElementById('expandBtn');
+  const gamesBtn = document.getElementById('gamesBtn');
   const eval1Btn = document.getElementById('eval1Btn');
   const eval1Info = document.getElementById('eval1Info');
   const eval1Tooltip = document.getElementById('eval1Tooltip');
@@ -233,6 +239,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const eval2Tooltip = document.getElementById('eval2Tooltip');
   const eval3Info = document.getElementById('eval3Info');
   const eval3Tooltip = document.getElementById('eval3Tooltip');
+  
+  const pruebaBtn = document.getElementById('pruebaBtn');
+  const wordSearchBtn = document.getElementById('wordSearchBtn');
+  const newGameBtn = document.getElementById('newGameBtn');
+  const wsHintBtn = document.getElementById('wsHintBtn');
+  const wordSearchGrid = document.getElementById('wordSearchGrid');
+  const wordListEl = document.getElementById('wordList');
+  
+  const wsSuccessPopup = document.getElementById('wsSuccessPopup');
+  const wsRestartBtn = document.getElementById('wsRestartBtn');
+  const wsExitBtn = document.getElementById('wsExitBtn');
 
   // Eval UI Elements
   const evalUI = document.getElementById('evalUI');
@@ -292,6 +309,17 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.langMenu.classList.remove('hidden');
     const label = state.language === 'it' ? 'Italiano' : 'Inglés';
     document.getElementById('langMenuTitle').textContent = `Opciones — ${label}`;
+    
+    if (state.language === 'it' && gamesBtn) {
+      gamesBtn.classList.remove('hidden');
+    } else if (gamesBtn) {
+      gamesBtn.classList.add('hidden');
+    }
+  }
+
+  function showGamesMenu() {
+    hideAll();
+    sections.games.classList.remove('hidden');
   }
 
   function showGrades() {
@@ -408,9 +436,884 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
   }
 
-  function showExpand() {
+  // --- Word Search Logic ---
+  const wsWords = [
+    // Animales
+    {it: 'CANE', es: 'PERRO'}, {it: 'GATTO', es: 'GATO'}, {it: 'UCCELLO', es: 'PÁJARO'}, {it: 'PESCE', es: 'PEZ'}, 
+    {it: 'LEONE', es: 'LEÓN'}, {it: 'MUCCA', es: 'VACA'}, {it: 'CAVALLO', es: 'CABALLO'}, {it: 'TOPO', es: 'RATÓN'}, 
+    {it: 'FARFALLA', es: 'MARIPOSA'}, {it: 'ORSO', es: 'OSO'}, {it: 'LUPO', es: 'LOBO'}, {it: 'VOLPE', es: 'ZORRO'},
+    {it: 'RAGNO', es: 'ARAÑA'}, {it: 'FORMICA', es: 'HORMIGA'}, {it: 'APE', es: 'ABEJA'}, {it: 'SCIMMIA', es: 'MONO'},
+
+    // Comida y Bebida
+    {it: 'PANE', es: 'PAN'}, {it: 'ACQUA', es: 'AGUA'}, {it: 'LATTE', es: 'LECHE'}, {it: 'FORMAGGIO', es: 'QUESO'}, 
+    {it: 'FRUTTA', es: 'FRUTA'}, {it: 'MELA', es: 'MANZANA'}, {it: 'PERA', es: 'PERA'}, {it: 'UVA', es: 'UVA'}, 
+    {it: 'POLLO', es: 'POLLO'}, {it: 'UOVO', es: 'HUEVO'}, {it: 'DOLCE', es: 'DULCE'}, {it: 'GELATO', es: 'HELADO'},
+    {it: 'SUCCO', es: 'JUGO'}, {it: 'RISO', es: 'ARROZ'}, {it: 'CENA', es: 'CENA'}, {it: 'PRANZO', es: 'ALMUERZO'},
+
+    // Naturaleza
+    {it: 'SOLE', es: 'SOL'}, {it: 'STELLA', es: 'ESTRELLA'}, {it: 'MARE', es: 'MAR'}, {it: 'FIORE', es: 'FLOR'}, 
+    {it: 'ALBERO', es: 'ÁRBOL'}, {it: 'FUOCO', es: 'FUEGO'}, {it: 'TERRA', es: 'TIERRA'}, {it: 'MONTAGNA', es: 'MONTAÑA'},
+    {it: 'FIUME', es: 'RÍO'}, {it: 'BOSCO', es: 'BOSQUE'}, {it: 'PIOGGIA', es: 'LLUVIA'}, {it: 'VENTO', es: 'VIENTO'},
+    {it: 'NEVE', es: 'NIEVE'}, {it: 'NUVOLA', es: 'NUBE'}, {it: 'SABBIA', es: 'ARENA'}, {it: 'ERBA', es: 'HIERBA'},
+
+    // Colores
+    {it: 'ROSSO', es: 'ROJO'}, {it: 'BLU', es: 'AZUL'}, {it: 'GIALLO', es: 'AMARILLO'}, {it: 'BIANCO', es: 'BLANCO'}, 
+    {it: 'NERO', es: 'NEGRO'}, {it: 'ARANCIONE', es: 'NARANJA'}, {it: 'VIOLA', es: 'MORADO'}, {it: 'MARRONE', es: 'MARRÓN'},
+    {it: 'GRIGIO', es: 'GRIS'}, {it: 'AZZURRO', es: 'CELESTE'},
+
+    // Partes del Cuerpo
+    {it: 'PIEDE', es: 'PIE'}, {it: 'TESTA', es: 'CABEZA'}, {it: 'OCCHIO', es: 'OJO'}, {it: 'NASO', es: 'NARIZ'}, 
+    {it: 'BOCCA', es: 'BOCA'}, {it: 'BRACCIO', es: 'BRAZO'}, {it: 'GAMBA', es: 'PIERNA'}, {it: 'DITO', es: 'DEDO'}, 
+    {it: 'CAPELLI', es: 'CABELLO'}, {it: 'ORECCHIO', es: 'OREJA'}, {it: 'COLLO', es: 'CUELLO'}, {it: 'SCHIENA', es: 'ESPALDA'},
+    {it: 'PANCIA', es: 'BARRIGA'}, {it: 'CUORE', es: 'CORAZÓN'},
+
+    // Ropa
+    {it: 'CAMICIA', es: 'CAMISA'}, {it: 'PANTALONI', es: 'PANTALONES'}, {it: 'SCARPE', es: 'ZAPATOS'}, {it: 'GONNA', es: 'FALDA'},
+    {it: 'VESTITO', es: 'VESTIDO'}, {it: 'GIACCA', es: 'CHAQUETA'}, {it: 'MAGLIONE', es: 'SUÉTER'}, {it: 'CAPPELLO', es: 'SOMBRERO'},
+    {it: 'CALZE', es: 'CALCETINES'}, {it: 'GUANTI', es: 'GUANTES'}, {it: 'BORSA', es: 'BOLSO'},
+
+    // Familia
+    {it: 'FRATELLO', es: 'HERMANO'}, {it: 'SORELLA', es: 'HERMANA'}, {it: 'NONNO', es: 'ABUELO'}, {it: 'NONNA', es: 'ABUELA'}, 
+    {it: 'FIGLIO', es: 'HIJO'}, {it: 'FIGLIA', es: 'HIJA'}, {it: 'ZIO', es: 'TÍO'}, {it: 'ZIA', es: 'TÍA'}, 
+    {it: 'CUGINO', es: 'PRIMO'}, {it: 'NIPOTE', es: 'NIETO/SOBRINO'},
+
+    // Números
+    {it: 'DUE', es: 'DOS'}, {it: 'TRE', es: 'TRES'}, {it: 'QUATTRO', es: 'CUATRO'}, {it: 'CINQUE', es: 'CINCO'}, 
+    {it: 'SEI', es: 'SEIS'}, {it: 'SETTE', es: 'SIETE'}, {it: 'OTTO', es: 'OCHO'}, {it: 'NOVE', es: 'NUEVE'}, 
+    {it: 'DIECI', es: 'DIEZ'}, {it: 'VENTI', es: 'VEINTE'}, {it: 'TRENTA', es: 'TREINTA'}, {it: 'CENTO', es: 'CIEN'},
+
+    // Días de la semana
+    {it: 'LUNEDI', es: 'LUNES'}, {it: 'MARTEDI', es: 'MARTES'}, {it: 'MERCOLEDI', es: 'MIÉRCOLES'}, {it: 'GIOVEDI', es: 'JUEVES'},
+    {it: 'VENERDI', es: 'VIERNES'}, {it: 'SABATO', es: 'SÁBADO'}, {it: 'DOMENICA', es: 'DOMINGO'},
+
+    // Acciones
+    {it: 'CORRERE', es: 'CORRER'}, {it: 'SALTARE', es: 'SALTAR'}, {it: 'RIDERE', es: 'REÍR'}, {it: 'PIANGERE', es: 'LLORAR'},
+    {it: 'CANTARE', es: 'CANTAR'}, {it: 'BALLARE', es: 'BAILAR'}, {it: 'CAMMINARE', es: 'CAMINAR'}, {it: 'NUOTARE', es: 'NADAR'},
+    {it: 'VOLARE', es: 'VOLAR'}, {it: 'APRIRE', es: 'ABRIR'}, {it: 'CHIUDERE', es: 'CERRAR'},
+
+    // Casa y Objetos
+    {it: 'TAVOLO', es: 'MESA'}, {it: 'SEDIA', es: 'SILLA'}, {it: 'PORTA', es: 'PUERTA'}, {it: 'FINESTRA', es: 'VENTANA'},
+    {it: 'LETTO', es: 'CAMA'}, {it: 'CUCINA', es: 'COCINA'}, {it: 'BAGNO', es: 'BAÑO'}, {it: 'MURO', es: 'PARED'},
+    {it: 'CHIAVE', es: 'LLAVE'}, {it: 'OROLOGIO', es: 'RELOJ'}, {it: 'SOLDI', es: 'DINERO'}, {it: 'PENNA', es: 'BOLÍGRAFO'},
+
+    // Transporte
+    {it: 'TRENO', es: 'TREN'}, {it: 'AEREO', es: 'AVIÓN'}, {it: 'NAVE', es: 'BARCO'}, {it: 'BARCA', es: 'BOTE'},
+    {it: 'AUTOBUS', es: 'AUTOBÚS'}, {it: 'BICICLETTA', es: 'BICICLETA'}, {it: 'MACCHINA', es: 'COCHE'},
+
+    // Sentidos
+    {it: 'VISTA', es: 'VISTA'}, {it: 'UDITO', es: 'OÍDO'}, {it: 'OLFATTO', es: 'OLFATO'}, {it: 'TATTO', es: 'TACTO'},
+
+    // Verbos Básicos
+    {it: 'ESSERE', es: 'SER/ESTAR'}, {it: 'AVERE', es: 'TENER'}, {it: 'FARE', es: 'HACER'}, {it: 'ANDARE', es: 'IR'},
+    {it: 'MANGIARE', es: 'COMER'}, {it: 'BERE', es: 'BEBER'}, {it: 'DORMIRE', es: 'DORMIR'}, {it: 'LEGGERE', es: 'LEER'},
+    {it: 'SCRIVERE', es: 'ESCRIBIR'}, {it: 'GIOCARE', es: 'JUGAR'}, {it: 'VEDERE', es: 'VER'}, {it: 'PARLARE', es: 'HABLAR'},
+
+    // Emociones y Otros
+    {it: 'AMORE', es: 'AMOR'}, {it: 'FELICE', es: 'FELIZ'}, {it: 'TRISTE', es: 'TRISTE'}, {it: 'AMICO', es: 'AMIGO'},
+    {it: 'CASA', es: 'CASA'}, {it: 'SCUOLA', es: 'ESCUELA'}, {it: 'LIBRO', es: 'LIBRO'}, {it: 'TEMPO', es: 'TIEMPO'},
+    {it: 'VITA', es: 'VIDA'}, {it: 'MONDO', es: 'MUNDO'}, {it: 'CIAO', es: 'HOLA'}, {it: 'NOTTE', es: 'NOCHE'},
+    {it: 'GIORNO', es: 'DÍA'}, {it: 'UOMO', es: 'HOMBRE'}, {it: 'DONNA', es: 'MUJER'}, {it: 'BAMBINO', es: 'NIÑO'}
+  ];
+  let wsGridSize = 9;
+  let wsGrid = [];
+  let wsPlacedWords = [];
+  let wsSelectionStart = null;
+
+  function initWordSearch() {
     hideAll();
-    sections.expand.classList.remove('hidden');
+    sections.wordSearch.classList.remove('hidden');
+    startNewWordSearch();
+  }
+
+  function startNewWordSearch() {
+    wsGrid = Array(wsGridSize).fill(null).map(() => Array(wsGridSize).fill(''));
+    wsPlacedWords = [];
+    wsSelectionStart = null;
+    wordSearchGrid.innerHTML = '';
+    wordListEl.innerHTML = '';
+    
+    const shuffled = wsWords.sort(() => 0.5 - Math.random());
+    const selectedWords = [];
+    
+    for (const wordObj of shuffled) {
+      if (selectedWords.length >= 8) break;
+      if (placeWord(wordObj.it)) selectedWords.push(wordObj);
+    }
+    
+    const letters = "ABCDEFGHILMNOPQRSTUVZ";
+    for(let y=0; y<wsGridSize; y++) {
+      for(let x=0; x<wsGridSize; x++) {
+        if(!wsGrid[y][x]) {
+          wsGrid[y][x] = letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+      }
+    }
+    
+    wordSearchGrid.style.gridTemplateColumns = `repeat(${wsGridSize}, 1fr)`;
+    for(let y=0; y<wsGridSize; y++) {
+      for(let x=0; x<wsGridSize; x++) {
+        const cell = document.createElement('div');
+        cell.className = 'ws-cell';
+        cell.textContent = wsGrid[y][x];
+        cell.dataset.x = x;
+        cell.dataset.y = y;
+        cell.addEventListener('click', handleWsClick);
+        wordSearchGrid.appendChild(cell);
+      }
+    }
+    
+    selectedWords.forEach(wordObj => {
+      const li = document.createElement('li');
+      li.textContent = wordObj.it;
+      li.dataset.word = wordObj.it;
+      li.addEventListener('click', () => {
+        if (li.classList.contains('flipping')) return;
+        speakText(wordObj.it, 'it');
+        li.classList.add('flipping');
+        setTimeout(() => {
+          li.textContent = wordObj.es;
+          li.classList.remove('flipping');
+          setTimeout(() => {
+            li.classList.add('flipping');
+            setTimeout(() => {
+              li.textContent = wordObj.it;
+              li.classList.remove('flipping');
+            }, 300);
+          }, 1500);
+        }, 300);
+      });
+      wordListEl.appendChild(li);
+    });
+  }
+
+  function placeWord(word) {
+    const directions = [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: -1}];
+    let placed = false;
+    let attempts = 0;
+    while(!placed && attempts < 100) {
+      const dir = directions[Math.floor(Math.random() * directions.length)];
+      const startX = Math.floor(Math.random() * wsGridSize);
+      const startY = Math.floor(Math.random() * wsGridSize);
+      let endX = startX + (word.length - 1) * dir.x;
+      let endY = startY + (word.length - 1) * dir.y;
+      
+      if(endX >= 0 && endX < wsGridSize && endY >= 0 && endY < wsGridSize) {
+        let clear = true;
+        for(let i=0; i<word.length; i++) {
+          const cx = startX + i * dir.x;
+          const cy = startY + i * dir.y;
+          if(wsGrid[cy][cx] !== '' && wsGrid[cy][cx] !== word[i]) {
+            clear = false;
+            break;
+          }
+        }
+        if(clear) {
+          for(let i=0; i<word.length; i++) wsGrid[startY + i * dir.y][startX + i * dir.x] = word[i];
+          placed = true;
+          wsPlacedWords.push({ word, x: startX, y: startY });
+        }
+      }
+      attempts++;
+    }
+    return placed;
+  }
+
+  function handleWsClick(e) {
+    const cell = e.target;
+    const x = parseInt(cell.dataset.x);
+    const y = parseInt(cell.dataset.y);
+    
+    if (!wsSelectionStart) {
+      wsSelectionStart = {x, y};
+      cell.classList.add('selected');
+    } else {
+      const start = wsSelectionStart;
+      const end = {x, y};
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      
+      if ((dx !== 0 || dy !== 0) && (dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy))) {
+        const stepX = Math.sign(dx);
+        const stepY = Math.sign(dy);
+        let str = "";
+        let cx = start.x, cy = start.y;
+        let cells = [];
+        while(true) {
+          str += wsGrid[cy][cx];
+          cells.push(document.querySelector(`.ws-cell[data-x="${cx}"][data-y="${cy}"]`));
+          if (cx === end.x && cy === end.y) break;
+          cx += stepX; cy += stepY;
+        }
+        const wordFound = Array.from(wordListEl.children).find(li => !li.classList.contains('found') && (li.dataset.word === str || li.dataset.word === str.split('').reverse().join('')));
+        if (wordFound) {
+          wordFound.classList.add('found');
+          cells.forEach(c => c.classList.add('found'));
+          playSuccess();
+        speakText(wordFound.dataset.word, 'it');
+          if (document.querySelectorAll('#wordList li:not(.found)').length === 0) {
+            setTimeout(() => {
+              playComplete();
+              triggerConfetti();
+              showWsSuccess();
+            }, 500);
+          }
+        } else playError();
+      }
+      document.querySelectorAll('.ws-cell.selected').forEach(c => c.classList.remove('selected'));
+      wsSelectionStart = null;
+    }
+  }
+
+  function showWsHint() {
+    // Find words not yet found
+    const foundWords = Array.from(document.querySelectorAll('#wordList li.found')).map(li => li.dataset.word);
+    const availableHints = wsPlacedWords.filter(pw => !foundWords.includes(pw.word));
+    
+    if (availableHints.length > 0) {
+      playHintSound();
+      const hint = availableHints[Math.floor(Math.random() * availableHints.length)];
+      const cell = document.querySelector(`.ws-cell[data-x="${hint.x}"][data-y="${hint.y}"]`);
+      
+      if (cell) {
+        // Remove class if exists to restart animation
+        cell.classList.remove('hint-active');
+        void cell.offsetWidth; // Trigger reflow
+        cell.classList.add('hint-active');
+        
+        setTimeout(() => cell.classList.remove('hint-active'), 3000);
+      }
+    }
+  }
+
+  function showWsSuccess() {
+    if (wsSuccessPopup) wsSuccessPopup.classList.add('active');
+  }
+
+  function hideWsSuccess() {
+    if (wsSuccessPopup) wsSuccessPopup.classList.remove('active');
+  }
+
+  function triggerConfetti() {
+    if (typeof confetti !== 'function') return;
+    
+    confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#a0c4ff', '#ffadad', '#fdffb6', '#caffbf', '#bdb2ff']
+    });
+  }
+
+  // --- Prueba Game Logic (Falling Words) ---
+  let pruebaCanvas, pruebaCtx;
+  let pruebaLoopId;
+  let pGame = {
+    active: false,
+    score: 0,
+    lives: 3,
+    speed: 2,
+    hue: 0,
+    targetWord: null, // The Italian word to match
+    fallingWords: [], // Array of objects {x, y, text, isCorrect}
+    powerUps: [], // Array of objects {x, y, type, icon}
+    particles: [], // Array of objects {x, y, vx, vy, life, color}
+    player: { x: 275, y: 340, w: 50, h: 50, color: '#3a86ff' },
+    keys: { left: false, right: false },
+    roundLifeLost: false, // Flag to limit life loss to 1 per round
+    muted: false,
+    availableWords: []
+  };
+
+  function initPruebaGame() {
+    hideAll();
+    sections.prueba.classList.remove('hidden');
+    
+    pruebaCanvas = document.getElementById('pruebaGameCanvas');
+    pruebaCtx = pruebaCanvas.getContext('2d');
+    
+    // Reset Game State
+    resetPruebaState();
+
+    // Hide overlay initially
+    document.getElementById('pruebaOverlay').style.display = 'none';
+
+    // Start Intro Animation
+    playPruebaIntro();
+
+    // Input Listeners
+    window.addEventListener('keydown', handlePruebaKey);
+    window.addEventListener('keyup', handlePruebaKey);
+    
+    // Touch Controls
+    pruebaCanvas.addEventListener('touchstart', handlePruebaTouch);
+    pruebaCanvas.addEventListener('touchend', () => { pGame.keys.left = false; pGame.keys.right = false; });
+  }
+
+  function playPruebaIntro() {
+    let start = null;
+    let audioState = { phase1: false, phase2: false, catch1: false, catch2: false };
+    
+    function loop(timestamp) {
+      if (sections.prueba.classList.contains('hidden')) return;
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      
+      // Audio Triggers
+      if (progress > 100 && !audioState.phase1) {
+        audioState.phase1 = true;
+        playIntroMelody();
+      }
+      if (progress > 3000 && !audioState.phase2) {
+        audioState.phase2 = true;
+        playTitleSound();
+      }
+
+      pruebaCtx.clearRect(0, 0, pruebaCanvas.width, pruebaCanvas.height);
+      
+      // Retro Background (Dark)
+      pruebaCtx.fillStyle = '#050510';
+      pruebaCtx.fillRect(0, 0, pruebaCanvas.width, pruebaCanvas.height);
+      
+      // Retro Grid (Moving)
+      pruebaCtx.strokeStyle = 'rgba(0, 255, 255, 0.15)';
+      pruebaCtx.lineWidth = 1;
+      pruebaCtx.beginPath();
+      const gridSize = 40;
+      const offset = (progress / 10) % gridSize; // Fluid movement speed
+      
+      // Vertical lines
+      for (let x = 0; x <= pruebaCanvas.width; x += gridSize) {
+        pruebaCtx.moveTo(x, 0);
+        pruebaCtx.lineTo(x, pruebaCanvas.height);
+      }
+      // Horizontal lines (Moving down)
+      for (let y = offset - gridSize; y <= pruebaCanvas.height; y += gridSize) {
+        pruebaCtx.moveTo(0, y);
+        pruebaCtx.lineTo(pruebaCanvas.width, y);
+      }
+      pruebaCtx.stroke();
+      
+      // PHASE 1: Author Intro (0 - 3000ms)
+      if (progress < 3000) {
+        let alpha = 0;
+        let scale = 1;
+        
+        if (progress < 800) { // Fade In
+          const t = progress / 800;
+          scale = 3 - (2 * t); 
+          alpha = t;
+        } else if (progress < 2200) { // Hold
+          alpha = 1;
+          scale = 1;
+        } else { // Fade Out
+          const t = (progress - 2200) / 800;
+          alpha = 1 - t;
+          scale = 1 - (0.5 * t);
+        }
+        
+        pruebaCtx.save();
+        pruebaCtx.translate(pruebaCanvas.width / 2, pruebaCanvas.height / 2);
+        pruebaCtx.scale(scale, scale);
+        
+        // Efecto Glitch (Distorsión visual)
+        const isGlitch = Math.random() < 0.15 && progress > 500 && progress < 2500;
+        const gX = isGlitch ? (Math.random() - 0.5) * 10 : 0;
+        const gY = isGlitch ? (Math.random() - 0.5) * 5 : 0;
+
+        pruebaCtx.textAlign = 'center';
+        pruebaCtx.font = 'bold 28px "Courier New", monospace';
+        
+        if (isGlitch) {
+          // Separación RGB (Efecto cromático)
+          pruebaCtx.globalAlpha = alpha * 0.8;
+          pruebaCtx.fillStyle = '#ff0055'; // Canal Rojo desplazado
+          pruebaCtx.fillText("Creado por J.A. Ginestre", gX - 4, gY);
+          pruebaCtx.fillStyle = '#00ffff'; // Canal Azul desplazado
+          pruebaCtx.fillText("Creado por J.A. Ginestre", gX + 4, gY);
+        }
+
+        pruebaCtx.globalAlpha = alpha;
+        pruebaCtx.shadowColor = '#00ffff';
+        pruebaCtx.shadowBlur = isGlitch ? 25 : 15;
+        pruebaCtx.fillStyle = '#e0ffff'; // Blanco cian
+        pruebaCtx.fillText("Creado por J.A. Ginestre", gX, gY);
+        
+        // Blinking Subtitle
+        pruebaCtx.shadowBlur = 0;
+        pruebaCtx.fillStyle = '#00ff00';
+        pruebaCtx.font = '16px "Courier New", monospace';
+        if (Math.floor(progress / 250) % 2 === 0) {
+          pruebaCtx.fillText("> FASE BETA <", 0, 60);
+        }
+        
+        pruebaCtx.restore();
+
+      // PHASE 2: Game Title & Demo (3000 - 6000ms)
+      } else if (progress < 6000) {
+        const p2 = progress - 3000;
+        let alpha = 1;
+        
+        if (p2 < 500) alpha = p2 / 500;
+        else if (p2 > 2500) alpha = 1 - (p2 - 2500) / 500;
+
+        pruebaCtx.save();
+        pruebaCtx.globalAlpha = alpha;
+        pruebaCtx.textAlign = 'center';
+        
+        // Title
+        pruebaCtx.shadowColor = '#ff00ff';
+        pruebaCtx.shadowBlur = 20;
+        pruebaCtx.fillStyle = '#ff00ff';
+        pruebaCtx.font = 'bold 40px "Courier New", monospace';
+        pruebaCtx.fillText("PAROLA CADENTE", pruebaCanvas.width / 2, 80);
+        
+        pruebaCtx.shadowBlur = 0;
+        pruebaCtx.fillStyle = '#fff';
+        pruebaCtx.font = '16px "Courier New", monospace';
+        pruebaCtx.fillText("Atrapa las palabras correctas", pruebaCanvas.width / 2, 120);
+
+        // Demo Animation
+        const cx = pruebaCanvas.width / 2;
+        const cy = pruebaCanvas.height - 60;
+        let px = cx;
+        
+        // Simulate movement and catching
+        if (p2 > 500 && p2 <= 1500) { // Left Catch
+          const t = (p2 - 500) / 1000;
+          px = t < 0.5 ? cx - (t * 2 * 80) : (cx - 80) + ((t - 0.5) * 2 * 80);
+          if (t < 0.5) {
+             pruebaCtx.fillStyle = '#a0c4ff';
+             pruebaCtx.font = '20px Nunito';
+             pruebaCtx.fillText("Ciao", cx - 80, 150 + (t * 2) * (cy - 150));
+          } else if (t < 0.8) {
+            pruebaCtx.fillText("✨", cx - 80, cy - 20);
+            if (!audioState.catch1) { audioState.catch1 = true; playTone(880, 'sine', 0.1, 0, 0.1); }
+          }
+        } else if (p2 > 1500 && p2 <= 2500) { // Right Catch
+          const t = (p2 - 1500) / 1000;
+          px = t < 0.5 ? cx + (t * 2 * 80) : (cx + 80) - ((t - 0.5) * 2 * 80);
+          if (t < 0.5) {
+             pruebaCtx.fillStyle = '#ffadad';
+             pruebaCtx.font = '20px Nunito';
+             pruebaCtx.fillText("Grazie", cx + 80, 150 + (t * 2) * (cy - 150));
+          } else if (t < 0.8) {
+            pruebaCtx.fillText("✨", cx + 80, cy - 20);
+            if (!audioState.catch2) { audioState.catch2 = true; playTone(1108, 'sine', 0.1, 0, 0.1); }
+          }
+        }
+
+        pruebaCtx.font = '50px Arial';
+        pruebaCtx.fillText('👦', px, cy + 40);
+        pruebaCtx.restore();
+
+      } else {
+        showPruebaMenu();
+        startBGM(); // Ensure music loops
+        return;
+      }
+      
+      // Scanlines Overlay
+      pruebaCtx.fillStyle = 'rgba(0,0,0,0.1)';
+      for(let i=0; i<pruebaCanvas.height; i+=3) {
+        pruebaCtx.fillRect(0, i, pruebaCanvas.width, 1);
+      }
+      
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  }
+
+  function runCountdown(onComplete) {
+    let count = 3;
+    const step = () => {
+      if (sections.prueba.classList.contains('hidden')) return;
+      
+      pruebaCtx.clearRect(0, 0, pruebaCanvas.width, pruebaCanvas.height);
+      // Fondo estático (similar al del juego)
+      pruebaCtx.fillStyle = document.body.classList.contains('dark-mode') ? '#050510' : '#e0f7fa';
+      pruebaCtx.fillRect(0, 0, pruebaCanvas.width, pruebaCanvas.height);
+      
+      pruebaCtx.textAlign = 'center';
+      pruebaCtx.textBaseline = 'middle';
+      pruebaCtx.font = 'bold 100px Nunito';
+      
+      if (count > 0) {
+        pruebaCtx.fillStyle = document.body.classList.contains('dark-mode') ? '#fff' : '#333';
+        pruebaCtx.fillText(count, pruebaCanvas.width / 2, pruebaCanvas.height / 2);
+        playTone(600, 'triangle', 0.1, 0, 0.3); // Beep
+        count--;
+        setTimeout(step, 1000);
+      } else {
+        pruebaCtx.fillStyle = '#00c853';
+        pruebaCtx.fillText('¡VIA!', pruebaCanvas.width / 2, pruebaCanvas.height / 2);
+        playTone(1200, 'square', 0.3, 0, 0.3); // Go sound
+        setTimeout(onComplete, 500);
+      }
+    };
+    step();
+  }
+
+  function showPruebaMenu() {
+    const overlay = document.getElementById('pruebaOverlay');
+    const msg = document.getElementById('pruebaMsg');
+    const btn = document.getElementById('pruebaRestartBtn');
+    
+    resetPruebaState();
+    
+    msg.textContent = "Atrapa la traducción correcta";
+    btn.textContent = "Comenzar";
+    overlay.style.display = 'block';
+    
+    btn.onclick = () => {
+      overlay.style.display = 'none';
+      resetPruebaState();
+      startBGM();
+      runCountdown(() => {
+        startPruebaRound();
+      });
+    };
+  }
+
+  function resetPruebaState() {
+    pGame.score = 0;
+    pGame.lives = 3;
+    pGame.speed = 2.5;
+    pGame.roundLifeLost = false;
+    pGame.hue = 200;
+    pGame.fallingWords = [];
+    pGame.powerUps = [];
+    pGame.particles = [];
+    pGame.celebrationTimer = 0;
+    // Filter out cognates (words spelled the same) and fill available pool
+    pGame.availableWords = wsWords.filter(w => w.it.trim().toUpperCase() !== w.es.trim().toUpperCase());
+    pGame.active = false;
+    pGame.player.x = pruebaCanvas.width / 2 - pGame.player.w / 2;
+    pGame.player.y = pruebaCanvas.height - 60; // Ajuste dinámico de altura
+    if (pruebaCanvas) {
+      pruebaCanvas.style.background = '';
+      pruebaCtx.clearRect(0, 0, pruebaCanvas.width, pruebaCanvas.height);
+    }
+    document.getElementById('pruebaLeaderboard').innerHTML = '';
+  }
+
+  function handlePruebaKey(e) {
+    if (sections.prueba.classList.contains('hidden')) return;
+    if (e.key === 'ArrowLeft') pGame.keys.left = (e.type === 'keydown');
+    if (e.key === 'ArrowRight') pGame.keys.right = (e.type === 'keydown');
+  }
+
+  function handlePruebaTouch(e) {
+    e.preventDefault();
+    const rect = pruebaCanvas.getBoundingClientRect();
+    const touchX = e.touches[0].clientX - rect.left;
+    if (touchX < rect.width / 2) {
+      pGame.keys.left = true; pGame.keys.right = false;
+    } else {
+      pGame.keys.right = true; pGame.keys.left = false;
+    }
+  }
+
+  function startPruebaRound() {
+    pGame.active = true;
+    pGame.roundLifeLost = false;
+    spawnPruebaWave();
+    if (pruebaLoopId) cancelAnimationFrame(pruebaLoopId);
+    pruebaLoop();
+  }
+
+  function spawnPruebaWave() {
+    // Refill pool if empty
+    if (pGame.availableWords.length === 0) {
+      pGame.availableWords = wsWords.filter(w => w.it.trim().toUpperCase() !== w.es.trim().toUpperCase());
+    }
+
+    // Pick target word from available pool (no repeats until pool resets)
+    const idx = Math.floor(Math.random() * pGame.availableWords.length);
+    const targetObj = pGame.availableWords[idx];
+    pGame.availableWords.splice(idx, 1); // Remove used word
+
+    pGame.targetWord = targetObj;
+    pGame.roundLifeLost = false; // Reset life loss flag for new wave
+    
+    // Pronounce the Italian word
+    speakText(targetObj.it, 'it');
+
+    // Pick distractors
+    let distractors = [];
+    while (distractors.length < 2) {
+      const d = wsWords[Math.floor(Math.random() * wsWords.length)];
+      // Ensure distractor is not a cognate, not the target, and not already picked
+      if (d.it.trim().toUpperCase() !== d.es.trim().toUpperCase() && d.it !== targetObj.it && !distractors.includes(d)) {
+        distractors.push(d);
+      }
+    }
+
+    // Create falling objects
+    const options = [
+      { text: targetObj.es, isCorrect: true },
+      { text: distractors[0].es, isCorrect: false },
+      { text: distractors[1].es, isCorrect: false }
+    ];
+    
+    // Shuffle positions (3 lanes)
+    const lanes = [100, 300, 500]; // Center X of lanes
+    options.sort(() => 0.5 - Math.random());
+    
+    pGame.fallingWords = options.map((opt, i) => ({
+      x: lanes[i],
+      y: -50, // Start above screen
+      text: opt.text,
+      isCorrect: opt.isCorrect,
+      w: 120, h: 40
+    }));
+  }
+
+  function pruebaLoop() {
+    if (!pGame.active) return;
+
+    // Dynamic Background
+    pGame.hue = (pGame.hue + 0.2) % 360;
+    pruebaCanvas.style.background = `linear-gradient(to bottom, hsl(${pGame.hue}, 70%, 90%), hsl(${pGame.hue}, 70%, 95%))`;
+
+    // Spawn Power-ups (0.1% chance per frame)
+    if (Math.random() < 0.001) spawnPowerUp();
+
+    // Update Power-ups
+    for (let i = pGame.powerUps.length - 1; i >= 0; i--) {
+      let p = pGame.powerUps[i];
+      p.y += pGame.speed;
+
+      // Collision with Player
+      if (
+        pGame.player.x < p.x + 30 &&
+        pGame.player.x + pGame.player.w > p.x - 10 &&
+        pGame.player.y < p.y + 30 &&
+        pGame.player.y + pGame.player.h > p.y
+      ) {
+        applyPowerUp(p.type);
+        spawnParticles(p.x, p.y, p.type === 'life' ? '#ffadad' : '#a0c4ff');
+        pGame.powerUps.splice(i, 1);
+        continue;
+      }
+
+      // Remove if off screen
+      if (p.y > pruebaCanvas.height) {
+        pGame.powerUps.splice(i, 1);
+      }
+    }
+
+    // Update Particles
+    for (let i = pGame.particles.length - 1; i >= 0; i--) {
+      let p = pGame.particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life -= 0.05;
+      if (p.life <= 0) pGame.particles.splice(i, 1);
+    }
+
+    // Update Player
+    if (pGame.keys.left && pGame.player.x > 0) pGame.player.x -= 7;
+    if (pGame.keys.right && pGame.player.x < pruebaCanvas.width - pGame.player.w) pGame.player.x += 7;
+
+    // Update Words
+    let waveCleared = true;
+    let waveReset = false;
+    for (let i = pGame.fallingWords.length - 1; i >= 0; i--) {
+      let word = pGame.fallingWords[i];
+      word.y += pGame.speed;
+      
+      // Collision Check
+      if (
+        pGame.player.x < word.x + word.w/2 + 20 &&
+        pGame.player.x + pGame.player.w > word.x - word.w/2 - 20 &&
+        pGame.player.y < word.y + word.h &&
+        pGame.player.y + pGame.player.h > word.y
+      ) {
+        if (word.isCorrect) {
+          pGame.score++;
+          pGame.speed += 0.2; // Increase difficulty
+          playSuccess();
+          spawnPruebaWave(); // Next wave immediately
+          waveReset = true;
+          pGame.celebrationTimer = 45; // Trigger celebration (approx 0.75s)
+          break;
+        }
+        
+        // Incorrect
+        if (!pGame.roundLifeLost) {
+          pGame.lives--;
+          pGame.roundLifeLost = true;
+          playError();
+        }
+        pGame.fallingWords.splice(i, 1);
+        
+        if (pGame.lives <= 0) {
+          gameOverPrueba();
+          return;
+        }
+        continue;
+      }
+
+      if (word.y < pruebaCanvas.height) waveCleared = false;
+    }
+
+    // If correct word passed bottom without catch -> Game Over
+    if (!waveReset && waveCleared) {
+       if (!pGame.roundLifeLost) {
+         pGame.lives--;
+         playError();
+       }
+       
+       if (pGame.lives <= 0) {
+         gameOverPrueba();
+         return;
+       } else {
+         spawnPruebaWave();
+       }
+    }
+
+    // Draw
+    pruebaCtx.clearRect(0, 0, pruebaCanvas.width, pruebaCanvas.height);
+    
+    // Draw Target Word (Italian)
+    pruebaCtx.fillStyle = '#333';
+    pruebaCtx.font = 'bold 30px Nunito';
+    pruebaCtx.textAlign = 'center';
+    pruebaCtx.fillText(pGame.targetWord.it, pruebaCanvas.width / 2, 50);
+    
+    // Draw Score
+    pruebaCtx.font = '20px Nunito';
+    pruebaCtx.textAlign = 'left';
+    pruebaCtx.fillText(`Puntos: ${pGame.score}`, 20, 30);
+
+    // Draw Lives
+    pruebaCtx.textAlign = 'right';
+    pruebaCtx.fillText('❤️'.repeat(pGame.lives), pruebaCanvas.width - 20, 30);
+
+    // Draw Player (Niño Emoji) with Animations
+    pruebaCtx.save();
+    const pCx = pGame.player.x + pGame.player.w/2;
+    const pCy = pGame.player.y + 40;
+    pruebaCtx.translate(pCx, pCy);
+
+    if (pGame.celebrationTimer > 0) {
+      pGame.celebrationTimer--;
+      // Celebration: Jump and Spin
+      const t = pGame.celebrationTimer / 45;
+      const jump = Math.sin(t * Math.PI) * 20;
+      pruebaCtx.translate(0, -jump);
+      pruebaCtx.rotate((1 - t) * Math.PI * 4); // Spin 2 times
+      pruebaCtx.scale(1.3, 1.3);
+    } else if (pGame.keys.left || pGame.keys.right) {
+      // Hurried Run: Tilt and Fast Bob
+      const tilt = pGame.keys.left ? -0.2 : 0.2;
+      const bob = Math.sin(Date.now() / 50) * 5;
+      pruebaCtx.rotate(tilt);
+      pruebaCtx.translate(0, bob);
+    }
+
+    pruebaCtx.textAlign = 'center';
+    pruebaCtx.font = '50px Arial';
+    pruebaCtx.fillText('👦', 0, 0);
+    pruebaCtx.restore();
+
+    // Draw Power-ups
+    pGame.powerUps.forEach(p => {
+      pruebaCtx.font = '30px Arial';
+      pruebaCtx.textAlign = 'center';
+      pruebaCtx.fillText(p.icon, p.x, p.y);
+    });
+
+    // Draw Particles
+    pGame.particles.forEach(p => {
+      pruebaCtx.globalAlpha = p.life;
+      pruebaCtx.fillStyle = p.color;
+      pruebaCtx.beginPath();
+      pruebaCtx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+      pruebaCtx.fill();
+      pruebaCtx.globalAlpha = 1.0;
+    });
+
+    // Draw Falling Words
+    pGame.fallingWords.forEach(word => {
+      pruebaCtx.fillStyle = document.body.classList.contains('dark-mode') ? '#fff' : '#444';
+      pruebaCtx.font = 'bold 20px Nunito';
+      pruebaCtx.textAlign = 'center';
+      pruebaCtx.fillText(word.text, word.x, word.y);
+    });
+
+    pruebaLoopId = requestAnimationFrame(pruebaLoop);
+  }
+
+  function spawnParticles(x, y, color) {
+    for (let i = 0; i < 8; i++) {
+      pGame.particles.push({
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 6,
+        vy: (Math.random() - 0.5) * 6,
+        life: 1.0,
+        color: color
+      });
+    }
+  }
+
+  function spawnPowerUp() {
+    const type = Math.random() > 0.5 ? 'life' : 'slow';
+    // Don't spawn hearts if lives are full (3)
+    if (type === 'life' && pGame.lives >= 3) return; 
+    
+    pGame.powerUps.push({
+      x: Math.random() * (pruebaCanvas.width - 40) + 20,
+      y: -40,
+      type: type,
+      icon: type === 'life' ? '❤️' : '❄️'
+    });
+  }
+
+  function applyPowerUp(type) {
+    playSuccess(); // Reuse success sound
+    if (type === 'life') {
+      if (pGame.lives < 3) pGame.lives++;
+    } else if (type === 'slow') {
+      pGame.speed = Math.max(1.5, pGame.speed - 1); // Slow down, min speed 1.5
+    }
+  }
+
+  function saveHighScore(score) {
+    const key = 'pruebaHighScores';
+    let scores = JSON.parse(localStorage.getItem(key) || '[]');
+    scores.push({ score: score, date: new Date().toLocaleDateString() });
+    scores.sort((a, b) => b.score - a.score);
+    scores = scores.slice(0, 5); // Keep top 5
+    localStorage.setItem(key, JSON.stringify(scores));
+    return scores;
+  }
+
+  function gameOverPrueba() {
+    pGame.active = false;
+    stopBGM();
+    playError();
+    
+    const topScores = saveHighScore(pGame.score);
+    
+    const overlay = document.getElementById('pruebaOverlay');
+    const msg = document.getElementById('pruebaMsg');
+    const lb = document.getElementById('pruebaLeaderboard');
+    const btn = document.getElementById('pruebaRestartBtn');
+    
+    msg.textContent = `¡Juego Terminado! Puntos: ${pGame.score}`;
+    
+    // Render Leaderboard
+    let lbHtml = '<strong>🏆 Mejores Puntajes:</strong><ul style="padding-left: 20px; margin-top: 5px;">';
+    topScores.forEach(s => {
+      lbHtml += `<li>${s.score} pts <span style="font-size:0.8em; color:#666;">(${s.date})</span></li>`;
+    });
+    lbHtml += '</ul>';
+    lb.innerHTML = lbHtml;
+
+    btn.textContent = "Intentar de nuevo";
+    overlay.style.display = 'block';
   }
 
   // --- Logic Functions ---
@@ -659,6 +1562,121 @@ document.addEventListener('DOMContentLoaded', () => {
     osc.stop(audioCtx.currentTime + delay + duration);
   }
 
+  // --- Background Music System ---
+  let bgmInterval = null;
+  
+  function startBGM() {
+    if (bgmInterval) clearInterval(bgmInterval);
+    playBGMLoop();
+    bgmInterval = setInterval(playBGMLoop, 3200); // Loop length
+  }
+
+  function stopBGM() {
+    if (bgmInterval) clearInterval(bgmInterval);
+    bgmInterval = null;
+  }
+
+  function playBGMLoop() {
+    if (pGame.muted || sections.prueba.classList.contains('hidden')) return;
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const now = audioCtx.currentTime;
+    
+    // Varied Bassline (Cyberpunk style)
+    const variations = [
+      [65.41, 65.41, 77.78, 58.27], // C2, C2, Eb2, Bb1
+      [65.41, 58.27, 65.41, 77.78], // Variation 1
+      [65.41, 65.41, 87.31, 77.78]  // Variation 2
+    ];
+    const bassNotes = variations[Math.floor(Math.random() * variations.length)];
+    
+    bassNotes.forEach((freq, i) => {
+      const t = now + i * 0.8;
+      const osc = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.value = freq;
+      g.gain.setValueAtTime(0.1, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+      osc.connect(g);
+      g.connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.5);
+    });
+
+    // Hi-hats
+    for(let i=0; i<16; i++) {
+      if (i % 2 === 0) continue; // Off-beats
+      const t = now + i * 0.2;
+      playTone(4000 + Math.random()*1000, 'square', 0.05, i * 0.2, 0.02);
+    }
+  }
+
+  function toggleMute() {
+    pGame.muted = !pGame.muted;
+    pruebaMuteBtn.textContent = pGame.muted ? '🔇' : '🔊';
+  }
+
+  function playIntroMelody() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const now = audioCtx.currentTime;
+
+    // 1. Acorde Synthwave (C Minor 9) con barrido de filtro
+    const freqs = [130.81, 155.56, 196.00, 233.08]; // C3, Eb3, G3, Bb3
+    
+    freqs.forEach((f, i) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      const filter = audioCtx.createBiquadFilter();
+
+      osc.type = 'sawtooth';
+      osc.frequency.value = f;
+      // Ligera desafinación para sonido analógico
+      osc.detune.value = (Math.random() - 0.5) * 15;
+
+      filter.type = 'lowpass';
+      filter.Q.value = 5;
+      filter.frequency.setValueAtTime(0, now);
+      filter.frequency.linearRampToValueAtTime(2500, now + 0.3); // Efecto "Wah" de apertura
+      filter.frequency.exponentialRampToValueAtTime(100, now + 2.5);
+
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.12, now + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+      
+      osc.start(now);
+      osc.stop(now + 3.0);
+    });
+
+    // 2. Ruidos digitales de "Datos" (Glitch sounds)
+    for (let i = 0; i < 6; i++) {
+      const t = now + 0.2 + (Math.random() * 1.5);
+      const osc = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(800 + Math.random() * 1200, t);
+      g.gain.setValueAtTime(0.04, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+      
+      osc.connect(g);
+      g.connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.05);
+    }
+  }
+
+  function playTitleSound() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    playTone(65.41, 'sawtooth', 1.5, 0, 0.15); // C2 (Bass)
+    playTone(523.25, 'sine', 0.1, 0.5, 0.1); // C5
+    playTone(659.25, 'sine', 0.1, 0.6, 0.1); // E5
+    playTone(783.99, 'sine', 0.1, 0.7, 0.1); // G5
+    playTone(1046.50, 'sine', 0.4, 0.8, 0.1); // C6
+  }
+
   function playSuccess() {
     if (audioCtx.state === 'suspended') audioCtx.resume();
     playTone(523.25, 'sine', 0.1, 0, 0.3); // C5
@@ -677,6 +1695,25 @@ document.addEventListener('DOMContentLoaded', () => {
     playTone(659.25, 'triangle', 0.2, 0.2, 0.3);
     playTone(783.99, 'triangle', 0.2, 0.4, 0.3);
     playTone(1046.50, 'triangle', 0.6, 0.6, 0.3);
+  }
+
+  function playHintSound() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    playTone(880, 'sine', 0.1, 0, 0.2);
+    playTone(1108, 'sine', 0.3, 0.1, 0.2);
+  }
+
+  function toggleFullScreen() {
+    const container = document.getElementById('pruebaContainer');
+    if (!document.fullscreenElement) {
+      container.requestFullscreen().then(() => {
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock('landscape').catch(err => console.log('Orientation lock failed:', err));
+        }
+      }).catch(err => console.log(err));
+    } else {
+      document.exitFullscreen();
+    }
   }
 
   // --- Popup Logic ---
@@ -742,7 +1779,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Menu Options
   if (studyBtn) studyBtn.addEventListener('click', showGrades);
-  if (expandBtn) expandBtn.addEventListener('click', showExpand);
+  if (gamesBtn) gamesBtn.addEventListener('click', showGamesMenu);
 
   // Grade Selection
   gradeBtns.forEach(btn => {
@@ -765,7 +1802,38 @@ document.addEventListener('DOMContentLoaded', () => {
   if (backFromGrades) backFromGrades.addEventListener('click', () => showLangMenu());
   if (backFromEvaluations) backFromEvaluations.addEventListener('click', showGrades);
   if (backFromPractice) backFromPractice.addEventListener('click', showGrades);
-  if (backFromExpand) backFromExpand.addEventListener('click', () => showLangMenu());
+  if (backFromGames) backFromGames.addEventListener('click', () => showLangMenu());
+  if (backFromPrueba) backFromPrueba.addEventListener('click', () => {
+    pGame.active = false;
+    stopBGM();
+    resetPruebaState();
+    showGamesMenu();
+  });
+  if (backFromWordSearch) backFromWordSearch.addEventListener('click', () => showGamesMenu());
+  if (wordSearchBtn) wordSearchBtn.addEventListener('click', initWordSearch);
+  if (newGameBtn) newGameBtn.addEventListener('click', startNewWordSearch);
+  if (wsHintBtn) wsHintBtn.addEventListener('click', showWsHint);
+  
+  if (wsRestartBtn) wsRestartBtn.addEventListener('click', () => {
+    hideWsSuccess();
+    startNewWordSearch();
+  });
+  
+  if (wsExitBtn) wsExitBtn.addEventListener('click', () => {
+    hideWsSuccess();
+    showGamesMenu();
+  });
+
+  // Game Buttons
+  if (pruebaBtn) pruebaBtn.addEventListener('click', initPruebaGame);
+  if (pruebaMuteBtn) pruebaMuteBtn.addEventListener('click', toggleMute);
+  if (pruebaFSBtn) pruebaFSBtn.addEventListener('click', toggleFullScreen);
+
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement && screen.orientation && screen.orientation.unlock) {
+      screen.orientation.unlock();
+    }
+  });
 
   // Evaluation Buttons
   if (eval1Btn) eval1Btn.addEventListener('click', () => showPractice(state.grade));

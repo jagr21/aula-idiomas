@@ -8,6 +8,190 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <style>
+      /* Word Search Styles */
+      .word-search-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        margin-top: 20px;
+      }
+      @media (min-width: 768px) {
+        .word-search-container {
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: center;
+        }
+        .ws-sidebar {
+          width: auto;
+          min-width: 200px;
+        }
+      }
+      .ws-grid {
+        display: grid;
+        gap: 2px;
+        background: #eee;
+        padding: 5px;
+        border-radius: 8px;
+        max-width: 100%;
+        width: 100%;
+        max-width: 650px;
+      }
+      .ws-cell {
+        aspect-ratio: 1;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: clamp(1rem, 4vw, 1.8rem); /* Aumentado para mejor visibilidad en móvil */
+        user-select: none;
+        border-radius: 2px;
+        text-transform: uppercase;
+      }
+      .ws-cell:hover { background: #f0f0f0; }
+      .ws-cell.selected { background: #ffd700; }
+      .ws-cell.found { background: #4caf50; color: white; }
+      .ws-cell.hint-active {
+        animation: hintPulse 1s ease-in-out 3;
+        background-color: #ffeb3b;
+        z-index: 1;
+      }
+      .ws-sidebar {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 450px;
+      }
+      .ws-sidebar h3 { text-align: center; margin-bottom: 20px; }
+      .ws-word-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, auto); justify-content: center; gap: 10px; font-size: 0.95rem; }
+      .ws-word-list li { padding: 5px 10px; background: #f8f9fa; border-radius: 4px; text-align: center; cursor: pointer; transition: transform 0.3s; white-space: nowrap; }
+      .ws-word-list li.flipping { transform: rotateY(90deg); }
+      .ws-word-list li.found { text-decoration: line-through; opacity: 0.6; background: #e8f5e9; }
+      body.dark-mode .ws-cell { background: #333; color: #fff; }
+      body.dark-mode .ws-cell:hover { background: #444; }
+      body.dark-mode .ws-sidebar { background: #222; color: #fff; }
+      body.dark-mode .ws-word-list li { background: #333; color: #ddd; }
+      .section-head h2 { margin: 0; }
+      .section-head .back-btn { margin: 0; }
+      
+      /* Prueba Game Styles */
+      #pruebaGameCanvas {
+        background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+        border-radius: 12px;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        max-width: 100%;
+        touch-action: none; /* Prevent scrolling on mobile while playing */
+      }
+      body.dark-mode #pruebaGameCanvas {
+        background: linear-gradient(to bottom, #2c3e50, #000000);
+      }
+      @keyframes hintPulse {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 235, 59, 0.7); }
+        50% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 235, 59, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 235, 59, 0); }
+      }
+
+      /* Estilos modernos para botones de Juegos */
+      #gamesMenu .menu-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        padding: 10px;
+      }
+      #gamesMenu .menu-card {
+        border: none;
+        border-radius: 24px;
+        padding: 40px 20px;
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 15px 30px -5px rgba(0,0,0,0.15);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        min-height: 200px;
+        position: relative;
+        overflow: hidden;
+      }
+      #gamesMenu .menu-card::before {
+        font-size: 4rem;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        transition: transform 0.3s ease;
+      }
+      #pruebaBtn {
+        background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+      }
+      #pruebaBtn::before { content: '🎮'; }
+      #wordSearchBtn {
+        background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%);
+      }
+      #wordSearchBtn::before { content: '🔠'; }
+      #gamesMenu .menu-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 40px -10px rgba(0,0,0,0.3);
+      }
+      #gamesMenu .menu-card:hover::before {
+        transform: scale(1.2) rotate(12deg);
+      }
+      #gamesMenu .back-btn {
+        grid-column: 1 / -1;
+      }
+      .section-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      /* Ajustes para móviles en sección de Juegos */
+      @media (max-width: 768px) {
+        #gamesMenu .menu-grid {
+          grid-template-columns: 1fr;
+        }
+        #gamesMenu .menu-card {
+          min-height: 140px;
+          padding: 20px;
+          font-size: 1.2rem;
+        }
+        #gamesMenu .menu-card::before {
+          font-size: 3rem;
+        }
+        #pruebaOverlay {
+          width: 90%;
+          padding: 15px !important;
+        }
+        #pruebaLeaderboard {
+          font-size: 0.8rem !important;
+          padding: 8px !important;
+          max-width: 100% !important;
+        }
+      }
+
+      /* Fullscreen styles for Parola Cadente */
+      #pruebaContainer:fullscreen {
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #pruebaContainer:fullscreen canvas {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    </style>
   </head>
   <body>
     <header class="site-header">
@@ -41,16 +225,60 @@
         <h2 id="langMenuTitle">Opciones</h2>
         <div class="menu-grid">
             <button id="studyBtn" class="menu-card">Estudia para tu siguiente evaluación</button>
-            <button id="expandBtn" class="menu-card">Contenido para expandir tu aprendizaje</button>
+            <button id="gamesBtn" class="menu-card hidden">Juegos</button>
             <button id="backFromLangMenu" class="back-btn">Volver</button>
           </div>
       </section>
 
-      <!-- Sección de contenido expandir (temporal) -->
-      <section id="expandSection" class="home hidden">
-        <h2>Contenido</h2>
-        <div class="card message">Próximamente: Contenido nuevo para ti</div>
-        <div style="margin-top:12px"><button id="backFromExpand" class="back-btn">Volver</button></div>
+      <!-- Sección de Juegos -->
+      <section id="gamesMenu" class="home hidden">
+        <h2 id="gamesMenuTitle">Juegos</h2>
+        <div class="menu-grid">
+          <button id="pruebaBtn" class="menu-card">Parola Cadente</button>
+          <button id="wordSearchBtn" class="menu-card">Sopa de letras</button>
+          <button id="backFromGames" class="back-btn">Volver</button>
+        </div>
+      </section>
+
+      <!-- Sección Sopa de Letras -->
+      <section id="wordSearchSection" class="home hidden">
+        <div class="section-head">
+          <h2>Sopa de Letras (Italiano)</h2>
+          <div class="section-actions">
+            <button id="backFromWordSearch" class="back-btn">Volver</button>
+          </div>
+        </div>
+        <div class="word-search-container">
+          <div id="wordSearchGrid" class="ws-grid"></div>
+          <div class="ws-sidebar">
+            <h3>Palabras</h3>
+            <ul id="wordList" class="ws-word-list"></ul>
+            <button id="wsHintBtn" class="hint-btn" style="width: 100%; margin-top: 20px; border: 2px dashed var(--soft-purple); background: none; color: var(--soft-purple);">💡 Pista</button>
+            <button id="newGameBtn" class="check-btn" style="margin-top: 10px; width: 100%;">Nueva Partida</button>
+            <p style="margin-top:10px; font-size:0.8rem; color:var(--text-color); opacity:0.8;">Toca la primera y la última letra de la palabra.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección Prueba (Juego de Caída) -->
+      <section id="pruebaSection" class="home hidden">
+        <div class="section-head">
+          <h2>Parola Cadente</h2>
+          <div class="section-actions">
+            <button id="pruebaFSBtn" class="back-btn" aria-label="Pantalla Completa">⛶</button>
+            <button id="pruebaMuteBtn" class="back-btn" aria-label="Silenciar Música">🔊</button>
+            <button id="backFromPrueba" class="back-btn">Volver</button>
+          </div>
+        </div>
+        <div id="pruebaContainer" style="position: relative; text-align: center;">
+          <canvas id="pruebaGameCanvas" width="600" height="450"></canvas>
+          <div id="pruebaOverlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none;">
+            <h3 id="pruebaMsg" style="margin-bottom: 10px; color: #333;"></h3>
+            <div id="pruebaLeaderboard" style="margin: 15px auto; text-align: left; width: 100%; max-width: 250px; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px; font-size: 0.9rem; color: #444;"></div>
+            <button id="pruebaRestartBtn" class="check-btn">Jugar</button>
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">Usa las flechas o toca los lados de la pantalla para moverte.</p>
       </section>
 
       <section id="grades" class="grades hidden">
@@ -161,6 +389,18 @@
         <button id="closeEvalPopupBtn" class="close-popup-btn" aria-label="Cerrar">&times;</button>
         <h3 style="margin-bottom:20px; color:var(--text-color)">Información</h3>
         <div id="evalPopupBody" style="font-size: 1rem; line-height: 1.6;"></div>
+      </div>
+    </div>
+
+    <!-- Word Search Success Popup -->
+    <div id="wsSuccessPopup" class="popup-overlay">
+      <div class="popup-content">
+        <h3 style="color:var(--soft-green); margin-bottom:15px; font-size:1.5rem;">¡Excelente!</h3>
+        <p style="font-size:1.1rem; margin-bottom: 20px;">Has encontrado todas las palabras.</p>
+        <div style="display:flex; gap:10px; justify-content:center;">
+          <button id="wsRestartBtn" class="check-btn" style="width:auto; padding: 12px 24px;">Jugar de nuevo</button>
+          <button id="wsExitBtn" class="back-btn" style="width:auto; margin-top:0;">Salir</button>
+        </div>
       </div>
     </div>
 
