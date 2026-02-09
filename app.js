@@ -820,7 +820,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Touch Controls
     pruebaCanvas.addEventListener('touchstart', handlePruebaTouch);
-    pruebaCanvas.addEventListener('touchmove', handlePruebaTouchMove, {passive: false});
     pruebaCanvas.addEventListener('touchend', () => { pGame.keys.left = false; pGame.keys.right = false; });
   }
 
@@ -1086,23 +1085,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       pGame.keys.right = true; pGame.keys.left = false;
     }
-  }
-
-  function handlePruebaTouchMove(e) {
-    e.preventDefault();
-    if (!pGame.active) return;
-    
-    const rect = pruebaCanvas.getBoundingClientRect();
-    // Usamos el primer toque para el movimiento
-    const touch = e.touches[0];
-    const touchX = touch.clientX - rect.left;
-    
-    // Mover jugador directamente a la posición del dedo (centrado)
-    pGame.player.x = touchX - pGame.player.w / 2;
-    
-    // Limitar a los bordes del canvas
-    if (pGame.player.x < 0) pGame.player.x = 0;
-    if (pGame.player.x > pruebaCanvas.width - pGame.player.w) pGame.player.x = pruebaCanvas.width - pGame.player.w;
   }
 
   function startPruebaRound() {
