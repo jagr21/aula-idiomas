@@ -518,6 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let wsGrid = [];
   let wsPlacedWords = [];
   let wsSelectionStart = null;
+  let wsTouchStartCell = null; // Para control táctil
 
   function initWordSearch() {
     hideAll();
@@ -584,6 +585,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       wordListEl.appendChild(li);
     });
+
+    // Touch support for drag selection
+    wordSearchGrid.addEventListener('touchstart', handleWsTouchStart, {passive: false});
+    wordSearchGrid.addEventListener('touchmove', handleWsTouchMove, {passive: false});
+    wordSearchGrid.addEventListener('touchend', handleWsTouchEnd, {passive: false});
   }
 
   function placeWord(word) {
@@ -661,6 +667,74 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       document.querySelectorAll('.ws-cell.selected').forEach(c => c.classList.remove('selected'));
       wsSelectionStart = null;
+    }
+  }
+
+  // --- Word Search Touch Logic ---
+  function getWsCellFromTouch(e) {
+    const touch = e.touches[0] || e.changedTouches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    return element && element.classList.contains('ws-cell') ? element : null;
+  }
+
+  function handleWsTouchStart(e) {
+    e.preventDefault();
+    const cell = getWsCellFromTouch(e);
+    if (cell) {
+      const x = parseInt(cell.dataset.x);
+      const y = parseInt(cell.dataset.y);
+      wsTouchStartCell = {x, y};
+      // Visual feedback start
+      document.querySelectorAll('.ws-cell.selected').forEach(c => c.classList.remove('selected'));
+      cell.classList.add('selected');
+    }
+  }
+
+  function handleWsTouchMove(e) {
+    e.preventDefault();
+    if (!wsTouchStartCell) return;
+    const cell = getWsCellFromTouch(e);
+    if (cell) {
+      const currentX = parseInt(cell.dataset.x);
+      const currentY = parseInt(cell.dataset.y);
+      
+      // Redraw selection path
+      document.querySelectorAll('.ws-cell.selected').forEach(c => c.classList.remove('selected'));
+      
+      // Logic similar to click selection to highlight range
+      const dx = currentX - wsTouchStartCell.x;
+      const dy = currentY - wsTouchStartCell.y;
+      
+      if (dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy)) {
+        const stepX = Math.sign(dx);
+        const stepY = Math.sign(dy);
+        let cx = wsTouchStartCell.x;
+        let cy = wsTouchStartCell.y;
+        // Highlight path
+        while(true) {
+          const c = document.querySelector(`.ws-cell[data-x="${cx}"][data-y="${cy}"]`);
+          if(c) c.classList.add('selected');
+          if (cx === currentX && cy === currentY) break;
+          cx += stepX; cy += stepY;
+        }
+      }
+    }
+  }
+
+  function handleWsTouchEnd(e) {
+    e.preventDefault();
+    if (wsTouchStartCell) {
+      const cell = getWsCellFromTouch(e);
+      if (cell) {
+        // Simulate the second click logic
+        wsSelectionStart = wsTouchStartCell; // Set start
+        handleWsClick({target: cell}); // Trigger end logic
+      } else {
+        // If released outside, clear selection
+        document.querySelectorAll('.ws-cell.selected').forEach(c => c.classList.remove('selected'));
+      }
+      wsTouchStartCell = null;
+      wsSelectionStart = null; // Reset global selection state
     }
   }
 
@@ -746,6 +820,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Touch Controls
     pruebaCanvas.addEventListener('touchstart', handlePruebaTouch);
+    pruebaCanvas.addEventListener('touchmove', handlePruebaTouchMove, {passive: false});
     pruebaCanvas.addEventListener('touchend', () => { pGame.keys.left = false; pGame.keys.right = false; });
   }
 
@@ -945,7 +1020,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(step, 1000);
       } else {
         pruebaCtx.fillStyle = '#00c853';
-        pruebaCtx.fillText('¡VIA!', pruebaCanvas.width / 2, pruebaCanvas.height / 2);
+        pruebaCtx.fillText('VIA!', pruebaCanvas.width / 2, pruebaCanvas.height / 2);
         playTone(1200, 'square', 0.3, 0, 0.3); // Go sound
         setTimeout(onComplete, 500);
       }
@@ -1013,6 +1088,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function handlePruebaTouchMove(e) {
+    e.preventDefault();
+    if (!pGame.active) return;
+    
+    const rect = pruebaCanvas.getBoundingClientRect();
+    // Usamos el primer toque para el movimiento
+    const touch = e.touches[0];
+    const touchX = touch.clientX - rect.left;
+    
+    // Mover jugador directamente a la posición del dedo (centrado)
+    pGame.player.x = touchX - pGame.player.w / 2;
+    
+    // Limitar a los bordes del canvas
+    if (pGame.player.x < 0) pGame.player.x = 0;
+    if (pGame.player.x > pruebaCanvas.width - pGame.player.w) pGame.player.x = pruebaCanvas.width - pGame.player.w;
+  }
+
   function startPruebaRound() {
     pGame.active = true;
     pGame.roundLifeLost = false;
@@ -1075,8 +1167,12 @@ document.addEventListener('DOMContentLoaded', () => {
     pGame.hue = (pGame.hue + 0.2) % 360;
     pruebaCanvas.style.background = `linear-gradient(to bottom, hsl(${pGame.hue}, 70%, 90%), hsl(${pGame.hue}, 70%, 95%))`;
 
-    // Spawn Power-ups (0.1% chance per frame)
-    if (Math.random() < 0.001) spawnPowerUp();
+    // Spawn Power-ups (Dynamic rate based on speed)
+    let spawnRate = 0.001; // Base rate
+    if (pGame.speed > 4.0) spawnRate = 0.004; // 4x more frequent when fast
+    else if (pGame.speed > 3.0) spawnRate = 0.002;
+
+    if (Math.random() < spawnRate) spawnPowerUp();
 
     // Update Power-ups
     for (let i = pGame.powerUps.length - 1; i >= 0; i--) {
@@ -1259,7 +1355,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function spawnPowerUp() {
-    const type = Math.random() > 0.5 ? 'life' : 'slow';
+    // Increase chance of 'slow' (ice) if speed is high
+    let iceChance = 0.5;
+    if (pGame.speed > 4.0) iceChance = 0.8; // 80% chance of ice when fast
+
+    const type = Math.random() < iceChance ? 'slow' : 'life';
     // Don't spawn hearts if lives are full (3)
     if (type === 'life' && pGame.lives >= 3) return; 
     
@@ -1272,10 +1372,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function applyPowerUp(type) {
-    playSuccess(); // Reuse success sound
     if (type === 'life') {
+      playLifeSound();
       if (pGame.lives < 3) pGame.lives++;
     } else if (type === 'slow') {
+      playFreezeSound();
       pGame.speed = Math.max(1.5, pGame.speed - 1); // Slow down, min speed 1.5
     }
   }
@@ -1511,7 +1612,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function speakText(text, lang = 'it') {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
+      const utterance = new SpeechSynthesisUtterance(text.toLowerCase()); // Lowercase fixes spelling out uppercase words
       
       if (lang === 'en') {
         utterance.lang = 'en-US';
@@ -1619,6 +1720,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function playIntroMelody() {
     if (audioCtx.state === 'suspended') audioCtx.resume();
     const now = audioCtx.currentTime;
+    // Boost volume for mobile
+    const volMult = window.innerWidth <= 768 ? 3.0 : 1.0;
 
     // 1. Acorde Synthwave (C Minor 9) con barrido de filtro
     const freqs = [130.81, 155.56, 196.00, 233.08]; // C3, Eb3, G3, Bb3
@@ -1640,7 +1743,7 @@ document.addEventListener('DOMContentLoaded', () => {
       filter.frequency.exponentialRampToValueAtTime(100, now + 2.5);
 
       gain.gain.setValueAtTime(0, now);
-      gain.gain.linearRampToValueAtTime(0.12, now + 0.1);
+      gain.gain.linearRampToValueAtTime(0.12 * volMult, now + 0.1);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
 
       osc.connect(filter);
@@ -1658,7 +1761,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const g = audioCtx.createGain();
       osc.type = 'square';
       osc.frequency.setValueAtTime(800 + Math.random() * 1200, t);
-      g.gain.setValueAtTime(0.04, t);
+      g.gain.setValueAtTime(0.04 * volMult, t);
       g.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
       
       osc.connect(g);
@@ -1675,6 +1778,34 @@ document.addEventListener('DOMContentLoaded', () => {
     playTone(659.25, 'sine', 0.1, 0.6, 0.1); // E5
     playTone(783.99, 'sine', 0.1, 0.7, 0.1); // G5
     playTone(1046.50, 'sine', 0.4, 0.8, 0.1); // C6
+  }
+
+  function playLifeSound() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    playTone(523.25, 'square', 0.1, 0, 0.1); // C5
+    playTone(659.25, 'square', 0.1, 0.1, 0.1); // E5
+    playTone(783.99, 'square', 0.1, 0.2, 0.1); // G5
+    playTone(1046.50, 'square', 0.4, 0.3, 0.1); // C6
+  }
+
+  function playFreezeSound() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    // Sonido cristalino
+    playTone(2000, 'sine', 0.1, 0, 0.1);
+    playTone(2500, 'sine', 0.2, 0.05, 0.1);
+    
+    // Efecto de "enfriamiento" (bajada de tono)
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.4);
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.4);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.4);
   }
 
   function playSuccess() {
@@ -1830,8 +1961,48 @@ document.addEventListener('DOMContentLoaded', () => {
   if (pruebaFSBtn) pruebaFSBtn.addEventListener('click', toggleFullScreen);
 
   document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement && screen.orientation && screen.orientation.unlock) {
-      screen.orientation.unlock();
+    const container = document.getElementById('pruebaContainer');
+    const actions = document.querySelector('#pruebaSection .section-actions');
+    const fsBtn = document.getElementById('pruebaFSBtn');
+    const muteBtn = document.getElementById('pruebaMuteBtn');
+    const backBtn = document.getElementById('backFromPrueba');
+
+    if (document.fullscreenElement) {
+      // --- Entrando a Pantalla Completa ---
+      // Crear contenedor flotante si no existe
+      let controls = document.getElementById('fsControlsWrapper');
+      if (!controls) {
+        controls = document.createElement('div');
+        controls.id = 'fsControlsWrapper';
+        controls.style.position = 'absolute';
+        controls.style.top = '10px';
+        controls.style.right = '10px';
+        controls.style.display = 'flex';
+        controls.style.gap = '10px';
+        controls.style.zIndex = '20';
+      }
+      container.appendChild(controls);
+      
+      // Mover botones al contenedor flotante y cambiar estilo
+      controls.appendChild(fsBtn);
+      controls.appendChild(muteBtn);
+      fsBtn.className = 'fs-round-btn';
+      muteBtn.className = 'fs-round-btn';
+
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(err => console.log('Orientation lock failed:', err));
+      }
+    } else {
+      // --- Saliendo de Pantalla Completa ---
+      // Devolver botones a la barra de acciones y restaurar estilo
+      actions.insertBefore(muteBtn, backBtn);
+      actions.insertBefore(fsBtn, muteBtn);
+      fsBtn.className = 'back-btn';
+      muteBtn.className = 'back-btn';
+
+      if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock();
+      }
     }
   });
 
