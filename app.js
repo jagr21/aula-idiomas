@@ -100,108 +100,262 @@ const bankIt = {
 };
 
 const bankEn = {
-  1: [
-    {text: '¿Cómo se dice el número "3" en inglés?', answer: 'Three', options: ['Two','Three','One'], hint: 'Empieza con "Th".'},
-    {text: '¿Cuál es el número "7" en inglés?', answer: 'Seven', options: ['Six','Eight','Seven'], hint: 'Rima con "Eleven".'},
-    {text: 'Cuenta los dedos de una mano. En inglés son: _______.', answer: 'Five', options: ['Five','Four','Ten'], hint: 'El número después del cuatro.'},
-    {text: '¿Cómo se escribe el número "10" en inglés?', answer: 'Ten', options: ['Net','Ten','Two'], hint: 'Se escribe al revés que "Net".'},
-    {text: 'Si tengo "One" y agrego otro "One", ¿cuántos tengo?', answer: 'Two', options: ['Three','Two','Four'], hint: '1 + 1 = ?'},
-    {text: 'Esta forma es redonda como el sol: _______.', answer: 'Circle', options: ['Square','Circle','Triangle'], hint: 'No tiene esquinas.'},
-    {text: 'Tiene 3 lados y parece una rebanada de pizza: _______.', answer: 'Triangle', options: ['Triangle','Star','Circle'], hint: 'Tri- significa tres.'},
-    {text: 'Tiene 4 lados iguales, como una caja: _______.', answer: 'Square', options: ['Rectangle','Square','Triangle'], hint: 'Es un cuadrado.'},
-    {text: 'Brilla en el cielo por la noche: _______.', answer: 'Star', options: ['Circle','Star','Square'], hint: 'Twinkle, twinkle, little...'},
-    {text: 'Es larga y tiene 4 lados (como una puerta): _______.', answer: 'Rectangle', options: ['Rectangle','Circle','Triangle'], hint: 'Parecido a un cuadrado pero estirado.'},
-    {text: '¿Cuánto es "One plus One"?', answer: 'Two', options: ['Three','Two','Five'], hint: 'Uno más uno.'},
-    {text: '¿Cuánto es "Two plus Two"?', answer: 'Four', options: ['Four','Six','Two'], hint: 'Dos más dos.'},
-    {text: '¿Cuánto es "Three plus Three"?', answer: 'Six', options: ['Five','Six','Nine'], hint: 'Tres más tres.'},
-    {text: 'Si tengo "Two" manzanas y me regalan "One", tengo: _______.', answer: 'Three', options: ['Three','Four','Two'], hint: '2 + 1.'},
-    {text: '¿Cómo se dice "Más" en inglés para sumar?', answer: 'Plus', options: ['Minus','Plus','Equal'], hint: 'Suena como "Plas".'}
-  ],
-  2: [
-    {text: 'Yo me levanto de la cama. In English: I _______.', answer: 'get up', options: ['get up','go to sleep','take a shower'], hint: 'Salir de la cama por la mañana.'},
-    {text: 'Yo cepillo mis dientes. In English: I _______ my teeth.', answer: 'brush', options: ['wash','brush','get dressed'], hint: 'Usas pasta de dientes.'},
-    {text: 'Yo me doy una ducha. In English: I _______.', answer: 'take a shower', options: ['eat breakfast','take a shower','take the bus'], hint: 'Usas agua y jabón para limpiarte.'},
-    {text: 'Yo me pongo la ropa. In English: I _______.', answer: 'get dressed', options: ['get dressed','get up','brush my teeth'], hint: 'Cambiar pijama por ropa de día.'},
-    {text: 'Yo como mi desayuno. In English: I _______.', answer: 'eat breakfast', options: ['take the bus','eat breakfast','take a shower'], hint: 'La primera comida del día.'},
-    {text: 'Yo tomo el autobús. In English: I _______.', answer: 'take the bus', options: ['take the bus','get dressed','get up'], hint: 'Transporte para ir a la escuela.'},
-    {text: 'En esta materia usamos números (1, 2, 3...). Es: _______.', answer: 'Math', options: ['Music','Math','English'], hint: 'Sumas y restas.'},
-    {text: 'En esta materia cantamos y tocamos instrumentos. Es: _______.', answer: 'Music', options: ['Music','Language','Calligraphy'], hint: 'Sonidos y melodías.'},
-    {text: 'Hacemos ejercicio y jugamos con pelotas en: _______.', answer: 'Physical Education', options: ['Math','Physical Education','Language'], hint: 'Deportes y movimiento.'},
-    {text: 'Aprendemos a leer y escribir bien en mi idioma: _______.', answer: 'Language', options: ['Language','Music','Math'], hint: 'Gramática y lectura.'},
-    {text: 'Practicamos para tener una letra muy bonita en: _______.', answer: 'Calligraphy', options: ['English','Calligraphy','Physical Education'], hint: 'Escribir cursiva y claro.'},
-    {text: 'Aprendemos a decir "Hello" y "Goodbye" en: _______.', answer: 'English', options: ['English','Language','Music'], hint: 'El idioma que estás estudiando ahora.'},
-    {text: 'A mí me gusta mi maestra. In English: I _______ my teacher.', answer: 'like', options: ['like','no like','likes'], hint: 'Afirmación con "I".'},
-    {text: 'No me gusta la sopa. In English: I _______ soup.', answer: "don't like", options: ['like',"don't like",'no like'], hint: 'Negación con "I".'},
-    {text: 'A mí me gusta jugar. In English: I _______ to play.', answer: 'like', options: ['like','am like',"don't likes"], hint: 'Verbo gustar en primera persona.'}
-  ],
-  3: [
-    {text: 'Yo uso mi _______ para escribir. (Lápiz)', answer: 'Pencil', options: ['Eraser','Pencil','Notebook'], hint: 'Utensilio de madera con grafito.'},
-    {text: 'Guardo mis útiles en mi _______. (Mochila)', answer: 'Backpack', options: ['Backpack','Sharpener','Book'], hint: 'Bolsa que llevas en la espalda.'},
-    {text: 'Borro mis errores con el _______. (Borrador)', answer: 'Eraser', options: ['Pencil case','Colors','Eraser'], hint: 'Lo usas cuando te equivocas al escribir.'},
-    {text: 'Saco la punta a mi lápiz con el _______. (Sacapuntas)', answer: 'Sharpener', options: ['Sharpener','Notebook','Backpack'], hint: 'Sirve para afilar el lápiz.'},
-    {text: 'Guardo mis colores en la _______. (Cartuchera)', answer: 'Pencil case', options: ['Book','Pencil case','Eraser'], hint: 'Estuche pequeño para lápices y colores.'},
-    {text: 'Escribo mis tareas en el _______. (Cuaderno)', answer: 'Notebook', options: ['Notebook','Pencil','Colors'], hint: 'Tiene hojas de papel para escribir.'},
-    {text: 'Leo historias en mi _______. (Libro)', answer: 'Book', options: ['Pencil case','Sharpener','Book'], hint: 'Objeto con páginas impresas para leer.'},
-    {text: '¿Cómo se dice el número 12 en inglés?', answer: 'Twelve', options: ['Two','Twelve','Twenty'], hint: '10 + 2.'},
-    {text: '¿Cómo se dice el número 15 en inglés?', answer: 'Fifteen', options: ['Fifteen','Fifty','Five'], hint: '10 + 5.'},
-    {text: 'El número 20 en inglés es:', answer: 'Twenty', options: ['Twelve','Ten','Twenty'], hint: 'Dos decenas.'},
-    {text: '¿Qué número sigue después del "Eight"?', answer: 'Nine', options: ['Seven','Nine','Ten'], hint: 'El número antes del diez.'},
-    {text: '¿Cómo se escribe 11 en inglés?', answer: 'Eleven', options: ['Eleven','Seven','One-one'], hint: '10 + 1.'},
-    {text: 'A mí me gusta el helado. In English: I _______ ice cream.', answer: 'like', options: ['like','likes','no like'], hint: 'Para "I" usamos el verbo en su forma base.'},
-    {text: 'No me gusta el jugo. In English: I _______ juice.', answer: "don't like", options: ['like','no like',"don't like"], hint: 'Negación presente simple para "I".'},
-    {text: 'A mí me gusta mi escuela. In English: I _______ my school.', answer: 'like', options: ['like','am like','likes'], hint: 'Afirmación simple para "I".'}
-  ],
-  4: [
-    {text: 'Yo me lavo la cara. In English: I _______ my face.', answer: 'wash', options: ['wash','brush','sleep'], hint: 'Acción de limpiar con agua.'},
-    {text: 'Yo cepillo mis dientes. In English: I _______ my teeth.', answer: 'brush', options: ['wash','brush','eat'], hint: 'Usas un cepillo para esto.'},
-    {text: 'Yo como mi desayuno. In English: I eat _______.', answer: 'breakfast', options: ['dinner','lunch','breakfast'], hint: 'La comida de la mañana.'},
-    {text: 'Yo me despierto. In English: I _______ up.', answer: 'wake', options: ['wake','go','clean'], hint: 'Lo contrario de dormir.'},
-    {text: 'Yo voy a la escuela. In English: I go to _______.', answer: 'school', options: ['park','school','house'], hint: 'Lugar donde estudias.'},
-    {text: '¿Qué día sigue después de "Monday"?', answer: 'Tuesday', options: ['Wednesday','Friday','Tuesday'], hint: 'El segundo día de la semana laboral.'},
-    {text: 'Sábado en inglés se dice:', answer: 'Saturday', options: ['Sunday','Saturday','Thursday'], hint: 'Empieza con "S" y es fin de semana.'},
-    {text: '¿Cómo se dice "Viernes" en inglés?', answer: 'Friday', options: ['Friday','Free-day','Monday'], hint: 'El día antes del fin de semana.'},
-    {text: 'El último día de la semana escolar es:', answer: 'Friday', options: ['Saturday','Friday','Tuesday'], hint: 'Generalmente vamos a la escuela de lunes a...'},
-    {text: '¿Qué día está entre Tuesday y Thursday?', answer: 'Wednesday', options: ['Monday','Wednesday','Sunday'], hint: 'El día en el medio de la semana laboral.'},
-    {text: 'A mí me gustan los perros. In English: I _______ dogs.', answer: 'like', options: ['like','likes','am like'], hint: 'Para "I" el verbo no lleva "s".'},
-    {text: 'A él le gusta el jugo. In English: He _______ juice.', answer: 'likes', options: ['like','likes',"don't like"], hint: 'Para "He" agregamos "s" al verbo.'},
-    {text: 'A ella le gusta el gato. In English: She _______ the cat.', answer: 'likes', options: ['likes','like','no like'], hint: 'Para "She" agregamos "s" al verbo.'},
-    {text: 'A él le gusta la pizza. In English: He _______ pizza.', answer: 'likes', options: ['like','likes','likes to'], hint: 'Tercera persona singular (He).'},
-    {text: 'A ella le gusta cantar. In English: She _______ singing.', answer: 'likes', options: ['like','likes','am likes'], hint: 'Tercera persona singular (She).'}
-  ],
-  5: [
-    {text: 'A mí me gustan las manzanas. In English: I _______ apples.', answer: 'like', options: ['likes','like',"don't likes"], hint: 'Para "I" usamos el verbo en su forma base.'},
-    {text: 'A ella le gusta la música. In English: She _______ music.', answer: 'likes', options: ['likes','like',"don't like"], hint: 'Para "She" (ella) agregamos una "s" al verbo.'},
-    {text: 'A ellos les gusta correr. In English: They _______ running.', answer: 'like', options: ['likes','like',"doesn't like"], hint: 'Para "They" usamos el verbo en su forma base.'},
-    {text: 'No me gusta el brócoli. In English: I _______ broccoli.', answer: "don't like", options: ['no like',"don't like","doesn't like"], hint: 'La negación para "I" es "don\'t".'},
-    {text: 'A él no le gustan las arañas. In English: He _______ spiders.', answer: "doesn't like", options: ["doesn't like","don't like",'not likes'], hint: 'La negación para "He" es "doesn\'t".'},
-    {text: 'A nosotros nos gustan los videojuegos. In English: We _______ video games.', answer: 'like', options: ['like','likes','are likes'], hint: 'Para "We" usamos el verbo en su forma base.'},
-    {text: 'A él le gusta el helado. In English: He _______ ice cream.', answer: 'likes', options: ['like','likes',"don't like"], hint: 'Para "He" (él) agregamos una "s" al verbo.'},
-    {text: 'Ayer, nosotros jugamos fútbol. In English: Yesterday, we _______ soccer.', answer: 'played', options: ['play','played','playied'], hint: 'El pasado regular termina en "-ed".'},
-    {text: 'Mi mamá cocinó una torta. In English: My mom _______ a cake.', answer: 'cooked', options: ['cooked','cooks','cookied'], hint: 'Pasado del verbo "cook".'},
-    {text: 'El niño caminó a la escuela. In English: The boy _______ to school.', answer: 'walked', options: ['walk','walks','walked'], hint: 'Pasado del verbo "walk".'},
-    {text: 'Yo visité a mi abuela. In English: I _______ my grandma.', answer: 'visited', options: ['visited','visit','visiting'], hint: 'Pasado del verbo "visit".'},
-    {text: 'Vimos una película anoche. In English: We _______ a movie last night.', answer: 'watched', options: ['watch','watched','watches'], hint: 'Pasado del verbo "watch".'},
-    {text: 'Él limpió su cuarto ayer. In English: He _______ his room yesterday.', answer: 'cleaned', options: ['cleans','clean','cleaned'], hint: 'Pasado del verbo "clean".'},
-    {text: 'Ellos escucharon música en el bus. In English: They _______ to music.', answer: 'listened', options: ['listened','listen','listening'], hint: 'Pasado del verbo "listen".'},
-    {text: 'Ella bailó en la fiesta. In English: She _______ at the party.', answer: 'danced', options: ['dance','danced','dances'], hint: 'Pasado del verbo "dance" (termina en e, solo agrega d).'}
-  ],
-  6: [
-    {text: 'It is 7:20. In English, we say it is...', answer: 'seven twenty', options: ['seven twelve','seven twenty','seventeen twenty'], hint: 'Recuerda: primero la hora (7), luego los minutos (20).'},
-    {text: 'It is 9:15. In English, we say it is...', answer: 'nine fifteen', options: ['nine fifteen','nine fifty','night fifteen'], hint: '15 minutos se dice "fifteen".'},
-    {text: 'It is 3:40. In English, we say it is...', answer: 'three forty', options: ['thirteen forty','three fourteen','three forty'], hint: 'Tres (3) y cuarenta (40).'},
-    {text: 'It is 11:10. In English, we say it is...', answer: 'eleven ten', options: ['twelve ten','eleven ten','eleven twelve'], hint: 'Once (11) y diez (10).'},
-    {text: 'It is 5:35. In English, we say it is...', answer: 'five thirty-five', options: ['five thirty-five','fifty-five thirty','five thirteen-five'], hint: 'Cinco (5) y treinta y cinco (35).'},
-    {text: 'It is 8:05. In English, we say it is...', answer: 'eight zero-five', options: ['eight fifty','eighteen five','eight zero-five'], hint: 'Para minutos del 01 al 09 usamos "zero" u "oh".'},
-    {text: '¿Cómo se dice el número 28 en inglés?', answer: 'twenty-eight', options: ['twenty-eight','twelve-eight','eighty-two'], hint: 'Veinte (20) + Ocho (8).'},
-    {text: '¿Cómo se dice el número 45 en inglés?', answer: 'forty-five', options: ['fourteen-five','forty-five','fourty-five'], hint: 'Cuarenta (40) + Cinco (5).'},
-    {text: '¿Cómo se dice el número 62 en inglés?', answer: 'sixty-two', options: ['sixty-two','six-two','sixteen-two'], hint: 'Sesenta (60) + Dos (2).'},
-    {text: '¿Cómo se dice el número 100 en inglés?', answer: 'one hundred', options: ['one hundred','one thousand','ten ten'], hint: 'Una centena.'},
-    {text: '¿Cómo se dice el número 73 en inglés?', answer: 'seventy-three', options: ['seventeen-three','seventy-three','seven-three'], hint: 'Setenta (70) + Tres (3).'},
-    {text: '¿Cómo se dice el número 12 en inglés?', answer: 'twelve', options: ['twenty','twelve','two-teen'], hint: 'El número que sigue al 11.'},
-    {text: 'A mí me gusta el chocolate. En inglés se dice: I _______ chocolate.', answer: 'like', options: ['likes','like',"don't like"], hint: 'Para "I" el verbo va en su forma base.'},
-    {text: 'No me gusta la pizza. En inglés se dice: I _______ pizza.', answer: "don't like", options: ["don't like",'no like',"doesn't like"], hint: 'Negativo presente simple para "I".'},
-    {text: 'A mí me gustan las manzanas. En inglés se dice: I _______ apples.', answer: 'like', options: ['am like','liking','like'], hint: 'Afirmativo simple para "I".'}
-  ]
+  1: {
+    1: [
+      {text: '¿Cómo se dice el número "3" en inglés?', answer: 'Three', options: ['Two','Three','One'], hint: 'Empieza con "Th".'},
+      {text: '¿Cuál es el número "7" en inglés?', answer: 'Seven', options: ['Six','Eight','Seven'], hint: 'Rima con "Eleven".'},
+      {text: 'Cuenta los dedos de una mano. En inglés son: _______.', answer: 'Five', options: ['Five','Four','Ten'], hint: 'El número después del cuatro.'},
+      {text: '¿Cómo se escribe el número "10" en inglés?', answer: 'Ten', options: ['Net','Ten','Two'], hint: 'Se escribe al revés que "Net".'},
+      {text: 'Si tengo "One" y agrego otro "One", ¿cuántos tengo?', answer: 'Two', options: ['Three','Two','Four'], hint: '1 + 1 = ?'},
+      {text: 'Esta forma es redonda como el sol: _______.', answer: 'Circle', options: ['Square','Circle','Triangle'], hint: 'No tiene esquinas.'},
+      {text: 'Tiene 3 lados y parece una rebanada de pizza: _______.', answer: 'Triangle', options: ['Triangle','Star','Circle'], hint: 'Tri- significa tres.'},
+      {text: 'Tiene 4 lados iguales, como una caja: _______.', answer: 'Square', options: ['Rectangle','Square','Triangle'], hint: 'Es un cuadrado.'},
+      {text: 'Brilla en el cielo por la noche: _______.', answer: 'Star', options: ['Circle','Star','Square'], hint: 'Twinkle, twinkle, little...'},
+      {text: 'Es larga y tiene 4 lados (como una puerta): _______.', answer: 'Rectangle', options: ['Rectangle','Circle','Triangle'], hint: 'Parecido a un cuadrado pero estirado.'},
+      {text: '¿Cuánto es "One plus One"?', answer: 'Two', options: ['Three','Two','Five'], hint: 'Uno más uno.'},
+      {text: '¿Cuánto es "Two plus Two"?', answer: 'Four', options: ['Four','Six','Two'], hint: 'Dos más dos.'},
+      {text: '¿Cuánto es "Three plus Three"?', answer: 'Six', options: ['Five','Six','Nine'], hint: 'Tres más tres.'},
+      {text: 'Si tengo "Two" manzanas y me regalan "One", tengo: _______.', answer: 'Three', options: ['Three','Four','Two'], hint: '2 + 1.'},
+      {text: '¿Cómo se dice "Más" en inglés para sumar?', answer: 'Plus', options: ['Minus','Plus','Equal'], hint: 'Suena como "Plas".'}
+    ],
+    2: [
+      {text: 'The apple is... (La manzana es...)', answer: 'Red', options: ['Blue', 'Red', 'Green'], hint: 'Es el color de los tomates y de los corazones. ❤️'},
+      {text: 'The sun is... (El sol es...)', answer: 'Yellow', options: ['Yellow', 'Pink', 'Purple'], hint: 'Es el color del queso de los ratones y de los limones ácidos.'},
+      {text: 'The leaf is... (La hoja es...)', answer: 'Green', options: ['Red', 'Orange', 'Green'], hint: 'Es el color favorito de las ranas que dicen "ribbit". 🐸'},
+      {text: 'The whale is... (La ballena es...)', answer: 'Blue', options: ['Yellow', 'Blue', 'White'], hint: 'Es el color del océano donde viven los peces. 🌊'},
+      {text: 'The pig is... (El cerdito es...)', answer: 'Pink', options: ['Pink', 'Black', 'Brown'], hint: '¡Es un color muy dulce! Como el algodón de azúcar. 🍭'},
+      {text: '¿Cómo se dice "Anaranjado" en inglés?', answer: 'Orange', options: ['Blue', 'Red', 'Orange'], hint: '¡Cuidado! Esta fruta y su color se llaman exactamente igual. 🍊'},
+      {text: 'The cloud is... (La nube es...)', answer: 'White', options: ['White', 'Purple', 'Green'], hint: 'Es el color de la nieve y de la leche. 🥛'},
+      {text: 'The chocolate is...', answer: 'Brown', options: ['Pink', 'Brown', 'Yellow'], hint: 'Es el color de los troncos de los árboles y de la tierra. 🌳'},
+      {text: 'The grape is... (La uva es...)', answer: 'Purple', options: ['Purple', 'White', 'Orange'], hint: 'Es un color muy elegante, ¡el favorito de las berenjenas! 🍆'},
+      {text: 'The night is... (La noche es...)', answer: 'Black', options: ['Yellow', 'White', 'Black'], hint: 'Es el color que ves cuando cierras los ojos para dormir. 😴'}
+    ]
+  },
+  2: {
+    1: [
+      {text: 'Yo me levanto de la cama. In English: I _______.', answer: 'get up', options: ['get up','go to sleep','take a shower'], hint: 'Salir de la cama por la mañana.'},
+      {text: 'Yo cepillo mis dientes. In English: I _______ my teeth.', answer: 'brush', options: ['wash','brush','get dressed'], hint: 'Usas pasta de dientes.'},
+      {text: 'Yo me doy una ducha. In English: I _______.', answer: 'take a shower', options: ['eat breakfast','take a shower','take the bus'], hint: 'Usas agua y jabón para limpiarte.'},
+      {text: 'Yo me pongo la ropa. In English: I _______.', answer: 'get dressed', options: ['get dressed','get up','brush my teeth'], hint: 'Cambiar pijama por ropa de día.'},
+      {text: 'Yo como mi desayuno. In English: I _______.', answer: 'eat breakfast', options: ['take the bus','eat breakfast','take a shower'], hint: 'La primera comida del día.'},
+      {text: 'Yo tomo el autobús. In English: I _______.', answer: 'take the bus', options: ['take the bus','get dressed','get up'], hint: 'Transporte para ir a la escuela.'},
+      {text: 'En esta materia usamos números (1, 2, 3...). Es: _______.', answer: 'Math', options: ['Music','Math','English'], hint: 'Sumas y restas.'},
+      {text: 'En esta materia cantamos y tocamos instrumentos. Es: _______.', answer: 'Music', options: ['Music','Language','Calligraphy'], hint: 'Sonidos y melodías.'},
+      {text: 'Hacemos ejercicio y jugamos con pelotas en: _______.', answer: 'Physical Education', options: ['Math','Physical Education','Language'], hint: 'Deportes y movimiento.'},
+      {text: 'Aprendemos a leer y escribir bien en mi idioma: _______.', answer: 'Language', options: ['Language','Music','Math'], hint: 'Gramática y lectura.'},
+      {text: 'Practicamos para tener una letra muy bonita en: _______.', answer: 'Calligraphy', options: ['English','Calligraphy','Physical Education'], hint: 'Escribir cursiva y claro.'},
+      {text: 'Aprendemos a decir "Hello" y "Goodbye" en: _______.', answer: 'English', options: ['English','Language','Music'], hint: 'El idioma que estás estudiando ahora.'},
+      {text: 'A mí me gusta mi maestra. In English: I _______ my teacher.', answer: 'like', options: ['like','no like','likes'], hint: 'Afirmación con "I".'},
+      {text: 'No me gusta la sopa. In English: I _______ soup.', answer: "don't like", options: ['like',"don't like",'no like'], hint: 'Negación con "I".'},
+      {text: 'A mí me gusta jugar. In English: I _______ to play.', answer: 'like', options: ['like','am like',"don't likes"], hint: 'Verbo gustar en primera persona.'}
+    ],
+    2: [
+      {text: 'En el fútbol, I kick the ball... (Yo pateo el balón...)', answer: 'Soccer', options: ['Basketball', 'Soccer', 'Swimming'], hint: 'Es el deporte donde haces pases con los pies. ⚽'},
+      {text: 'In Baseball, I... the ball with a bat. (Yo... la bola con un bate)', answer: 'Hit', options: ['Hit', 'Swim', 'Jump'], hint: '¡Dale un buen golpe para que la bola vuele muy lejos! ⚾'},
+      {text: 'To swim, I need... (Para nadar, yo necesito...)', answer: 'Water', options: ['Forest', 'Water', 'Sand'], hint: 'Sin esto no podrías flotar como un pez. 🏊‍♂️'},
+      {text: '¿Cómo se dice "Lanzar la pelota" en inglés?', answer: 'Throw the ball', options: ['Kick the ball', 'Throw the ball', 'Run'], hint: 'Es el movimiento que haces con el brazo hacia arriba o adelante. 🥎'},
+      {text: '¿Cómo se dice "Voleibol" en inglés?', answer: 'Volleyball', options: ['Volleyball', 'Soccer', 'Baseball'], hint: 'Se escribe casi igual 🏐'},
+      {text: '¿Cómo se dice "Nadar en el agua" en inglés?', answer: 'Swim in the water', options: ['Run in the water', 'Swim in the water', 'Hit the water'], hint: 'Mueve tus brazos y piernas para avanzar en la piscina. 🐠'},
+      {text: 'I use a bat and a glove in... (Uso un bate y un guante en...)', answer: 'Baseball', options: ['Soccer', 'Baseball', 'Swimming'], hint: 'Es el deporte donde los jugadores corren por las cuatro bases. 🏟️'},
+      {text: '¿Cómo se dice "Baloncesto" en inglés?', answer: 'Basketball', options: ['Basketball', 'Soccer', 'Running'], hint: 'Es el deporte donde se pica la pelota y se lanza muy alto. 🏀'},
+      {text: '¿Cómo se dice "Patear la pelota" en inglés?', answer: 'Kick the ball', options: ['Hit the ball', 'Kick the ball', 'Swim'], hint: 'Es lo que haces para que el balón de fútbol ruede por el pasto. 👟'},
+      {text: '¿Cómo se dice "Golpear la pelota" en inglés?', answer: 'Hit the ball', options: ['Hit the ball', 'Run', 'Swim'], hint: 'Es lo que haces cuando usas un bate de madera. 🏏'},
+      {text: '¿Cómo se dice "Correr" en inglés?', answer: 'Run', options: ['Walk', 'Run', 'Jump'], hint: '¡Hazlo muy rápido para ganar la carrera! 💨'},
+      {text: 'In Baseball, I have to... the ball with my glove. (Debo... la bola con mi guante)', answer: 'Catch', options: ['Catch', 'Kick', 'Cook'], hint: 'Tienes que cerrarlo muy rápido para que la bola no se escape. 🧤'},
+      {text: '¿Cómo se dice "Natación" en inglés?', answer: 'Swimming', options: ['Swimming', 'Running', 'Soccer'], hint: 'Es el deporte que se practica con lentes y gorro en la piscina. 🏊‍♀️'},
+      {text: '¿Cómo se dice "Béisbol" en inglés?', answer: 'Baseball', options: ['Soccer', 'Basketball', 'Baseball'], hint: '¡Es súper fácil! Se pronuncia muy parecido al español. ⚾'},
+      {text: '¿Cómo se dice "Fútbol" en inglés?', answer: 'Soccer', options: ['Soccer', 'Swimming', 'Running'], hint: 'Es el deporte donde se usan los zapatos de tacos y medias largas. ⚽'}
+    ]
+  },
+  3: {
+    1: [
+      {text: 'Yo uso mi _______ para escribir. (Lápiz)', answer: 'Pencil', options: ['Eraser','Pencil','Notebook'], hint: 'Utensilio de madera con grafito.'},
+      {text: 'Guardo mis útiles en mi _______. (Mochila)', answer: 'Backpack', options: ['Backpack','Sharpener','Book'], hint: 'Bolsa que llevas en la espalda.'},
+      {text: 'Borro mis errores con el _______. (Borrador)', answer: 'Eraser', options: ['Pencil case','Colors','Eraser'], hint: 'Lo usas cuando te equivocas al escribir.'},
+      {text: 'Saco la punta a mi lápiz con el _______. (Sacapuntas)', answer: 'Sharpener', options: ['Sharpener','Notebook','Backpack'], hint: 'Sirve para afilar el lápiz.'},
+      {text: 'Guardo mis colores en la _______. (Cartuchera)', answer: 'Pencil case', options: ['Book','Pencil case','Eraser'], hint: 'Estuche pequeño para lápices y colores.'},
+      {text: 'Escribo mis tareas en el _______. (Cuaderno)', answer: 'Notebook', options: ['Notebook','Pencil','Colors'], hint: 'Tiene hojas de papel para escribir.'},
+      {text: 'Leo historias en mi _______. (Libro)', answer: 'Book', options: ['Pencil case','Sharpener','Book'], hint: 'Objeto con páginas impresas para leer.'},
+      {text: '¿Cómo se dice el número 12 en inglés?', answer: 'Twelve', options: ['Two','Twelve','Twenty'], hint: '10 + 2.'},
+      {text: '¿Cómo se dice el número 15 en inglés?', answer: 'Fifteen', options: ['Fifteen','Fifty','Five'], hint: '10 + 5.'},
+      {text: 'El número 20 en inglés es:', answer: 'Twenty', options: ['Twelve','Ten','Twenty'], hint: 'Dos decenas.'},
+      {text: '¿Qué número sigue después del "Eight"?', answer: 'Nine', options: ['Seven','Nine','Ten'], hint: 'El número antes del diez.'},
+      {text: '¿Cómo se escribe 11 en inglés?', answer: 'Eleven', options: ['Eleven','Seven','One-one'], hint: '10 + 1.'},
+      {text: 'A mí me gusta el helado. In English: I _______ ice cream.', answer: 'like', options: ['like','likes','no like'], hint: 'Para "I" usamos el verbo en su forma base.'},
+      {text: 'No me gusta el jugo. In English: I _______ juice.', answer: "don't like", options: ['like','no like',"don't like"], hint: 'Negación presente simple para "I".'},
+      {text: 'A mí me gusta mi escuela. In English: I _______ my school.', answer: 'like', options: ['like','am like','likes'], hint: 'Afirmación simple para "I".'}
+    ],
+    2: [
+      {text: 'Players use their feet to kick the ball in... (Los jugadores usan sus pies para patear el balón en...)', answer: 'Soccer', options: ['Soccer', 'Basketball', 'Swimming'], hint: 'Es el deporte donde los jugadores corren por todo el campo buscando el arco. ⚽'},
+      {text: 'In Baseball, the player uses a bat to... the ball. (En el béisbol, el jugador usa un bate para... la bola)', answer: 'Hit', options: ['Hit', 'Swim', 'Catch'], hint: '¡Es el sonido que hace el bate cuando golpea la bola con fuerza! ⚾'},
+      {text: 'When you are in the swimming pool, you... (Cuando estás en la piscina, tú...)', answer: 'Swim', options: ['Run', 'Swim', 'Hit'], hint: '¡Mueve tus brazos y piernas como si fueras un pececito! 🏊‍♂️'},
+      {text: '¿Cómo se dice "Lanzar la pelota" en inglés?', answer: 'Throw the ball', options: ['Throw the ball', 'Kick the ball', 'Run'], hint: 'Es la acción que hace el "pitcher" o el lanzador en los deportes. 🥎'},
+      {text: 'To play Basketball, you need to... the ball. (Para jugar básquet, necesitas... el balón)', answer: 'Throw', options: ['Throw', 'Kick', 'Swim'], hint: 'Tienes que apuntar muy bien para que el balón entre por arriba. 🏀'},
+      {text: 'In Volleyball, we use our hands to... the ball. (En el voleibol, usamos nuestras manos para... el balón)', answer: 'Hit', options: ['Hit', 'Kick', 'Run'], hint: '¡Dale un toque suave o fuerte para que pase sobre la red! 🏐'},
+      {text: '¿Cómo se dice "Atrapar la pelota" en inglés?', answer: 'Catch the ball', options: ['Catch the ball', 'Throw the ball', 'Hit the ball'], hint: 'Es lo que haces con el guante para que la bola no se escape. 🧤'},
+      {text: 'If you want to win a race, you have to... fast. (Si quieres ganar una carrera, tienes que... rápido)', answer: 'Run', options: ['Run', 'Swim', 'Catch'], hint: '¡Mueve tus piernas a toda velocidad! 💨'},
+      {text: '"I swim in the water" significa...', answer: 'Yo nado en el agua', options: ['Yo corro en el agua', 'Yo nado en el agua', 'Yo pateo en el agua'], hint: 'Es la actividad favorita de los delfines en el océano. 🐬'},
+      {text: 'In Soccer, the players can... very fast. (En el fútbol, los jugadores pueden... muy rápido)', answer: 'Run', options: ['Run', 'Hit', 'Swim'], hint: 'Lo hacen para llegar primero al balón antes que el otro equipo. 🏃‍♂️'},
+      {text: '¿Cuál de estos deportes usa un bat y una ball?', answer: 'Baseball', options: ['Soccer', 'Baseball', 'Volleyball'], hint: 'En este deporte corres por cuatro bases después de batear. 🏟️'},
+      {text: 'In Basketball, I... the ball to my friend. (En el básquet, yo... el balón a mi amigo)', answer: 'Throw', options: ['Throw', 'Kick', 'Hit'], hint: 'Es el pase que haces con las manos para trabajar en equipo. 🤝'},
+      {text: '¿Cómo se dice el deporte "Natación" en inglés?', answer: 'Swimming', options: ['Running', 'Soccer', 'Swimming'], hint: 'Es el deporte que se practica en el agua de la piscina. 🏊‍♀️'},
+      {text: 'When the ball is in the air, I... it with my hands. (Cuando la bola está en el aire, yo la... con mis manos)', answer: 'Catch', options: ['Catch', 'Kick', 'Run'], hint: '¡Asegúrate de sujetarla bien para que no se caiga! 🤲'},
+      {text: 'To play Soccer, you must... the ball with your shoes. (Para jugar fútbol, debes... el balón con tus zapatos)', answer: 'Kick', options: ['Kick', 'Throw', 'Hit'], hint: '¡Es la acción principal para meter un gol! 👟'}
+    ]
+  },
+  4: {
+    1: [
+      {text: 'Yo me lavo la cara. In English: I _______ my face.', answer: 'wash', options: ['wash','brush','sleep'], hint: 'Acción de limpiar con agua.'},
+      {text: 'Yo cepillo mis dientes. In English: I _______ my teeth.', answer: 'brush', options: ['wash','brush','eat'], hint: 'Usas un cepillo para esto.'},
+      {text: 'Yo como mi desayuno. In English: I eat _______.', answer: 'breakfast', options: ['dinner','lunch','breakfast'], hint: 'La comida de la mañana.'},
+      {text: 'Yo me despierto. In English: I _______ up.', answer: 'wake', options: ['wake','go','clean'], hint: 'Lo contrario de dormir.'},
+      {text: 'Yo voy a la escuela. In English: I go to _______.', answer: 'school', options: ['park','school','house'], hint: 'Lugar donde estudias.'},
+      {text: '¿Qué día sigue después de "Monday"?', answer: 'Tuesday', options: ['Wednesday','Friday','Tuesday'], hint: 'El segundo día de la semana laboral.'},
+      {text: 'Sábado en inglés se dice:', answer: 'Saturday', options: ['Sunday','Saturday','Thursday'], hint: 'Empieza con "S" y es fin de semana.'},
+      {text: '¿Cómo se dice "Viernes" en inglés?', answer: 'Friday', options: ['Friday','Free-day','Monday'], hint: 'El día antes del fin de semana.'},
+      {text: 'El último día de la semana escolar es:', answer: 'Friday', options: ['Saturday','Friday','Tuesday'], hint: 'Generalmente vamos a la escuela de lunes a...'},
+      {text: '¿Qué día está entre Tuesday y Thursday?', answer: 'Wednesday', options: ['Monday','Wednesday','Sunday'], hint: 'El día en el medio de la semana laboral.'},
+      {text: 'A mí me gustan los perros. In English: I _______ dogs.', answer: 'like', options: ['like','likes','am like'], hint: 'Para "I" el verbo no lleva "s".'},
+      {text: 'A él le gusta el jugo. In English: He _______ juice.', answer: 'likes', options: ['like','likes',"don't like"], hint: 'Para "He" agregamos "s" al verbo.'},
+      {text: 'A ella le gusta el gato. In English: She _______ the cat.', answer: 'likes', options: ['likes','like','no like'], hint: 'Para "She" agregamos "s" al verbo.'},
+      {text: 'A él le gusta la pizza. In English: He _______ pizza.', answer: 'likes', options: ['like','likes','likes to'], hint: 'Tercera persona singular (He).'},
+      {text: 'A ella le gusta cantar. In English: She _______ singing.', answer: 'likes', options: ['like','likes','am likes'], hint: 'Tercera persona singular (She).'}
+    ],
+    2: [
+      {text: 'I ________ ten years old.', answer: 'Am', options: ['Am', 'Is', 'Are'], hint: 'Recuerda: "I" es el único que usa Am. ¡Son mejores amigos! 🔟'},
+      {text: 'The dog ________ brown.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: '"The dog" es un animal (It), y It siempre camina con Is. 🐶'},
+      {text: 'We ________ best friends.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"We" significa nosotros (varios). Para el plural usamos Are. 👥'},
+      {text: '________ is your birthday?', answer: 'When', options: ['Who', 'When', 'Where'], hint: 'Usamos When porque preguntamos por el tiempo o una fecha. 🎂'},
+      {text: 'She ________ a tall girl.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: 'Para una sola niña (She), la regla dice que usamos Is. 👧'},
+      {text: '________ is your name?', answer: 'What', options: ['What', 'Who', 'Why'], hint: 'Usamos What para preguntar "qué" o "cuál" sobre una cosa. 🆔'},
+      {text: 'You ________ very funny!', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: 'No importa si es uno o muchos, You siempre usa Are. 😂'},
+      {text: '________ is the teacher?', answer: 'Who', options: ['What', 'Who', 'When'], hint: 'Usamos Who porque la respuesta es una persona. 👩‍🏫'},
+      {text: 'My mom ________ a teacher.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: '"My mom" es ella (She). Recuerda: He, She e It usan Is. 👩‍🏫'},
+      {text: '________ is my backpack?', answer: 'Where', options: ['Where', 'Who', 'When'], hint: 'Usamos Where cuando queremos saber el lugar donde está algo. 🎒'},
+      {text: 'They ________ playing soccer.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"They" son ellos (plural). Con muchos amigos siempre va Are. ⚽'},
+      {text: '________ are you sad?', answer: 'Why', options: ['Who', 'Why', 'Where'], hint: 'Usamos Why para preguntar la razón o el motivo de algo. 😢'},
+      {text: 'It ________ a sunny day.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: 'El clima es una cosa (It). Y It siempre va con su pareja Is. ☀️'},
+      {text: '________ is your favorite color?', answer: 'What', options: ['What', 'Who', 'Where'], hint: 'What nos sirve para pedir información sobre cosas o gustos. 🎨'},
+      {text: 'El Intruso: ¿Cuál está mal?', answer: 'He are sad', options: ['I am happy', 'He are sad', 'We are fine'], hint: '¡Error! He es uno solo (Él), así que debe usar Is, no Are. 🕵️‍♂️'},
+      {text: '________ are my keys?', answer: 'Where', options: ['Where', 'Who', 'What'], hint: 'Si buscas la ubicación de tus llaves, pregunta con Where. 🔑'},
+      {text: 'El Intruso: ¿Cuál está mal?', answer: 'You is smart', options: ['You is smart', 'She is nice', 'I am tall'], hint: '¡Cuidado! Aunque seas una sola persona, You nunca usa Is. 🕵️‍♂️'},
+      {text: '________ is that boy?', answer: 'Who', options: ['Who', 'What', 'Where'], hint: 'Queremos saber la identidad de ese niño (persona), usa Who. 👦'},
+      {text: 'My pencils ________ yellow.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"Pencils" termina en "s", son varios (They). El plural usa Are. ✏️'},
+      {text: '________ is the party?', answer: 'When', options: ['When', 'Who', 'Why'], hint: 'Para saber el día o la hora de un evento, usamos When. 🥳'},
+      {text: 'The cat ________ on the sofa.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: 'El gato es un animal (It). Los animales en singular usan Is. 🐱'},
+      {text: '________ is the bathroom?', answer: 'Where', options: ['Where', 'What', 'When'], hint: 'Para pedir direcciones o encontrar un lugar, usa Where. 🚽'},
+      {text: 'You and I ________ happy.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"Tú y yo" somos nosotros (We). Por eso usamos el plural Are. 😃'},
+      {text: '________ are you late?', answer: 'Why', options: ['Why', 'Who', 'Where'], hint: 'Si necesitas una explicación o motivo, pregunta con Why. ⏰'},
+      {text: 'The pizza ________ delicious!', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: 'La pizza es una cosa (It). A las cosas singulares les gusta el Is. 🍕'},
+      {text: '________ is your best friend?', answer: 'Who', options: ['Who', 'What', 'Where'], hint: 'Tu mejor amigo es una persona, así que preguntamos con Who. 🤝'},
+      {text: 'I ________ a good student.', answer: 'Am', options: ['Am', 'Is', 'Are'], hint: '¡No lo olvides! I es especial y solo se une con Am. 🌟'},
+      {text: '________ is in the box?', answer: 'What', options: ['What', 'Who', 'When'], hint: 'Para saber qué objeto (cosa) hay escondido, usa What. 📦'},
+      {text: 'My friends ________ cool.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"Mis amigos" son ellos (They). Como son varios, usamos Are. 😎'},
+      {text: 'El Intruso: ¿Cuál está mal?', answer: 'We is brothers', options: ['We is brothers', 'I am seven', 'She is my sister'], hint: '¡Atención! We es plural, así que su pareja correcta es Are. 🕵️‍♂️'}
+    ]
+  },
+  5: {
+    1: [
+      {text: 'A mí me gustan las manzanas. In English: I _______ apples.', answer: 'like', options: ['likes','like',"don't likes"], hint: 'Para "I" usamos el verbo en su forma base.'},
+      {text: 'A ella le gusta la música. In English: She _______ music.', answer: 'likes', options: ['likes','like',"don't like"], hint: 'Para "She" (ella) agregamos una "s" al verbo.'},
+      {text: 'A ellos les gusta correr. In English: They _______ running.', answer: 'like', options: ['likes','like',"doesn't like"], hint: 'Para "They" usamos el verbo en su forma base.'},
+      {text: 'No me gusta el brócoli. In English: I _______ broccoli.', answer: "don't like", options: ['no like',"don't like","doesn't like"], hint: 'La negación para "I" es "don\'t".'},
+      {text: 'A él no le gustan las arañas. In English: He _______ spiders.', answer: "doesn't like", options: ["doesn't like","don't like",'not likes'], hint: 'La negación para "He" es "doesn\'t".'},
+      {text: 'A nosotros nos gustan los videojuegos. In English: We _______ video games.', answer: 'like', options: ['like','likes','are likes'], hint: 'Para "We" usamos el verbo en su forma base.'},
+      {text: 'A él le gusta el helado. In English: He _______ ice cream.', answer: 'likes', options: ['like','likes',"don't like"], hint: 'Para "He" (él) agregamos una "s" al verbo.'},
+      {text: 'Ayer, nosotros jugamos fútbol. In English: Yesterday, we _______ soccer.', answer: 'played', options: ['play','played','playied'], hint: 'El pasado regular termina en "-ed".'},
+      {text: 'Mi mamá cocinó una torta. In English: My mom _______ a cake.', answer: 'cooked', options: ['cooked','cooks','cookied'], hint: 'Pasado del verbo "cook".'},
+      {text: 'El niño caminó a la escuela. In English: The boy _______ to school.', answer: 'walked', options: ['walk','walks','walked'], hint: 'Pasado del verbo "walk".'},
+      {text: 'Yo visité a mi abuela. In English: I _______ my grandma.', answer: 'visited', options: ['visited','visit','visiting'], hint: 'Pasado del verbo "visit".'},
+      {text: 'Vimos una película anoche. In English: We _______ a movie last night.', answer: 'watched', options: ['watch','watched','watches'], hint: 'Pasado del verbo "watch".'},
+      {text: 'Él limpió su cuarto ayer. In English: He _______ his room yesterday.', answer: 'cleaned', options: ['cleans','clean','cleaned'], hint: 'Pasado del verbo "clean".'},
+      {text: 'Ellos escucharon música en el bus. In English: They _______ to music.', answer: 'listened', options: ['listened','listen','listening'], hint: 'Pasado del verbo "listen".'},
+      {text: 'Ella bailó en la fiesta. In English: She _______ at the party.', answer: 'danced', options: ['dance','danced','dances'], hint: 'Pasado del verbo "dance" (termina en e, solo agrega d).'}
+    ],
+    2: [
+      {text: 'I ________ ten years old.', answer: 'Am', options: ['Am', 'Is', 'Are'], hint: 'Recuerda: "I" es el único que usa Am. ¡Son mejores amigos! 🔟'},
+      {text: 'The dog ________ brown.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: '"The dog" es un animal (It), y It siempre camina con Is. 🐶'},
+      {text: 'We ________ best friends.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"We" significa nosotros (varios). Para el plural usamos Are. 👥'},
+      {text: '________ is your birthday?', answer: 'When', options: ['Who', 'When', 'Where'], hint: 'Usamos When porque preguntamos por el tiempo o una fecha. 🎂'},
+      {text: 'She ________ a tall girl.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: 'Para una sola niña (She), la regla dice que usamos Is. 👧'},
+      {text: '________ is your name?', answer: 'What', options: ['What', 'Who', 'Why'], hint: 'Usamos What para preguntar "qué" o "cuál" sobre una cosa. 🆔'},
+      {text: 'You ________ very funny!', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: 'No importa si es uno o muchos, You siempre usa Are. 😂'},
+      {text: '________ is the teacher?', answer: 'Who', options: ['What', 'Who', 'When'], hint: 'Usamos Who porque la respuesta es una persona. 👩‍🏫'},
+      {text: 'My mom ________ a teacher.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: '"My mom" es ella (She). Recuerda: He, She e It usan Is. 👩‍🏫'},
+      {text: '________ is my backpack?', answer: 'Where', options: ['Where', 'Who', 'When'], hint: 'Usamos Where cuando queremos saber el lugar donde está algo. 🎒'},
+      {text: 'They ________ playing soccer.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"They" son ellos (plural). Con muchos amigos siempre va Are. ⚽'},
+      {text: '________ are you sad?', answer: 'Why', options: ['Who', 'Why', 'Where'], hint: 'Usamos Why para preguntar la razón o el motivo de algo. 😢'},
+      {text: 'It ________ a sunny day.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: 'El clima es una cosa (It). Y It siempre va con su pareja Is. ☀️'},
+      {text: '________ is your favorite color?', answer: 'What', options: ['What', 'Who', 'Where'], hint: 'What nos sirve para pedir información sobre cosas o gustos. 🎨'},
+      {text: 'El Intruso: ¿Cuál está mal?', answer: 'He are sad', options: ['I am happy', 'He are sad', 'We are fine'], hint: '¡Error! He es uno solo (Él), así que debe usar Is, no Are. 🕵️‍♂️'},
+      {text: '________ are my keys?', answer: 'Where', options: ['Where', 'Who', 'What'], hint: 'Si buscas la ubicación de tus llaves, pregunta con Where. 🔑'},
+      {text: 'El Intruso: ¿Cuál está mal?', answer: 'You is smart', options: ['You is smart', 'She is nice', 'I am tall'], hint: '¡Cuidado! Aunque seas una sola persona, You nunca usa Is. 🕵️‍♂️'},
+      {text: '________ is that boy?', answer: 'Who', options: ['Who', 'What', 'Where'], hint: 'Queremos saber la identidad de ese niño (persona), usa Who. 👦'},
+      {text: 'My pencils ________ yellow.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"Pencils" termina en "s", son varios (They). El plural usa Are. ✏️'},
+      {text: '________ is the party?', answer: 'When', options: ['When', 'Who', 'Why'], hint: 'Para saber el día o la hora de un evento, usamos When. 🥳'},
+      {text: 'The cat ________ on the sofa.', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: 'El gato es un animal (It). Los animales en singular usan Is. 🐱'},
+      {text: '________ is the bathroom?', answer: 'Where', options: ['Where', 'What', 'When'], hint: 'Para pedir direcciones o encontrar un lugar, usa Where. 🚽'},
+      {text: 'You and I ________ happy.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"Tú y yo" somos nosotros (We). Por eso usamos el plural Are. 😃'},
+      {text: '________ are you late?', answer: 'Why', options: ['Why', 'Who', 'Where'], hint: 'Si necesitas una explicación o motivo, pregunta con Why. ⏰'},
+      {text: 'The pizza ________ delicious!', answer: 'Is', options: ['Am', 'Is', 'Are'], hint: 'La pizza es una cosa (It). A las cosas singulares les gusta el Is. 🍕'},
+      {text: '________ is your best friend?', answer: 'Who', options: ['Who', 'What', 'Where'], hint: 'Tu mejor amigo es una persona, así que preguntamos con Who. 🤝'},
+      {text: 'I ________ a good student.', answer: 'Am', options: ['Am', 'Is', 'Are'], hint: '¡No lo olvides! I es especial y solo se une con Am. 🌟'},
+      {text: '________ is in the box?', answer: 'What', options: ['What', 'Who', 'When'], hint: 'Para saber qué objeto (cosa) hay escondido, usa What. 📦'},
+      {text: 'My friends ________ cool.', answer: 'Are', options: ['Am', 'Is', 'Are'], hint: '"Mis amigos" son ellos (They). Como son varios, usamos Are. 😎'},
+      {text: 'El Intruso: ¿Cuál está mal?', answer: 'We is brothers', options: ['We is brothers', 'I am seven', 'She is my sister'], hint: '¡Atención! We es plural, así que su pareja correcta es Are. 🕵️‍♂️'}
+    ]
+  },
+  6: {
+    1: [
+      {text: 'It is 7:20. In English, we say it is...', answer: 'seven twenty', options: ['seven twelve','seven twenty','seventeen twenty'], hint: 'Recuerda: primero la hora (7), luego los minutos (20).'},
+      {text: 'It is 9:15. In English, we say it is...', answer: 'nine fifteen', options: ['nine fifteen','nine fifty','night fifteen'], hint: '15 minutos se dice "fifteen".'},
+      {text: 'It is 3:40. In English, we say it is...', answer: 'three forty', options: ['thirteen forty','three fourteen','three forty'], hint: 'Tres (3) y cuarenta (40).'},
+      {text: 'It is 11:10. In English, we say it is...', answer: 'eleven ten', options: ['twelve ten','eleven ten','eleven twelve'], hint: 'Once (11) y diez (10).'},
+      {text: 'It is 5:35. In English, we say it is...', answer: 'five thirty-five', options: ['five thirty-five','fifty-five thirty','five thirteen-five'], hint: 'Cinco (5) y treinta y cinco (35).'},
+      {text: 'It is 8:05. In English, we say it is...', answer: 'eight zero-five', options: ['eight fifty','eighteen five','eight zero-five'], hint: 'Para minutos del 01 al 09 usamos "zero" u "oh".'},
+      {text: '¿Cómo se dice el número 28 en inglés?', answer: 'twenty-eight', options: ['twenty-eight','twelve-eight','eighty-two'], hint: 'Veinte (20) + Ocho (8).'},
+      {text: '¿Cómo se dice el número 45 en inglés?', answer: 'forty-five', options: ['fourteen-five','forty-five','fourty-five'], hint: 'Cuarenta (40) + Cinco (5).'},
+      {text: '¿Cómo se dice el número 62 en inglés?', answer: 'sixty-two', options: ['sixty-two','six-two','sixteen-two'], hint: 'Sesenta (60) + Dos (2).'},
+      {text: '¿Cómo se dice el número 100 en inglés?', answer: 'one hundred', options: ['one hundred','one thousand','ten ten'], hint: 'Una centena.'},
+      {text: '¿Cómo se dice el número 73 en inglés?', answer: 'seventy-three', options: ['seventeen-three','seventy-three','seven-three'], hint: 'Setenta (70) + Tres (3).'},
+      {text: '¿Cómo se dice el número 12 en inglés?', answer: 'twelve', options: ['twenty','twelve','two-teen'], hint: 'El número que sigue al 11.'},
+      {text: 'A mí me gusta el chocolate. En inglés se dice: I _______ chocolate.', answer: 'like', options: ['likes','like',"don't like"], hint: 'Para "I" el verbo va en su forma base.'},
+      {text: 'No me gusta la pizza. En inglés se dice: I _______ pizza.', answer: "don't like", options: ["don't like",'no like',"doesn't like"], hint: 'Negativo presente simple para "I".'},
+      {text: 'A mí me gustan las manzanas. En inglés se dice: I _______ apples.', answer: 'like', options: ['am like','liking','like'], hint: 'Afirmativo simple para "I".'}
+    ],
+    2: [
+      {text: 'I ________ eating chocolate.', answer: 'like', options: ['like', 'likes', "doesn't"], hint: 'Con I (Yo), el verbo se queda igual. I like significa "Me gusta". 🍫'},
+      {text: 'My sister ________ watching movies.', answer: 'likes', options: ['like', 'likes', "don't"], hint: '"My sister" es She (Ella). Recuerda: He, She e It siempre llevan la "S". 🎬'},
+      {text: 'They ________ doing exercise.', answer: "don't like", options: ["don't like", "doesn't like", 'likes'], hint: 'Como son varios (They - Ellos), el "no" se dice con don\'t like. 🏃‍♂️'},
+      {text: 'He ________ cleaning his bedroom.', answer: "doesn't like", options: ["don't like", "doesn't like", 'like'], hint: 'Con He (Él), el "no me gusta" se dice doesn\'t like. 🧹'},
+      {text: 'We ________ English class!', answer: 'like', options: ['like', 'likes', "doesn't"], hint: '"We" significa Nosotros. Para los grupos grandes no usamos la "S". 📚'},
+      {text: 'Negativo: I like swimming.', answer: "I don't like", options: ["I don't like", "I doesn't like", 'I likes'], hint: 'Para decir "No me gusta" con I (Yo), usa siempre don\'t like. 🏊‍♂️'},
+      {text: 'Negativo: She likes apples.', answer: "She doesn't like", options: ["She don't like", "She doesn't like", 'She not'], hint: 'Con She (Ella), usamos doesn\'t. ¡Al ponerlo, le quitamos la "S" a like! 🍎'},
+      {text: 'Error: She don\'t like pizza.', answer: "She doesn't like", options: ["She doesn't like", 'She likes', "She don't"], hint: '¡Cuidado! She (Ella) es especial y siempre usa doesn\'t para negar. 🍕'},
+      {text: 'Error: He like reading.', answer: 'He likes', options: ["He don't like", 'He likes', 'He liking'], hint: '¡Falta la regla! He (Él) siempre necesita la "S" al final: He likes. 📖'},
+      {text: 'Error: They doesn\'t like spiders.', answer: "They don't like", options: ["They don't like", 'They likes', "They doesn't"], hint: 'They (Ellos) es plural, así que le corresponde usar don\'t like. 🕷️'},
+      {text: 'It ________ playing with the ball.', answer: 'likes', options: ['like', 'likes', "don't"], hint: 'Los animales (It) también llevan la "S" en el verbo: It likes. 🎾'},
+      {text: 'You ________ eating pizza.', answer: 'like', options: ['like', 'likes', "doesn't"], hint: 'Con You (Tú/Ustedes), el verbo nunca lleva "S". Se dice You like. 🍕'},
+      {text: 'My friends ________ playing games.', answer: 'like', options: ['like', 'likes', "doesn't"], hint: '"My friends" son varios (They). No necesitan la "S" al final. 🎮'},
+      {text: 'Negativo: We like singing.', answer: "We don't like", options: ["We don't like", "We doesn't like", 'We likes'], hint: 'Para "Nosotros" (We), el "no" se escribe don\'t like. 🎤'},
+      {text: 'She ________ dancing ballet.', answer: 'likes', options: ['like', 'likes', "don't"], hint: 'Como es ella (She), el verbo debe llevar la "S": She likes. 💃'},
+      {text: 'Error: My dad like cooking.', answer: 'My dad likes', options: ['My dad likes', "My dad don't", 'My dad like'], hint: '"My dad" es He (Él). ¡No olvides la "S" del final! 👨‍🍳'},
+      {text: 'I ________ playing video games.', answer: "don't like", options: ["don't like", "doesn't like", 'likes'], hint: 'Para decir "A mí no me gusta", la pareja de I es don\'t. 🕹️'},
+      {text: 'Negativo: He likes running.', answer: "He doesn't like", options: ["He don't like", "He doesn't like", 'He not'], hint: 'Con He (Él), usamos doesn\'t y el verbo pierde su "S". 🏃‍♂️'},
+      {text: 'You ________ drinking soda.', answer: "don't like", options: ["don't like", "doesn't like", 'likes'], hint: 'El "no" para You (Tú) es siempre con don\'t like. 🥤'},
+      {text: 'My cat ________ sleeping.', answer: 'likes', options: ['like', 'likes', "don't"], hint: '"My cat" es un animal (It). Ponle la "S" al verbo: It likes. 🐈'},
+      {text: 'I ________ my room yesterday.', answer: 'cleaned', options: ['clean', 'cleaned', 'cleans'], hint: 'Como fue ayer (yesterday), al verbo le agregamos -ed para el pasado. 🧹'},
+      {text: 'We ________ soccer last Friday.', answer: 'played', options: ['play', 'played', 'playing'], hint: 'Para acciones pasadas (last Friday), usamos la terminación -ed. ⚽'},
+      {text: 'She ________ her homework.', answer: 'finished', options: ['finish', 'finished', 'finishes'], hint: 'El pasado de los verbos regulares termina en -ed (finished - terminó). 📝'},
+      {text: 'They ________ TV all night.', answer: 'watched', options: ['watch', 'watched', 'watching'], hint: 'Si pasó anoche (last night), "watch" se convierte en watched. 📺'},
+      {text: 'My dad ________ a delicious cake.', answer: 'cooked', options: ['cook', 'cooked', 'cooks'], hint: 'Para decir "cocinó" (pasado), añadimos -ed al final del verbo. 👨‍🍳'},
+      {text: 'It ________ a lot last night.', answer: 'rained', options: ['rain', 'rained', 'rains'], hint: 'El pasado de llover (rain) es muy fácil: solo ponle -ed al final. 🌧️'},
+      {text: 'You ________ to the music.', answer: 'listened', options: ['listen', 'listened', 'listens'], hint: 'Si ya escuchaste la música, el verbo es listened (escuchó). 🎧'},
+      {text: 'The boys ________ to the park.', answer: 'walked', options: ['walk', 'walked', 'walks'], hint: 'Caminaron (walked) en pasado, así que usamos la terminación -ed. 🚶‍♂️'},
+      {text: 'I ________ my car on Monday.', answer: 'washed', options: ['wash', 'washed', 'washing'], hint: 'Fue el lunes, la acción ya terminó. Usamos el pasado washed. 🧼'},
+      {text: 'The cat ________ on the tree.', answer: 'jumped', options: ['jump', 'jumped', 'jumps'], hint: '"Jumped" significa saltó. Recuerda el -ed para el pasado. 🐈'}
+    ]
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -233,6 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const studyBtn = document.getElementById('studyBtn');
   const gamesBtn = document.getElementById('gamesBtn');
   const eval1Btn = document.getElementById('eval1Btn');
+  const eval2Btn = document.getElementById('eval2Btn');
   const eval1Info = document.getElementById('eval1Info');
   const eval1Tooltip = document.getElementById('eval1Tooltip');
   const eval2Info = document.getElementById('eval2Info');
@@ -287,6 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
     language: null,
     grade: null,
     questions: [],
+    evaluation: 1,
     idx: 0,
     selected: null,
     selectedBtn: null,
@@ -300,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showHome() {
     hideAll();
     sections.home.classList.remove('hidden');
-    state = { language: null, grade: null, questions: [], idx: 0, selected: null, selectedBtn: null, correctCount: 0 };
+    state = { language: null, grade: null, questions: [], evaluation: 1, idx: 0, selected: null, selectedBtn: null, correctCount: 0 };
   }
 
   function showLangMenu(lang) {
@@ -397,12 +553,49 @@ document.addEventListener('DOMContentLoaded', () => {
         <strong>Nota:</strong><br>Estos ejercicios NO son los que aparecerán necesariamente en la evaluación. Son relacionados a los temas a estudiar para facilitar el aprendizaje de los alumnos.
       `;
     }
+
+    // Tooltip Evaluación #2
+    const tooltip2 = document.getElementById('eval2Tooltip');
+    if (tooltip2) {
+      if (state.language === 'en' && state.grade === 1) {
+        tooltip2.innerHTML = `
+          <strong>Temas:</strong><br>Colors<br><br>
+          <strong>Nota:</strong><br>Estos ejercicios NO son los que aparecerán necesariamente en la evaluación. Son relacionados a los temas a estudiar para facilitar el aprendizaje de los alumnos.
+        `;
+      } else if (state.language === 'en' && state.grade === 2) {
+        tooltip2.innerHTML = `
+          <strong>Temas:</strong><br>Sports<br>Action Verbs<br><br>
+          <strong>Nota:</strong><br>Estos ejercicios NO son los que aparecerán necesariamente en la evaluación. Son relacionados a los temas a estudiar para facilitar el aprendizaje de los alumnos.
+        `;
+      } else if (state.language === 'en' && state.grade === 3) {
+        tooltip2.innerHTML = `
+          <strong>Temas:</strong><br>Sports<br>Action Verbs<br><br>
+          <strong>Nota:</strong><br>Estos ejercicios NO son los que aparecerán necesariamente en la evaluación. Son relacionados a los temas a estudiar para facilitar el aprendizaje de los alumnos.
+        `;
+      } else if (state.language === 'en' && (state.grade === 4 || state.grade === 5)) {
+        tooltip2.innerHTML = `
+          <strong>Temas:</strong><br>Am, Is, Are<br>Questions<br><br>
+          <strong>Nota:</strong><br>Estos ejercicios NO son los que aparecerán necesariamente en la evaluación. Son relacionados a los temas a estudiar para facilitar el aprendizaje de los alumnos.
+        `;
+      } else if (state.language === 'en' && state.grade === 6) {
+        tooltip2.innerHTML = `
+          <strong>Temas:</strong><br>I Like<br>Past Tense<br><br>
+          <strong>Nota:</strong><br>Estos ejercicios NO son los que aparecerán necesariamente en la evaluación. Son relacionados a los temas a estudiar para facilitar el aprendizaje de los alumnos.
+        `;
+      } else {
+        tooltip2.innerHTML = "Próximamente...";
+      }
+    }
   }
 
   function showPractice(grade) {
     state.grade = Number(grade);
     const bank = state.language === 'it' ? bankIt : bankEn;
-    state.questions = shuffleArray((bank[state.grade] || []).slice());
+    let questionsSource = bank[state.grade];
+    if (questionsSource && !Array.isArray(questionsSource)) {
+      questionsSource = questionsSource[state.evaluation || 1];
+    }
+    state.questions = shuffleArray((questionsSource || []).slice()).slice(0, 15);
     state.idx = 0;
     state.selected = null;
     state.selectedBtn = null;
@@ -1989,7 +2182,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Evaluation Buttons
-  if (eval1Btn) eval1Btn.addEventListener('click', () => showPractice(state.grade));
+  if (eval1Btn) eval1Btn.addEventListener('click', () => {
+    state.evaluation = 1;
+    showPractice(state.grade);
+  });
+
+  if (eval2Btn) eval2Btn.addEventListener('click', () => {
+    state.evaluation = 2;
+    // Check availability
+    const bank = state.language === 'it' ? bankIt : bankEn;
+    const content = bank[state.grade];
+    if (Array.isArray(content) || !content[2]) {
+      alert("Evaluación no disponible aún.");
+      return;
+    }
+    showPractice(state.grade);
+  });
 
   // Info Button Logic
   const setupTooltip = (btn, tip) => {
