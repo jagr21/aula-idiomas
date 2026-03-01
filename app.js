@@ -796,12 +796,16 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --- Navigation Functions ---
-  const hideAll = () => Object.values(sections).forEach(s => s && s.classList.add('hidden'));
+  const hideAll = () => {
+    Object.values(sections).forEach(s => s && s.classList.add('hidden'));
+    if (feedbackBtn) feedbackBtn.classList.add('hidden');
+  };
 
   function showHome() {
     hideAll();
     sections.home.classList.remove('hidden');
     state = { language: null, grade: null, questions: [], evaluation: 1, idx: 0, selected: null, selectedBtn: null, correctCount: 0 };
+    if (feedbackBtn) feedbackBtn.classList.remove('hidden');
   }
 
   function showLangMenu(lang) {
@@ -816,6 +820,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (gamesBtn) {
       gamesBtn.classList.add('hidden');
     }
+    if (feedbackBtn) feedbackBtn.classList.add('hidden');
   }
 
   function showGamesMenu() {
@@ -2698,12 +2703,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (ldGame.state !== 'PLAYING') return;
       e.preventDefault();
-      const rect = lingoDriftCanvas.getBoundingClientRect();
-      const touchX = e.touches[0].clientX - rect.left;
-      if (touchX < rect.width / 2) {
-          ldGame.keys.left = true; ldGame.keys.right = false;
+      
+      // Check for forced rotation (Portrait Fullscreen)
+      if (lingoDriftCanvas.classList.contains('rotated')) {
+          // In rotated mode, Screen Top is Game Left, Screen Bottom is Game Right
+          const touchY = e.touches[0].clientY;
+          const centerY = window.innerHeight / 2;
+          
+          if (touchY < centerY) {
+              ldGame.keys.left = true; ldGame.keys.right = false;
+          } else {
+              ldGame.keys.right = true; ldGame.keys.left = false;
+          }
       } else {
-          ldGame.keys.right = true; ldGame.keys.left = false;
+          const rect = lingoDriftCanvas.getBoundingClientRect();
+          const touchX = e.touches[0].clientX - rect.left;
+          if (touchX < rect.width / 2) {
+              ldGame.keys.left = true; ldGame.keys.right = false;
+          } else {
+              ldGame.keys.right = true; ldGame.keys.left = false;
+          }
       }
   }
 
@@ -4315,6 +4334,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // --- Resize Handler for Fullscreen ---
+  window.addEventListener('resize', () => {
+    const fsElement = document.fullscreenElement;
+    if (fsElement) {
+      if (fsElement.id === 'lingoDriftContainer') {
+        const c = document.getElementById('lingoDriftCanvas');
+        if (c) {
+          // Force Landscape Logic
+          if (window.innerHeight > window.innerWidth) {
+            c.style.width = '100vh';
+            c.style.height = '100vw';
+            c.style.transform = 'rotate(90deg)';
+            c.width = window.innerHeight;
+            c.height = window.innerWidth;
+            c.classList.add('rotated');
+          } else {
+            c.style.width = '100%';
+            c.style.height = '100%';
+            c.style.transform = 'none';
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+            c.classList.remove('rotated');
+          }
+        }
+      } else if (fsElement.id === 'pruebaContainer') {
+        const c = document.getElementById('pruebaGameCanvas');
+        if (c) {
+          c.width = window.innerWidth;
+          c.height = window.innerHeight;
+        }
+      }
+    }
+  });
+
   // --- Popup Logic ---
   function initPopup() {
     const subscribed = localStorage.getItem('popupSubscribed') === 'true';
@@ -4560,8 +4613,24 @@ document.addEventListener('DOMContentLoaded', () => {
           ldCanvas.dataset.origW = ldCanvas.width;
           ldCanvas.dataset.origH = ldCanvas.height;
         }
-        ldCanvas.width = window.innerWidth;
-        ldCanvas.height = window.innerHeight;
+        
+        // Force Landscape Logic on Enter
+        if (window.innerHeight > window.innerWidth) {
+            ldCanvas.style.width = '100vh';
+            ldCanvas.style.height = '100vw';
+            ldCanvas.style.transform = 'rotate(90deg)';
+            ldCanvas.width = window.innerHeight;
+            ldCanvas.height = window.innerWidth;
+            ldCanvas.classList.add('rotated');
+        } else {
+            ldCanvas.style.width = '100%';
+            ldCanvas.style.height = '100%';
+            ldCanvas.style.transform = 'none';
+            ldCanvas.width = window.innerWidth;
+            ldCanvas.height = window.innerHeight;
+            ldCanvas.classList.remove('rotated');
+        }
+
         if (ldGame.active) {
           ldGame.player.x = ldCanvas.width / 2 - ldGame.player.w / 2;
         }
