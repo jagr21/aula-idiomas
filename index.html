@@ -81,14 +81,14 @@
       .section-head .back-btn { margin: 0; }
       
       /* Prueba Game Styles */
-      #pruebaGameCanvas {
+      #pruebaGameCanvas, #lingoDriftCanvas {
         background: linear-gradient(to bottom, #e0f7fa, #ffffff);
         border-radius: 12px;
         box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
         max-width: 100%;
         touch-action: none; /* Prevent scrolling on mobile while playing */
       }
-      body.dark-mode #pruebaGameCanvas {
+      body.dark-mode #pruebaGameCanvas, body.dark-mode #lingoDriftCanvas {
         background: linear-gradient(to bottom, #2c3e50, #000000);
       }
       @keyframes hintPulse {
@@ -137,6 +137,12 @@
       #pruebaBtn::before { content: '🎮'; }
       #wordSearchBtn {
         background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%);
+      }
+      #lingoDriftBtn {
+        background: linear-gradient(135deg, #76B852 0%, #8DC26F 100%);
+      }
+      #lingoDriftBtn::before {
+        content: '🏎️';
       }
       #wordSearchBtn::before { content: '🔠'; }
       #gamesMenu .menu-card:hover {
@@ -187,6 +193,19 @@
         justify-content: center;
       }
       #pruebaContainer:fullscreen canvas {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* Fullscreen styles for Lingo Drift */
+      #lingoDriftContainer:fullscreen {
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #lingoDriftContainer:fullscreen canvas {
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -271,6 +290,7 @@
         <div class="menu-grid">
           <button id="pruebaBtn" class="menu-card">Parola Cadente</button>
           <button id="wordSearchBtn" class="menu-card">Sopa de letras</button>
+          <button id="lingoDriftBtn" class="menu-card hidden">Lingo Drift</button>
           <button id="backFromGames" class="back-btn">Volver</button>
         </div>
       </section>
@@ -311,6 +331,28 @@
             <h3 id="pruebaMsg" style="margin-bottom: 10px; color: #333;"></h3>
             <div id="pruebaLeaderboard" style="margin: 15px auto; text-align: left; width: 100%; max-width: 250px; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px; font-size: 0.9rem; color: #444;"></div>
             <button id="pruebaRestartBtn" class="check-btn">Jugar</button>
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">Usa las flechas o toca los lados de la pantalla para moverte.</p>
+      </section>
+
+      <!-- Sección Lingo Drift -->
+      <section id="lingoDriftSection" class="home hidden">
+        <div class="section-head">
+          <h2>Lingo Drift</h2>
+          <div class="section-actions">
+            <button id="lingoDriftFSBtn" class="back-btn" aria-label="Pantalla Completa">⛶</button>
+            <button id="lingoDriftMuteBtn" class="back-btn" aria-label="Silenciar Música">🔊</button>
+            <button id="backFromLingoDrift" class="back-btn">Volver</button>
+          </div>
+        </div>
+        <div id="lingoDriftContainer" style="position: relative; text-align: center;">
+          <canvas id="lingoDriftCanvas" width="600" height="450"></canvas>
+          <div id="lingoDriftOverlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.9); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: none;">
+            <h3 id="lingoDriftMsg" style="margin-bottom: 10px; color: #333;"></h3>
+            <div id="lingoDriftLeaderboard" style="margin: 15px auto; text-align: left; width: 100%; max-width: 250px; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px; font-size: 0.9rem; color: #444;"></div>
+            <button id="lingoDriftNextLevelBtn" class="check-btn" style="display:none; margin-bottom: 10px; background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Siguiente Nivel 🏆</button>
+            <button id="lingoDriftRestartBtn" class="check-btn">Comenzar</button>
           </div>
         </div>
         <p style="text-align: center; margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">Usa las flechas o toca los lados de la pantalla para moverte.</p>
@@ -424,6 +466,34 @@
         <button id="closeEvalPopupBtn" class="close-popup-btn" aria-label="Cerrar">&times;</button>
         <h3 style="margin-bottom:20px; color:var(--text-color)">Información</h3>
         <div id="evalPopupBody" style="font-size: 1rem; line-height: 1.6;"></div>
+      </div>
+    </div>
+
+    <!-- Floating Feedback Button -->
+    <button id="feedbackBtn" class="floating-feedback-btn" aria-label="Enviar comentario">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </button>
+
+    <!-- Feedback Popup -->
+    <div id="feedbackPopup" class="popup-overlay">
+      <div class="popup-content">
+        <button id="closeFeedbackBtn" class="close-popup-btn" aria-label="Cerrar">&times;</button>
+        <div id="feedbackFormContainer">
+          <h3>Enviar comentario</h3>
+          <p>Tu opinión es muy valiosa para mejorar esta página. ¡Gracias por tu tiempo!</p>
+          <form id="feedbackForm" class="popup-form" action="https://api.web3forms.com/submit" method="POST">
+            <!-- La access_key es la misma que la del formulario de suscripción, asegúrate que sea la correcta -->
+            <input type="hidden" name="access_key" value="680010b8-b3de-4e65-ad6b-31aa8c8880ad">
+            <input type="hidden" name="subject" value="Nuevo Feedback - Aula Virtual de Idiomas">
+            <input type="text" name="name" placeholder="Tu nombre" required>
+            <input type="email" name="email" placeholder="Tu correo" required>
+            <textarea name="message" placeholder="Escribe tu comentario, duda o sugerencia aquí..." required rows="5"></textarea>
+            <button type="submit" class="popup-submit-btn">Enviar Feedback</button>
+          </form>
+          <div id="feedbackResult" class="hidden">
+            <h3 style="color:var(--soft-green); margin-top:20px">Gracias por tu feedback</h3>
+          </div>
+        </div>
       </div>
     </div>
 

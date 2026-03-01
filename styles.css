@@ -447,5 +447,29 @@ body.dark-mode .popup-content { background: #1e1e1e; }
 body.dark-mode .popup-content p { color: #aaa; }
 body.dark-mode .popup-form input, body.dark-mode .popup-form textarea { background: #2d2d2d; border-color: #444; color: #eee; }
 
+/* Floating Feedback Button */
+.floating-feedback-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--soft-purple);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  z-index: 999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.floating-feedback-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
 #evalPopupBody { color: #666; }
 body.dark-mode #evalPopupBody { color: #e0e0e0; }
